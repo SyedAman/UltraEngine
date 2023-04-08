@@ -1,27 +1,13 @@
 ﻿#pragma once
 #include <stdexcept>
 #include <vector>
+#include "UtilityFunctions.h"
 
-template <typename T>
-struct Less
-{
-    bool operator()(const T& Left, const T& Right) const
-    {
-        return Left < Right;
-    }
-};
 
 template <typename T, typename Container = std::vector<T>, typename Comparator = Less<T>>
 class PriorityQueue
 {
     Container UnderlyingContainer;
-
-    void Swap(T& Current, T& Parent)
-    {
-        T Temp = Current;
-        Current = Parent;
-        Parent = Temp;
-    }
 
     void SiftUp(int CurrentIndex)
     {
@@ -44,30 +30,41 @@ class PriorityQueue
         }
     }
 
-    void SiftDown(int CurrentIndex)
+    int GetHighestPriorityChildIndex(int CurrentIndex) const
     {
         int LeftChildIndex = CurrentIndex * 2 + 1;
         int RightChildIndex = CurrentIndex * 2 + 2;
         int ContainerSize = UnderlyingContainer.size();
-        
-        if (bool bNoChildren = LeftChildIndex >= ContainerSize) return;
 
-        int HighestPriorityChildIndex = LeftChildIndex; // Assume the left child has the highest priority.
+        if (LeftChildIndex >= ContainerSize) return -1; // No children, return -1.
 
         if (RightChildIndex < ContainerSize && Comparator()(UnderlyingContainer[RightChildIndex], UnderlyingContainer[LeftChildIndex]))
         {
-            HighestPriorityChildIndex = RightChildIndex;
+            return RightChildIndex;
         }
+        else
+        {
+            return LeftChildIndex;
+        }
+    }
+
+    void SiftDown(int CurrentIndex)
+    {
+        int HighestPriorityChildIndex = GetHighestPriorityChildIndex(CurrentIndex);
+
+        bool bNoChildren = HighestPriorityChildIndex == -1;
+        if (bNoChildren) return;
 
         T& Current = UnderlyingContainer[CurrentIndex];
         T& HighestPriorityChild = UnderlyingContainer[HighestPriorityChildIndex];
-        if (bool bSatisfiesHeapProperty = Comparator()(HighestPriorityChild, Current))
+
+        bool bSatisfiesHeapProperty = Comparator()(HighestPriorityChild, Current);
+        if (bSatisfiesHeapProperty)
         {
             Swap(Current, HighestPriorityChild);
             SiftDown(HighestPriorityChildIndex);
         }
     }
-
     
 public:
     void push(T Value);

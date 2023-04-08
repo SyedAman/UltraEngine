@@ -46,6 +46,7 @@
     <ClCompile Include="Main_Test.cpp" />
     <ClCompile Include="AStar_Test.cpp" />
     <ClCompile Include="PriorityQueue_Test.cpp" />
+    <ClCompile Include="UtiltiyFunctions_Test.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -56,6 +57,7 @@
     <ClInclude Include="Engine.h" />
     <ClInclude Include="Pair.h" />
     <ClInclude Include="PriorityQueue.h" />
+    <ClInclude Include="UtilityFunctions.h" />
   </ItemGroup>
   <ItemDefinitionGroup />
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
