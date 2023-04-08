@@ -116,7 +116,6 @@ TEST(TestAStar, ShouldBeAbleToSetDestinationPoint)
 
 TEST(TestAStar, ShouldThrowAnErrorIfSettingDestinationPointIsOutOfBounds)
 {
-    // Given an astar
     std::vector<std::vector<int>> matrix = {
         {1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
         {1, 0, 0, 0, 0, 0, 0, 0, 0, 1},

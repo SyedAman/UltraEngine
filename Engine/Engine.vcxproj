@@ -43,6 +43,7 @@
     <ClCompile Include="PriorityQueue.cpp" />
     <ClCompile Include="Main_Test.cpp" />
     <ClCompile Include="AStar_Test.cpp" />
+    <ClCompile Include="PriorityQueue_Test.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
