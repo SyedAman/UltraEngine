@@ -10,3 +10,10 @@ TEST(Pair, ShouldConstructWithTypeDifferentTypes)
     EXPECT_EQ(1, Pair.Second);
 }
 
+TEST(Pair, ShouldSupportEquality)
+{
+    const Pair<bool, int> Pair1(true, 1);
+    const Pair<bool, int> Pair2(true, 1);
+
+    EXPECT_TRUE(Pair1 == Pair2);
+}

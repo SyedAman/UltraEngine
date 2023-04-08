@@ -60,10 +60,10 @@ std::vector<Coordinate> AStar::GetViableNeighbors(const Coordinate& Node)
 {
     std::vector<Coordinate> AvailableNeighbors;
 
-    std::pair RightNeighbor(Node.first + 1, Node.second);
-    std::pair DownNeighbor(Node.first, Node.second + 1);
-    std::pair LeftNeighbor(Node.first - 1, Node.second);
-    std::pair UpNeighbor(Node.first, Node.second - 1);
+    Coordinate RightNeighbor(Node.first + 1, Node.second);
+    Coordinate DownNeighbor(Node.first, Node.second + 1);
+    Coordinate LeftNeighbor(Node.first - 1, Node.second);
+    Coordinate UpNeighbor(Node.first, Node.second - 1);
     
     // Get rid of all neighbors that are out of bounds
     if (IsInBounds(RightNeighbor) && !IsAnObstacle(RightNeighbor))

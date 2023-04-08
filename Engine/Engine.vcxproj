@@ -37,12 +37,9 @@
   <PropertyGroup Label="UserMacros" />
   <ItemGroup>
     <ClCompile Include="AStar.cpp" />
-    <ClCompile Include="DynamicArray.cpp" />
     <ClCompile Include="Engine.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="Pair.cpp" />
     <ClCompile Include="Pair_Test.cpp" />
-    <ClCompile Include="PriorityQueue.cpp" />
     <ClCompile Include="Main_Test.cpp" />
     <ClCompile Include="AStar_Test.cpp" />
     <ClCompile Include="PriorityQueue_Test.cpp" />
