@@ -83,3 +83,15 @@ TEST(PriorityQueue, ShouldNotDoublePop)
     Queue.pop();
     EXPECT_EQ(Queue.empty(), true);
 }
+
+TEST(PriorityQueue, ShouldThrowErrorOnTopWhenEmpty)
+{
+    try {
+        PriorityQueue<int> Queue;
+        Queue.top();
+        FAIL();
+    }
+    catch (std::runtime_error& e) {
+        EXPECT_STREQ(e.what(), "PriorityQueue is empty");
+    }
+}

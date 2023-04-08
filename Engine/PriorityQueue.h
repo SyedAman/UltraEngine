@@ -1,4 +1,5 @@
 ﻿#pragma once
+#include <stdexcept>
 #include <vector>
 
 template <typename T>
@@ -25,15 +26,12 @@ public:
 template <typename T, typename Container, typename Comparator>
 void PriorityQueue<T, Container, Comparator>::push(T Value)
 {
-    for (auto Iterator = UnderlyingContainer.begin(); Iterator != UnderlyingContainer.end(); ++Iterator)
+    auto Iterator = UnderlyingContainer.begin();
+    while (Iterator != UnderlyingContainer.end() && Comparator()(*Iterator, Value))
     {
-        if (Comparator()(Value, *Iterator))
-        {
-            UnderlyingContainer.insert(Iterator, Value);
-            return;
-        }
+        ++Iterator;
     }
-    UnderlyingContainer.push_back(Value);
+    UnderlyingContainer.insert(Iterator, Value);
 }
 
 template <typename T, typename Container, typename Comparator>
@@ -52,5 +50,8 @@ void PriorityQueue<T, Container, Comparator>::pop()
 template <typename T, typename Container, typename Comparator>
 T PriorityQueue<T, Container, Comparator>::top()
 {
+    if (UnderlyingContainer.empty())
+        throw std::runtime_error("PriorityQueue is empty");
+
     return UnderlyingContainer.front();
 }
