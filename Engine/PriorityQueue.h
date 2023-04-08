@@ -1,5 +1,5 @@
 ﻿#pragma once
-#include "DynamicArray.h"
+#include <vector>
 
 template <typename T>
 struct Less
@@ -10,34 +10,38 @@ struct Less
     }
 };
 
-template <typename T, typename Container = DynamicArray, typename Comparator = Less<T>>
+template <typename T, typename Container = std::vector<T>, typename Comparator = Less<T>>
 class PriorityQueue
 {
+    Container UnderlyingContainer;
+    
 public:
-    void push(T value);
+    void push(T Value);
     bool empty();
     void pop();
     T top();
 };
 
 template <typename T, typename Container, typename Comparator>
-void PriorityQueue<T, Container, Comparator>::push(T value)
+void PriorityQueue<T, Container, Comparator>::push(T Value)
 {
+    UnderlyingContainer.push_back(Value);
 }
 
 template <typename T, typename Container, typename Comparator>
 bool PriorityQueue<T, Container, Comparator>::empty()
 {
-    return true;
+    return UnderlyingContainer.size() == 0;
 }
 
 template <typename T, typename Container, typename Comparator>
 void PriorityQueue<T, Container, Comparator>::pop()
 {
+    UnderlyingContainer.pop_back();
 }
 
 template <typename T, typename Container, typename Comparator>
 T PriorityQueue<T, Container, Comparator>::top()
 {
-    return T();
+    return UnderlyingContainer.front();
 }

@@ -61,15 +61,11 @@ std::vector<Coordinate> AStar::GetViableNeighbors(const Coordinate& Node)
 {
     std::vector<Coordinate> AvailableNeighbors;
 
-    // RIGHT (x + 1, y)
     std::pair RightNeighbor(Node.first + 1, Node.second);
-    // DOWN (x, y + 1)
     std::pair DownNeighbor(Node.first, Node.second + 1);
-    // LEFT (x - 1, y)
     std::pair LeftNeighbor(Node.first - 1, Node.second);
-    // UP (x, y - 1)
     std::pair UpNeighbor(Node.first, Node.second - 1);
-
+    
     // Get rid of all neighbors that are out of bounds
     if (IsInBounds(RightNeighbor) && !IsAnObstacle(RightNeighbor))
     {
@@ -141,7 +137,7 @@ std::vector<Coordinate> ConstructPath(const std::shared_ptr<Node>& node)
         path.push_back(current->Coordinate);
         current = current->Parent;
     }
-    // Reverse the path since we built it from end to start
+    
     std::reverse(path.begin(), path.end());
     return path;
 }
@@ -156,8 +152,10 @@ struct NodeComparator
     }
 };
 
-std::vector<Coordinate> AStar::GetPath() {
-    if (StartingPoint == DestinationPoint) {
+std::vector<Coordinate> AStar::GetPath()
+{
+    if (StartingPoint == DestinationPoint)
+    {
         return {StartingPoint};
     }
 
@@ -166,19 +164,24 @@ std::vector<Coordinate> AStar::GetPath() {
     const NodePtr startingNode = std::make_shared<Node>(StartingPoint, 0, 0, 0, nullptr);
     PotentialCandidates.push(startingNode);
 
-    while (!PotentialCandidates.empty()) {
+    while (!PotentialCandidates.empty())
+    {
         const NodePtr currentNode = PotentialCandidates.top();
         PotentialCandidates.pop();
 
-        if (currentNode->Coordinate == DestinationPoint) {
+        if (currentNode->Coordinate == DestinationPoint)
+        {
             return ConstructPath(currentNode);
         }
 
-        if (!Visited.contains(currentNode->Coordinate)) {
+        if (!Visited.contains(currentNode->Coordinate))
+        {
             Visited.insert(currentNode->Coordinate);
 
-            for (std::vector<Coordinate> viableNeighbors = GetViableNeighbors(currentNode->Coordinate); const Coordinate& neighbor : viableNeighbors) {
-                if (!Visited.contains(neighbor)) {
+            for (std::vector<Coordinate> viableNeighbors = GetViableNeighbors(currentNode->Coordinate); const Coordinate& neighbor : viableNeighbors)
+            {
+                if (!Visited.contains(neighbor))
+                {
                     const int distanceFromStart = currentNode->DistanceFromStart + 1;
                     const int distanceToDestination = std::abs(neighbor.first - DestinationPoint.first) + std::abs(neighbor.second - DestinationPoint.second);
                     const int totalDistance = distanceFromStart + distanceToDestination;
