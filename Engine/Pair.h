@@ -13,6 +13,7 @@ public:
     bool operator==(const Pair<T1, T2>& pair) const;
     bool operator<(const Pair<T1, T2>& pair) const;
     bool operator>(const Pair<T1, T2>& pair) const;
+    bool operator<=(const Pair<T1, T2>& pair) const;
 };
 
 template <typename T1, typename T2>
@@ -31,4 +32,10 @@ template <typename T1, typename T2>
 bool Pair<T1, T2>::operator>(const Pair<T1, T2>& pair) const
 {
     return First > pair.First || (First == pair.First && Second > pair.Second);
+}
+
+template <typename T1, typename T2>
+bool Pair<T1, T2>::operator<=(const Pair<T1, T2>& pair) const
+{
+    return First < pair.First || First == pair.First && Second <= pair.Second;
 }

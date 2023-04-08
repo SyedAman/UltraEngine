@@ -12,24 +12,29 @@ TEST(Pair, ShouldConstructWithTypeDifferentTypes)
 
 TEST(Pair, ShouldSupportEquality)
 {
-    const Pair<bool, int> Pair1(true, 1);
-    const Pair<bool, int> Pair2(true, 1);
-
-    EXPECT_TRUE(Pair1 == Pair2);
+    EXPECT_TRUE(Pair(true,1) == Pair(true,1));
+    EXPECT_FALSE(Pair(1, 1) == Pair(1, 2));
 }
 
 TEST(Pair, ShouldSupportLessThan)
 {
-    const Pair<int, int> Pair1(1, 1);
-    const Pair<int, int> Pair2(2, 1);
-
-    EXPECT_TRUE(Pair1 < Pair2);
+    EXPECT_TRUE(Pair(1,1) < Pair(2,2));
+    EXPECT_TRUE(Pair(1,1) < Pair(1,2));
+    EXPECT_FALSE(Pair(1,1) < Pair(1,1));
 }
 
 TEST(Pair, ShouldSupportGreaterThan)
 {
-    const Pair<int, int> Pair1(2, 1);
-    const Pair<int, int> Pair2(1, 1);
+    EXPECT_TRUE(Pair(2,1) > Pair(1,1));
+    EXPECT_TRUE(Pair(1,2) > Pair(1,1));
+    EXPECT_FALSE(Pair(1,1) > Pair(1,1));
+}
 
-    EXPECT_TRUE(Pair1 > Pair2);
+TEST(Pair, ShouldSupportLessThanOrEqual)
+{
+    EXPECT_TRUE(Pair(1,1) <= Pair(2,2));
+    EXPECT_TRUE(Pair(1,1) <= Pair(1,2));
+    EXPECT_TRUE(Pair(1,1) <= Pair(1,1));
+    EXPECT_FALSE(Pair(2,1) <= Pair(1,1));
+    EXPECT_FALSE(Pair(1,2) <= Pair(1,1));
 }
