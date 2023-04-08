@@ -40,7 +40,7 @@
     <ClCompile Include="Engine.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Pair_Test.cpp" />
-    <ClCompile Include="Main_Test.cpp" />
+    <ClCompile Include="Engine_Test.cpp" />
     <ClCompile Include="AStar_Test.cpp" />
     <ClCompile Include="PriorityQueue_Test.cpp" />
     <ClCompile Include="UtiltiyFunctions_Test.cpp" />
