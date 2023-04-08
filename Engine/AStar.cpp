@@ -1,7 +1,6 @@
 ﻿#include "AStar.h"
 
 #include <memory>
-#include <queue>
 #include <set>
 #include <stdexcept>
 
