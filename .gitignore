@@ -1,5 +1,7 @@
 Engine/Debug
 Debug
+Engine/Release
+Release
 
 bin/
 obj/

@@ -41,5 +41,5 @@ HWND StartWindowProcessAndGetHandle()
 void DisplayWindow(HWND WindowHandle)
 {
     ShowWindow(WindowHandle, SW_SHOW);
-    
+    UpdateWindow(WindowHandle);
 }
