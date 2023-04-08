@@ -539,3 +539,57 @@ TEST(TestAStar, ThisTimeBigMap)
     };
     EXPECT_EQ(path, Expected);
 }
+
+TEST(AStar, ShouldChooseTheShortestPath)
+{
+    std::vector<std::vector<int>> Matrix = {
+        {1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+        {1, 0, 0, 0, 0, 0, 0, 1, 0, 1},
+        {1, 0, 1, 0, 1, 1, 0, 0, 0, 1},
+        {1, 0, 1, 0, 0, 0, 0, 1, 0, 1},
+        {1, 0, 0, 0, 1, 0, 0, 0, 1, 1}
+    };
+    AStar astar(Matrix, {1, 1}, {3, 3});
+
+    std::vector<std::pair<int,int>> path = astar.GetPath();
+
+    std::vector<std::pair<int,int>> Expected = {
+        {1,1},
+        {2,1},
+        {3,1},
+        {3,2},
+        {3,3}
+    };
+    EXPECT_EQ(path, Expected);
+
+    astar.SetStartingPoint({1,4});
+    Expected = {
+        {1,4},
+        {2,4},
+        {3,4},
+        {3,3}
+    };
+    path = astar.GetPath();
+    EXPECT_EQ(path, Expected);
+
+    astar.SetDestinationPoint({2,1});
+    Expected = {
+        {1,4},
+        {1,3},
+        {1,2},
+        {1,1},
+        {2,1}
+    };
+    path = astar.GetPath();
+    EXPECT_EQ(path, Expected);
+    
+    astar.SetStartingPoint({1,1});
+    astar.SetDestinationPoint({1,4});
+    path = astar.GetPath();
+    Expected = {
+        {1,1},
+        {1,2},
+        {1,3},
+        {1,4}
+    };
+}

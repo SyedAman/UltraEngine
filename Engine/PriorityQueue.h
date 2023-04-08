@@ -25,6 +25,14 @@ public:
 template <typename T, typename Container, typename Comparator>
 void PriorityQueue<T, Container, Comparator>::push(T Value)
 {
+    for (auto Iterator = UnderlyingContainer.begin(); Iterator != UnderlyingContainer.end(); ++Iterator)
+    {
+        if (Comparator()(Value, *Iterator))
+        {
+            UnderlyingContainer.insert(Iterator, Value);
+            return;
+        }
+    }
     UnderlyingContainer.push_back(Value);
 }
 
@@ -37,7 +45,8 @@ bool PriorityQueue<T, Container, Comparator>::empty()
 template <typename T, typename Container, typename Comparator>
 void PriorityQueue<T, Container, Comparator>::pop()
 {
-    UnderlyingContainer.pop_back();
+    if (UnderlyingContainer.size() > 0)
+        UnderlyingContainer.erase(UnderlyingContainer.begin());
 }
 
 template <typename T, typename Container, typename Comparator>
