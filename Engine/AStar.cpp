@@ -148,7 +148,7 @@ struct NodeComparator
 {
     bool operator()(const NodePtr& left, const NodePtr& right) const
     {
-        return left->TotalDistance > right->TotalDistance;
+        return left->TotalDistance < right->TotalDistance;
     }
 };
 
@@ -160,7 +160,7 @@ std::vector<Coordinate> AStar::GetPath()
     }
 
     std::set<Coordinate> Visited;
-    std::priority_queue<NodePtr, std::vector<NodePtr>, NodeComparator> PotentialCandidates;
+    PriorityQueue<NodePtr, std::vector<NodePtr>, NodeComparator> PotentialCandidates;
     const NodePtr startingNode = std::make_shared<Node>(StartingPoint, 0, 0, 0, nullptr);
     PotentialCandidates.push(startingNode);
 
