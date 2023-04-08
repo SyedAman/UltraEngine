@@ -1,7 +1,9 @@
 ﻿#pragma once
 #include <vector>
 
-using Coordinate = std::pair<int, int>;
+#include "Pair.h"
+
+using Coordinate = Pair<int, int>;
 
 class AStar
 {

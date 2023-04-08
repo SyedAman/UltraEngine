@@ -1,5 +1,6 @@
 ﻿#include "gtest/gtest.h"
 #include "AStar.h"
+#include "Pair.h"
 
 
 TEST(TestAStar, InstantiateAStarClassWithA2DMatrix)
@@ -297,7 +298,7 @@ TEST(TestAStar, CallingGetWhenStartingPointAndDestinationPointIsTheSameShouldRet
     AStar astar(Matrix, StartingPoint, DestinationPoint);
 
     // When I call GetPath
-    std::vector<std::pair<int,int>> path = astar.GetPath();
+    std::vector<Pair<int,int>> path = astar.GetPath();
 
     // Then the path should be an array with the starting point
     EXPECT_EQ(path.size(), 1);
@@ -329,7 +330,7 @@ TEST(TestAStar, CallingGetPathWhenStartingPointIsCompletelyBlockedOffReturnsAnEm
     AStar astar(Matrix, StartingPoint, DestinationPoint);
 
     // When I call GetPath
-    std::vector<std::pair<int,int>> path = astar.GetPath();
+    std::vector<Pair<int,int>> path = astar.GetPath();
 
     // Then the path should be an empty array
     EXPECT_EQ(path.size(), 0);
@@ -362,7 +363,7 @@ TEST(TestAStar, CallingGetPathWhenDestinationIsAdjacentToTheStartingPointShouldR
     AStar astar(Matrix, StartingPoint, DestinationPoint);
 
     // When I call GetPath
-    std::vector<std::pair<int,int>> path = astar.GetPath();
+    std::vector<Pair<int,int>> path = astar.GetPath();
 
     // Then the path should be an array with the starting point and destination point
     EXPECT_EQ(path.size(), 2);
@@ -392,10 +393,10 @@ TEST(TestAStar, CallingGetPathWhenTheMatrixIsANarrowCorridorShouldGiveMeTheFullP
     AStar astar(Matrix, StartingPoint, DestinationPoint);
 
     // When I call GetPath
-    std::vector<std::pair<int,int>> path = astar.GetPath();
+    std::vector<Pair<int,int>> path = astar.GetPath();
 
     // Then the path should be an array with the starting point, and all the points to and including destination point
-    std::vector<std::pair<int,int>> expectedPath = {
+    std::vector<Pair<int,int>> expectedPath = {
         {1, 1},
         {2, 1},
         {3, 1},
@@ -444,9 +445,9 @@ TEST(TestAStar, CallPathShouldGiveMeTheFullPath)
     };
     AStar astar(Matrix, {1, 1}, {8, 3});
 
-    std::vector<std::pair<int,int>> path = astar.GetPath();
+    std::vector<Pair<int,int>> path = astar.GetPath();
 
-    std::vector<std::pair<int,int>> Expected = {
+    std::vector<Pair<int,int>> Expected = {
         {1,1},
         {1,2},
         {1,3},
@@ -476,9 +477,9 @@ TEST(TestAStar, ThisTimeGoingTheOtherDirection)
     };
     AStar astar(Matrix, {1, 1}, {8, 3});
 
-    std::vector<std::pair<int,int>> path = astar.GetPath();
+    std::vector<Pair<int,int>> path = astar.GetPath();
 
-    std::vector<std::pair<int,int>> Expected = {
+    std::vector<Pair<int,int>> Expected = {
         {1,1},
         {2,1},
         {3,1},
@@ -511,9 +512,9 @@ TEST(TestAStar, ThisTimeBigMap)
 
     AStar astar(Matrix, {1, 1}, {13,8});
 
-    std::vector<std::pair<int,int>> path = astar.GetPath();
+    std::vector<Pair<int,int>> path = astar.GetPath();
 
-    std::vector<std::pair<int,int>> Expected = {
+    std::vector<Pair<int,int>> Expected = {
         {1,1},
         {2,1},
         {3,1},
@@ -551,9 +552,9 @@ TEST(AStar, ShouldChooseTheShortestPath)
     };
     AStar astar(Matrix, {1, 1}, {3, 3});
 
-    std::vector<std::pair<int,int>> path = astar.GetPath();
+    std::vector<Pair<int,int>> path = astar.GetPath();
 
-    std::vector<std::pair<int,int>> Expected = {
+    std::vector<Pair<int,int>> Expected = {
         {1,1},
         {2,1},
         {3,1},

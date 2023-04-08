@@ -43,8 +43,8 @@ Coordinate AStar::GetDestinationPoint()
 
 bool AStar::IsInBounds(Coordinate Coordinate)
 {
-    return Coordinate.second < FlippedMatrix.size() && Coordinate.second >= 0 && Coordinate.first < FlippedMatrix[0].size() &&
-        Coordinate.first >= 0;
+    return Coordinate.Second < FlippedMatrix.size() && Coordinate.Second >= 0 && Coordinate.First < FlippedMatrix[0].size() &&
+        Coordinate.First >= 0;
 }
 
 bool AStar::IsAnObstacle(Coordinate RightNeighbor)
@@ -53,17 +53,17 @@ bool AStar::IsAnObstacle(Coordinate RightNeighbor)
     {
         throw std::out_of_range("Coordinate is out of bounds");
     }
-    return FlippedMatrix[RightNeighbor.second][RightNeighbor.first] == 1;
+    return FlippedMatrix[RightNeighbor.Second][RightNeighbor.First] == 1;
 }
 
 std::vector<Coordinate> AStar::GetViableNeighbors(const Coordinate& Node)
 {
     std::vector<Coordinate> AvailableNeighbors;
 
-    Coordinate RightNeighbor(Node.first + 1, Node.second);
-    Coordinate DownNeighbor(Node.first, Node.second + 1);
-    Coordinate LeftNeighbor(Node.first - 1, Node.second);
-    Coordinate UpNeighbor(Node.first, Node.second - 1);
+    Coordinate RightNeighbor(Node.First + 1, Node.Second);
+    Coordinate DownNeighbor(Node.First, Node.Second + 1);
+    Coordinate LeftNeighbor(Node.First - 1, Node.Second);
+    Coordinate UpNeighbor(Node.First, Node.Second - 1);
     
     // Get rid of all neighbors that are out of bounds
     if (IsInBounds(RightNeighbor) && !IsAnObstacle(RightNeighbor))
@@ -182,7 +182,7 @@ std::vector<Coordinate> AStar::GetPath()
                 if (!Visited.contains(neighbor))
                 {
                     const int distanceFromStart = currentNode->DistanceFromStart + 1;
-                    const int distanceToDestination = std::abs(neighbor.first - DestinationPoint.first) + std::abs(neighbor.second - DestinationPoint.second);
+                    const int distanceToDestination = std::abs(neighbor.First - DestinationPoint.First) + std::abs(neighbor.Second - DestinationPoint.Second);
                     const int totalDistance = distanceFromStart + distanceToDestination;
 
                     NodePtr newNode = std::make_shared<Node>(Node{neighbor, distanceFromStart, distanceToDestination, totalDistance, currentNode});

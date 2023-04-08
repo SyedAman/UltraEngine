@@ -2,6 +2,8 @@
 
 #include <gtest/gtest.h>
 
+#include "Pair.h"
+
 TEST(PriorityQueue, ShouldReturnTrueOnCallingEmptyWhenEmpty)
 {
     PriorityQueue<int> Queue;
@@ -36,7 +38,7 @@ TEST(PriorityQueue, ShouldSupportTemplates)
     PriorityQueue<float> FloatQueue;
     PriorityQueue<std::string> StringQueue;
     PriorityQueue<std::vector<int>> VectorQueue;
-    PriorityQueue<std::pair<int, int>> PairQueue;
+    PriorityQueue<Pair<int, int>> PairQueue;
 
     IntQueue.push(1);
     FloatQueue.push(1.0f);
