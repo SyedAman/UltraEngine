@@ -7,7 +7,7 @@ Game engine made using Vulkan, specifically made for creating a RTS game. But (h
 * Vulkan
 * Windows API
 
-I tried to avoid using math libraries and SDKs wherever possible and rolled out my custom solutions.
+I tried to avoid using math libraries and SDKs (e.g. glfw, boost, STL) wherever possible and rolled out my custom solutions.
 
 ## Source
 
