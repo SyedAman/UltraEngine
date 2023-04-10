@@ -44,7 +44,7 @@
     <ClCompile Include="Engine_Test.cpp" />
     <ClCompile Include="AStar_Test.cpp" />
     <ClCompile Include="PriorityQueue_Test.cpp" />
-    <ClCompile Include="UtiltiyFunctions_Test.cpp" />
+    <ClCompile Include="UtilityFunctions_Test.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
