@@ -55,6 +55,7 @@
     <ClInclude Include="Engine.h" />
     <ClInclude Include="Pair.h" />
     <ClInclude Include="PriorityQueue.h" />
+    <ClInclude Include="RenderHardwareInterface.h" />
     <ClInclude Include="UtilityFunctions.h" />
   </ItemGroup>
   <ItemDefinitionGroup />
