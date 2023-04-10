@@ -15,7 +15,7 @@ void DisplayWindow(HWND WindowHandle);
 
 void SetCustomBehaviorForWindow(HWND windowHandle, std::function<void()>& customBehavior);
 
-inline void RunMessageLoop(size_t MaxIterations = SIZE_MAX)
+FORCEINLINE void RunMessageLoop(size_t MaxIterations = SIZE_MAX)
 {
     MSG Message;
     size_t Iterations = 0;

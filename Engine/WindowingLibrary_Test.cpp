@@ -45,7 +45,7 @@ TEST(WindowCreationTest, ShouldCreateWindowWithCorrectSizeAndPosition)
 
 #define WM_TEST_MESSAGE (WM_USER + 1)
 
-TEST(MessageLoop, ShouldProcessCustomMessages)
+TEST(MessageLoop, ShouldWorkAndProcessCustomMessages)
 {
     HWND WindowHandle = StartWindowProcessAndGetHandle(0, 0, 500, 500);
     DisplayWindow(WindowHandle);
