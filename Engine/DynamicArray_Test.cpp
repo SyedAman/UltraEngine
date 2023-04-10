@@ -142,3 +142,19 @@ TEST(DynamicArray, Begin)
     arr.PushBack(3);
     EXPECT_EQ(*arr.Begin(), 1);
 }
+
+TEST(DynamicArray, End)
+{
+    DynamicArray<int> arr;
+    arr.PushBack(1);
+    arr.PushBack(2);
+    arr.PushBack(3);
+    EXPECT_EQ(*(arr.End() - 1), 3);
+
+    // Works for other types too
+    DynamicArray<Pair<int, int>> arr2;
+    arr2.PushBack({ 1, 2 });
+    arr2.PushBack({ 3, 4 });
+    arr2.PushBack({ 5, 6 });
+    EXPECT_EQ((arr2.End() - 1)->First, 5);
+}

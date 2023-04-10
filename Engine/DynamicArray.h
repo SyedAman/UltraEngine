@@ -25,6 +25,7 @@ public:
     T& Front();
     bool Empty() const;
     T* Begin();
+    T* End();
 };
 
 template <typename T>
@@ -93,4 +94,10 @@ template <typename T>
 T* DynamicArray<T>::Begin()
 {
     return Data_;
+}
+
+template <typename T>
+T* DynamicArray<T>::End()
+{
+    return Data_ + Size_;
 }
