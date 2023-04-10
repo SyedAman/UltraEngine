@@ -159,7 +159,7 @@ std::vector<Coordinate> AStar::GetPath()
     }
 
     std::set<Coordinate> Visited;
-    PriorityQueue<NodePtr, std::vector<NodePtr>, NodeComparator> PotentialCandidates;
+    PriorityQueue<NodePtr, DynamicArray<NodePtr>, NodeComparator> PotentialCandidates;
     const NodePtr startingNode = std::make_shared<Node>(StartingPoint, 0, 0, 0, nullptr);
     PotentialCandidates.push(startingNode);
 

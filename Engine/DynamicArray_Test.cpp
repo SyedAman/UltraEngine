@@ -102,3 +102,11 @@ TEST(DynamicArray, ShouldReturnReferenceToFirstElementWhenFrontIsCalled) {
     EXPECT_EQ(FirstElement, pNew);
     EXPECT_EQ(arr[0], pNew);
 }
+
+TEST(DynamicArray, TestEmpty)
+{
+    DynamicArray<int> arr;
+    EXPECT_TRUE(arr.Empty());
+    arr.PushBack(1);
+    EXPECT_FALSE(arr.Empty());
+}

@@ -1,10 +1,12 @@
 ﻿#pragma once
 #include <stdexcept>
 #include <vector>
+
+#include "DynamicArray.h"
 #include "UtilityFunctions.h"
 
 
-template <typename T, typename Container = std::vector<T>, typename Comparator = Less<T>>
+template <typename T, typename Container = DynamicArray<T>, typename Comparator = Less<T>>
 class PriorityQueue
 {
     Container UnderlyingContainer;
@@ -47,7 +49,7 @@ int PriorityQueue<T, Container, Comparator>::GetHighestPriorityChildIndex(int Cu
 {
     int LeftChildIndex = CurrentIndex * 2 + 1;
     int RightChildIndex = CurrentIndex * 2 + 2;
-    int ContainerSize = UnderlyingContainer.size();
+    int ContainerSize = UnderlyingContainer.Size();
 
     if (LeftChildIndex >= ContainerSize) return -1; // No children, return -1.
 
@@ -83,23 +85,23 @@ void PriorityQueue<T, Container, Comparator>::SiftDown(int CurrentIndex)
 template <typename T, typename Container, typename Comparator>
 void PriorityQueue<T, Container, Comparator>::push(T Value)
 {
-    UnderlyingContainer.push_back(Value);
-    SiftUp(UnderlyingContainer.size() - 1);
+    UnderlyingContainer.PushBack(Value);
+    SiftUp(UnderlyingContainer.Size() - 1);
 }
 
 template <typename T, typename Container, typename Comparator>
 bool PriorityQueue<T, Container, Comparator>::empty()
 {
-    return UnderlyingContainer.size() == 0;
+    return UnderlyingContainer.Size() == 0;
 }
 
 template <typename T, typename Container, typename Comparator>
 void PriorityQueue<T, Container, Comparator>::pop()
 {
-    if (UnderlyingContainer.size() > 0)
+    if (UnderlyingContainer.Size() > 0)
     {
-        Swap(UnderlyingContainer[0], UnderlyingContainer[UnderlyingContainer.size() - 1]);
-        UnderlyingContainer.pop_back();
+        Swap(UnderlyingContainer[0], UnderlyingContainer[UnderlyingContainer.Size() - 1]);
+        UnderlyingContainer.PopBack();
         SiftDown(0);
     }
 }
@@ -107,8 +109,8 @@ void PriorityQueue<T, Container, Comparator>::pop()
 template <typename T, typename Container, typename Comparator>
 T PriorityQueue<T, Container, Comparator>::top()
 {
-    if (UnderlyingContainer.empty())
+    if (UnderlyingContainer.Empty())
         throw std::runtime_error("PriorityQueue is empty");
 
-    return UnderlyingContainer.front();
+    return UnderlyingContainer.Front();
 }

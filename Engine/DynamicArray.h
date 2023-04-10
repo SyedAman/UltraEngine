@@ -18,9 +18,12 @@ public:
     size_t Size() const;
     void PushBack(T Value);
     void Clear();
+    void PopBack();
     
-    T& operator[](int i) { return Data_[i]; }
+    T& operator[](int i);
+    const T& operator[](int i) const;
     T& Front();
+    bool Empty();
 };
 
 template <typename T>
@@ -56,7 +59,31 @@ void DynamicArray<T>::Clear()
 }
 
 template <typename T>
+void DynamicArray<T>::PopBack()
+{
+    --Size_;
+}
+
+template <typename T>
+T& DynamicArray<T>::operator[](int i)
+{
+    return Data_[i];
+}
+
+template <typename T>
+const T& DynamicArray<T>::operator[](int i) const
+{
+    return Data_[i];
+}
+
+template <typename T>
 T& DynamicArray<T>::Front()
 {
     return Data_[0];
+}
+
+template <typename T>
+bool DynamicArray<T>::Empty()
+{
+    return Size_ == 0;
 }
