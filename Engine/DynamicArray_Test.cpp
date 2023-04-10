@@ -5,6 +5,8 @@
 
 #include "DynamicArray.h"
 
+#include "Pair.h"
+
 
 TEST(DynamicArray, ShouldConstructWithZeroSize)
 {
@@ -77,4 +79,26 @@ TEST(DynamicArray, ShouldNotLeakMemory) {
     // Check if the memory usage remains stable (allowing for some tolerance)
     const double tolerance = 1.01; // 1% tolerance
     EXPECT_LE(finalMemoryUsage, initialMemoryUsage * tolerance);
+}
+
+TEST(DynamicArray, ShouldReturnReferenceToFirstElementWhenFrontIsCalled) {
+    DynamicArray<Pair<int,int>> arr;
+
+    // Add some elements to the array
+    Pair<int,int> p1(5,3);
+    arr.PushBack(p1);
+    arr.PushBack({4,3});
+    arr.PushBack({5,6});
+
+    // Test the Front() method
+    Pair<int,int>& FirstElement = arr.Front();
+    EXPECT_EQ(FirstElement, p1);
+    
+    // Modify the first element using the Front() method
+    Pair<int,int> pNew(0, 0);
+    FirstElement = pNew;
+    
+    // Check if the first element has been modified
+    EXPECT_EQ(FirstElement, pNew);
+    EXPECT_EQ(arr[0], pNew);
 }

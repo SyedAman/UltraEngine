@@ -1,6 +1,8 @@
 ﻿#pragma once
 #include <gtest/internal/gtest-death-test-internal.h>
 
+#include "Pair.h"
+
 template <typename T>
 class DynamicArray
 {
@@ -18,6 +20,7 @@ public:
     void Clear();
     
     T& operator[](int i) { return Data_[i]; }
+    T& Front();
 };
 
 template <typename T>
@@ -50,4 +53,10 @@ void DynamicArray<T>::Clear()
     Size_ = 0;
     Capacity_ = 0;
     Data_ = new T[Capacity_];
+}
+
+template <typename T>
+T& DynamicArray<T>::Front()
+{
+    return Data_[0];
 }
