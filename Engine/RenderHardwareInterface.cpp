@@ -2,7 +2,7 @@
 
 #include <vector>
 
-inline VkApplicationInfo RenderHardwareInterface::FillOutApplicationInfo()
+VkApplicationInfo RenderHardwareInterface::FillOutApplicationInfo()
 {
     VkApplicationInfo appInfo{};
     appInfo.sType = VK_STRUCTURE_TYPE_APPLICATION_INFO;
@@ -16,7 +16,7 @@ inline VkApplicationInfo RenderHardwareInterface::FillOutApplicationInfo()
     return appInfo;
 }
 
-inline VkInstanceCreateInfo RenderHardwareInterface::CreateInstanceCreateInfo(VkApplicationInfo appInfo)
+VkInstanceCreateInfo RenderHardwareInterface::CreateInstanceCreateInfo(VkApplicationInfo appInfo)
 {
     // Specify layers and extensions
     std::vector<const char*> enabledLayers;

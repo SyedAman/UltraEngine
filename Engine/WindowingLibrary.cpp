@@ -24,15 +24,15 @@ HWND StartWindowProcessAndGetHandle(const int X, const int Y, const int Width, c
     WNDCLASS WindowBehaviorsAndAttributes = { };
     WindowBehaviorsAndAttributes.lpfnWndProc = OnReceivedMessageToWindow;
     WindowBehaviorsAndAttributes.hInstance = ExecutableInstanceThatOwnsTheWindow;
-    WindowBehaviorsAndAttributes.lpszClassName = L"DummyWindowClass";
+    WindowBehaviorsAndAttributes.lpszClassName = "DummyWindowClass";
 
     RegisterClass(&WindowBehaviorsAndAttributes);
     
     HWND WindowHandle = NULL;
     WindowHandle = CreateWindowEx(
         0,
-        L"DummyWindowClass",
-        L"DummyWindow",
+        "DummyWindowClass",
+        "DummyWindow",
         WS_OVERLAPPEDWINDOW,
         X, Y, Width, Height,
         NULL,

@@ -1,7 +1,4 @@
-Engine/Debug
-Debug
-Engine/Release
-Release
+build
 
 bin/
 obj/
