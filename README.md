@@ -30,7 +30,7 @@ $ cmake --build .
 
 ## Best Practices, Patterns, Designs
 
-I want to keep the code base consisted
+I want to keep the code base consistant
 
 * Gang of Four OOP designs
 * Clean Code (uncle bob)
