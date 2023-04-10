@@ -23,6 +23,7 @@ It is all in the `Engine` directory
 
 ```sh
 $ mkdir build
+$ cd build
 $ cmake ..
 $ cmake --build .
 ```
