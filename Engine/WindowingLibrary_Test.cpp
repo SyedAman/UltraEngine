@@ -51,31 +51,15 @@ TEST(MessageLoop, ShouldProcessCustomMessages)
     DisplayWindow(WindowHandle);
 
     bool testMessageProcessed = false;
-
-    // Define the custom behavior as a lambda function
     std::function<void()> customBehavior = [&testMessageProcessed] {
         testMessageProcessed = true;
     };
-
-    // Set the custom behavior for the window
     SetCustomBehaviorForWindow(WindowHandle, customBehavior);
 
-    // Send the custom test message to the window
     PostMessage(WindowHandle, WM_TEST_MESSAGE, 0, 0);
 
-    // Run the message loop
-    MSG msg;
-    while (GetMessage(&msg, nullptr, 0, 0)) {
-        TranslateMessage(&msg);
-        DispatchMessage(&msg);
+    RunMessageLoop(1);
 
-        // Break the loop if the test message has been processed
-        if (testMessageProcessed) {
-            break;
-        }
-    }
-
-    // Check if the test message has been processed
     EXPECT_TRUE(testMessageProcessed);
 
     DestroyWindow(WindowHandle);

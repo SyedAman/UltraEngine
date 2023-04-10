@@ -17,7 +17,6 @@ LRESULT CALLBACK OnReceivedMessageToWindow(
     return DefWindowProc(HandleToWindowReceivingTheMessage, TypeOfMessageSentToTheWindowMouseClickKeyPressPaintDestroy, AdditionalMessageInformation, AdditionalMessageInformation2);
 }
 
-// Can pass a custom callback function to override the default behavior
 HWND StartWindowProcessAndGetHandle(const int X, const int Y, const int Width, const int Height)
 {
     const HINSTANCE ExecutableInstanceThatOwnsTheWindow = GetModuleHandle(NULL);
