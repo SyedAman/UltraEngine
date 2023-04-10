@@ -1,6 +1,6 @@
+#include <vector>
 #include <vulkan/vulkan.h>
 
-#include "DynamicArray.h"
 
 VkApplicationInfo FillOutApplicationInfo()
 {
@@ -33,17 +33,15 @@ VkInstanceCreateInfo CreateInstanceCreateInfo(VkApplicationInfo appInfo)
     return createInfo;
 }
 
-VkResult CreateVulkanInstance(VkInstanceCreateInfo createInfo)
-{
-    VkInstance instance;
-    return vkCreateInstance(&createInfo, nullptr, &instance);
-}
-
-inline VkResult CreateVulkanInstance()
+VkInstance CreateVulkanInstance()
 {
     VkApplicationInfo appInfo = FillOutApplicationInfo();
     VkInstanceCreateInfo createInfo = CreateInstanceCreateInfo(appInfo);
-    VkResult result = CreateVulkanInstance(createInfo);
+    
+    VkInstance instance;
 
-    return result;
+    // TODO: Check for errors (VkResult: VK_SUCCESS, VK_ERROR_OUT_OF_HOST_MEMORY, VK_ERROR_OUT_OF_DEVICE_MEMORY)
+    vkCreateInstance(&createInfo, nullptr, &instance);
+    
+    return instance;
 }
