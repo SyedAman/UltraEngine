@@ -4,7 +4,6 @@
 #include <gtest/gtest.h>
 
 #include "DynamicArray.h"
-
 #include "Pair.h"
 
 
@@ -103,10 +102,34 @@ TEST(DynamicArray, ShouldReturnReferenceToFirstElementWhenFrontIsCalled) {
     EXPECT_EQ(arr[0], pNew);
 }
 
-TEST(DynamicArray, TestEmpty)
+TEST(DynamicArray, Empty)
 {
     DynamicArray<int> arr;
     EXPECT_TRUE(arr.Empty());
     arr.PushBack(1);
     EXPECT_FALSE(arr.Empty());
+}
+
+TEST(DynamicArray, PopBack)
+{
+    DynamicArray<int> arr;
+    arr.PushBack(1);
+    arr.PushBack(2);
+    arr.PushBack(3);
+    arr.PopBack();
+    EXPECT_EQ(arr.Size(), 2);
+    EXPECT_EQ(arr[0], 1);
+    EXPECT_EQ(arr[1], 2);
+}
+
+TEST(DynamicArray, ConstBracketOperator)
+{
+    DynamicArray<int> arr;
+    arr.PushBack(1);
+    arr.PushBack(2);
+    arr.PushBack(3);
+    const DynamicArray<int>& constArr = arr;
+    EXPECT_EQ(constArr[0], 1);
+    EXPECT_EQ(constArr[1], 2);
+    EXPECT_EQ(constArr[2], 3);
 }
