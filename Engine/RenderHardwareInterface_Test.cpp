@@ -3,25 +3,41 @@
 #include <gtest/gtest.h>
 #include <gmock/gmock.h>
 
+#include "VulkanWrapper.h"
 
-TEST(RenderHardwareInterface, CreateVulkanInstanceReturnsNewVulkanInstance) {
-    RenderHardwareInterface rhi;
+
+TEST(RenderHardwareInterface, CreateVulkanInstanceReturnsNewVulkanInstance)
+{
+    RenderHardwareInterface rhi(new VulkanWrapper());
     VkInstance instance = rhi.CreateVulkanInstance();
     ASSERT_TRUE(instance != VK_NULL_HANDLE);
 }
 
-class MockRenderHardwareInterface : public IRenderHardwareInterface {
+class MockVulkanWrapper : public IVulkanWrapper
+{
 public:
-    MOCK_METHOD(VkInstance, CreateVulkanInstance, (), (override));
+    MOCK_METHOD(VkResult, vkCreateInstance_Mockable, (const VkInstanceCreateInfo*, const VkAllocationCallbacks*,
+    VkInstance*), (override));
 };
 
-TEST(RenderHardwareInterface, ThrowsErrorWhenCreateVulkanInstanceFails) {
-    MockRenderHardwareInterface mockRHI;
+class RenderHardwareInterfaceParameterizedTest : public testing::TestWithParam<VkResult> {};
+TEST_P(RenderHardwareInterfaceParameterizedTest, CreateVulkanInstanceThrowsExceptionOnOutOfHostMemory)
+{
+    
+    MockVulkanWrapper mockVulkanWrapper;
+    RenderHardwareInterface rhi(&mockVulkanWrapper);
 
-    // Set the expectation for the CreateVulkanInstance method
-    EXPECT_CALL(mockRHI, CreateVulkanInstance())
-        .Times(1)
-        .WillOnce(::testing::Throw(std::runtime_error("Failed to create Vulkan instance.")));
+    ON_CALL(mockVulkanWrapper, vkCreateInstance_Mockable)
+        .WillByDefault(testing::Return(GetParam()));
 
-    ASSERT_THROW(mockRHI.CreateVulkanInstance(), std::runtime_error);
+    ASSERT_THROW(rhi.CreateVulkanInstance(), std::runtime_error);
 }
+INSTANTIATE_TEST_SUITE_P(
+    RenderHardwareInterfaceErrorCodes,
+    RenderHardwareInterfaceParameterizedTest,
+    testing::Values(
+        VK_ERROR_OUT_OF_HOST_MEMORY,
+        VK_ERROR_OUT_OF_DEVICE_MEMORY,
+        VK_ERROR_INITIALIZATION_FAILED
+    )
+);

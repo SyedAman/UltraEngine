@@ -1,5 +1,6 @@
 #include "RenderHardwareInterface.h"
 
+#include <stdexcept>
 #include <vector>
 
 VkApplicationInfo RenderHardwareInterface::FillOutApplicationInfo()
@@ -40,8 +41,11 @@ VkInstance RenderHardwareInterface::CreateVulkanInstance()
     
     VkInstance instance;
 
-    // TODO: Check for errors (VkResult: VK_SUCCESS, VK_ERROR_OUT_OF_HOST_MEMORY, VK_ERROR_OUT_OF_DEVICE_MEMORY)
-    vkCreateInstance(&createInfo, nullptr, &instance);
+    VkResult Result = m_VulkanWrapper->vkCreateInstance_Mockable(&createInfo, nullptr, &instance);
+    if (Result != VK_SUCCESS)
+    {
+        throw std::runtime_error("Failed to create Vulkan instance!");
+    }
     
     return instance;
 }
