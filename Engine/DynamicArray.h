@@ -1,7 +1,5 @@
 ﻿#pragma once
-#include <gtest/internal/gtest-death-test-internal.h>
 
-#include "Pair.h"
 
 template <typename T>
 class DynamicArray
