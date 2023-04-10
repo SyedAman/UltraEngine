@@ -15,29 +15,7 @@ include_directories(${GOOGLETEST_PATH}/googletest/include)
 include_directories(${GOOGLETEST_PATH}/googlemock/include)
 
 # Add source files
-file(GLOB SOURCES
-    "${PROJECT_SOURCE_DIR}/Engine/AStar.cpp"
-    "${PROJECT_SOURCE_DIR}/Engine/AStar.h"
-    "${PROJECT_SOURCE_DIR}/Engine/AStar_Test.cpp"
-    "${PROJECT_SOURCE_DIR}/Engine/DynamicArray.h"
-    "${PROJECT_SOURCE_DIR}/Engine/DynamicArray_Test.cpp"
-    "${PROJECT_SOURCE_DIR}/Engine/Engine.cpp"
-    "${PROJECT_SOURCE_DIR}/Engine/Engine.h"
-    "${PROJECT_SOURCE_DIR}/Engine/Engine_Test.cpp"
-    "${PROJECT_SOURCE_DIR}/Engine/main.cpp"
-    "${PROJECT_SOURCE_DIR}/Engine/Pair.h"
-    "${PROJECT_SOURCE_DIR}/Engine/Pair_Test.cpp"
-    "${PROJECT_SOURCE_DIR}/Engine/PriorityQueue.h"
-    "${PROJECT_SOURCE_DIR}/Engine/PriorityQueue_Test.cpp"
-    "${PROJECT_SOURCE_DIR}/Engine/RenderHardwareInterface.cpp"
-    "${PROJECT_SOURCE_DIR}/Engine/RenderHardwareInterface.h"
-    "${PROJECT_SOURCE_DIR}/Engine/RenderHardwareInterface_Test.cpp"
-    "${PROJECT_SOURCE_DIR}/Engine/UtilityFunctions.h"
-    "${PROJECT_SOURCE_DIR}/Engine/UtilityFunctions_Test.cpp"
-    "${PROJECT_SOURCE_DIR}/Engine/WindowingLibrary.cpp"
-    "${PROJECT_SOURCE_DIR}/Engine/WindowingLibrary.h"
-    "${PROJECT_SOURCE_DIR}/Engine/WindowingLibrary_Test.cpp"
-)
+file(GLOB_RECURSE SOURCES "${PROJECT_SOURCE_DIR}/Engine/*.cpp" "${PROJECT_SOURCE_DIR}/Engine/*.h")
 
 # Create executable
 add_executable(CustomEngine ${SOURCES})
