@@ -21,6 +21,8 @@ It is all in the `Engine` directory
 
 ## Getting Started
 
-1. `mkdir build`
-2. `cmake ..`
-3. `cmake --build .`
+```sh
+$ mkdir build
+$ cmake ..
+$ cmake --build .
+```
