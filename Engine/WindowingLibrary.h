@@ -1,4 +1,5 @@
 #pragma once
+#include <functional>
 #include <Windows.h>
 
 LRESULT CALLBACK OnReceivedMessageToWindow(
@@ -11,3 +12,5 @@ LRESULT CALLBACK OnReceivedMessageToWindow(
 HWND StartWindowProcessAndGetHandle(int X, int Y, int Width, int Height);
 
 void DisplayWindow(HWND WindowHandle);
+
+void SetCustomBehaviorForWindow(HWND windowHandle, std::function<void()>& customBehavior);
