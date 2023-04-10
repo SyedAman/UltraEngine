@@ -7,29 +7,29 @@
 TEST(PriorityQueue, ShouldReturnTrueOnCallingEmptyWhenEmpty)
 {
     PriorityQueue<int> Queue;
-    EXPECT_TRUE(Queue.empty());
+    EXPECT_TRUE(Queue.Empty());
 }
 
 TEST(PriorityQueue, ShouldPushOneElement)
 {
     PriorityQueue<int> Queue;
-    Queue.push(1);
-    EXPECT_FALSE(Queue.empty());
+    Queue.Push(1);
+    EXPECT_FALSE(Queue.Empty());
 }
 
 TEST(PriorityQueue, ShouldPopOneElement)
 {
     PriorityQueue<int> Queue;
-    Queue.push(1);
-    Queue.pop();
-    EXPECT_TRUE(Queue.empty());
+    Queue.Push(1);
+    Queue.Pop();
+    EXPECT_TRUE(Queue.Empty());
 }
 
 TEST(PriorityQueue, ShouldTopOneElement)
 {
     PriorityQueue<int> Queue;
-    Queue.push(1);
-    EXPECT_EQ(1, Queue.top());
+    Queue.Push(1);
+    EXPECT_EQ(1, Queue.Top());
 }
 
 TEST(PriorityQueue, ShouldSupportTemplates)
@@ -40,57 +40,57 @@ TEST(PriorityQueue, ShouldSupportTemplates)
     PriorityQueue<std::vector<int>> VectorQueue;
     PriorityQueue<Pair<int, int>> PairQueue;
 
-    IntQueue.push(1);
-    FloatQueue.push(1.0f);
-    StringQueue.push("1");
-    VectorQueue.push({1});
-    PairQueue.push({1, 1});
+    IntQueue.Push(1);
+    FloatQueue.Push(1.0f);
+    StringQueue.Push("1");
+    VectorQueue.Push({1});
+    PairQueue.Push({1, 1});
 }
 
 TEST(PriorityQueue, ShouldTopAndPopInOrder)
 {
     PriorityQueue<int> Queue;
-    Queue.push(1);
-    Queue.push(2);
-    Queue.push(3);
-    Queue.push(0);
-    Queue.push(7);
-    Queue.push(-1);
-    Queue.push(4);
+    Queue.Push(1);
+    Queue.Push(2);
+    Queue.Push(3);
+    Queue.Push(0);
+    Queue.Push(7);
+    Queue.Push(-1);
+    Queue.Push(4);
 
-    EXPECT_EQ(-1, Queue.top());
-    Queue.pop();
-    EXPECT_EQ(0, Queue.top());
-    Queue.pop();
-    EXPECT_EQ(1, Queue.top());
-    Queue.pop();
-    EXPECT_EQ(2, Queue.top());
-    Queue.pop();
-    EXPECT_EQ(3, Queue.top());
-    Queue.pop();
-    EXPECT_EQ(4, Queue.top());
-    Queue.pop();
-    EXPECT_EQ(7, Queue.top());
-    Queue.pop();
-    EXPECT_TRUE(Queue.empty());
+    EXPECT_EQ(-1, Queue.Top());
+    Queue.Pop();
+    EXPECT_EQ(0, Queue.Top());
+    Queue.Pop();
+    EXPECT_EQ(1, Queue.Top());
+    Queue.Pop();
+    EXPECT_EQ(2, Queue.Top());
+    Queue.Pop();
+    EXPECT_EQ(3, Queue.Top());
+    Queue.Pop();
+    EXPECT_EQ(4, Queue.Top());
+    Queue.Pop();
+    EXPECT_EQ(7, Queue.Top());
+    Queue.Pop();
+    EXPECT_TRUE(Queue.Empty());
 }
 
 TEST(PriorityQueue, ShouldNotDoublePop)
 {
     PriorityQueue<int> Queue;
-    Queue.pop();
-    Queue.push(100);
-    EXPECT_EQ(Queue.top(), 100);
-    Queue.pop();
-    Queue.pop();
-    EXPECT_EQ(Queue.empty(), true);
+    Queue.Pop();
+    Queue.Push(100);
+    EXPECT_EQ(Queue.Top(), 100);
+    Queue.Pop();
+    Queue.Pop();
+    EXPECT_EQ(Queue.Empty(), true);
 }
 
 TEST(PriorityQueue, ShouldThrowErrorOnTopWhenEmpty)
 {
     try {
         PriorityQueue<int> Queue;
-        Queue.top();
+        Queue.Top();
         FAIL();
     }
     catch (std::runtime_error& e) {

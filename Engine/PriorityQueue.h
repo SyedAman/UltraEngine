@@ -16,10 +16,10 @@ class PriorityQueue
     void SiftDown(int CurrentIndex);
 
 public:
-    void push(T Value);
-    bool empty();
-    void pop();
-    T top();
+    void Push(T Value);
+    bool Empty();
+    void Pop();
+    T Top();
 };
 
 template <typename T, typename Container, typename Comparator>
@@ -83,20 +83,20 @@ void PriorityQueue<T, Container, Comparator>::SiftDown(int CurrentIndex)
 }
 
 template <typename T, typename Container, typename Comparator>
-void PriorityQueue<T, Container, Comparator>::push(T Value)
+void PriorityQueue<T, Container, Comparator>::Push(T Value)
 {
     UnderlyingContainer.PushBack(Value);
     SiftUp(UnderlyingContainer.Size() - 1);
 }
 
 template <typename T, typename Container, typename Comparator>
-bool PriorityQueue<T, Container, Comparator>::empty()
+bool PriorityQueue<T, Container, Comparator>::Empty()
 {
     return UnderlyingContainer.Size() == 0;
 }
 
 template <typename T, typename Container, typename Comparator>
-void PriorityQueue<T, Container, Comparator>::pop()
+void PriorityQueue<T, Container, Comparator>::Pop()
 {
     if (UnderlyingContainer.Size() > 0)
     {
@@ -107,7 +107,7 @@ void PriorityQueue<T, Container, Comparator>::pop()
 }
 
 template <typename T, typename Container, typename Comparator>
-T PriorityQueue<T, Container, Comparator>::top()
+T PriorityQueue<T, Container, Comparator>::Top()
 {
     if (UnderlyingContainer.Empty())
         throw std::runtime_error("PriorityQueue is empty");

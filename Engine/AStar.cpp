@@ -161,12 +161,12 @@ std::vector<Coordinate> AStar::GetPath()
     std::set<Coordinate> Visited;
     PriorityQueue<NodePtr, DynamicArray<NodePtr>, NodeComparator> PotentialCandidates;
     const NodePtr startingNode = std::make_shared<Node>(StartingPoint, 0, 0, 0, nullptr);
-    PotentialCandidates.push(startingNode);
+    PotentialCandidates.Push(startingNode);
 
-    while (!PotentialCandidates.empty())
+    while (!PotentialCandidates.Empty())
     {
-        const NodePtr currentNode = PotentialCandidates.top();
-        PotentialCandidates.pop();
+        const NodePtr currentNode = PotentialCandidates.Top();
+        PotentialCandidates.Pop();
 
         if (currentNode->Coordinate == DestinationPoint)
         {
@@ -186,7 +186,7 @@ std::vector<Coordinate> AStar::GetPath()
                     const int totalDistance = distanceFromStart + distanceToDestination;
 
                     NodePtr newNode = std::make_shared<Node>(Node{neighbor, distanceFromStart, distanceToDestination, totalDistance, currentNode});
-                    PotentialCandidates.push(newNode);
+                    PotentialCandidates.Push(newNode);
                 }
             }
         }
