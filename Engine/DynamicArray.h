@@ -4,17 +4,13 @@
 template <typename T>
 class DynamicArray
 {
-    size_t Size_ = 0;
+    size_t Size_;
+    size_t Capacity_;
     T* Data_;
-    size_t Capacity = 0;
-
-    void DoubleCapacity();
-    void DeallocateData() const;
-    void AllocateData(int NewSize);
 
 public:
-    DynamicArray() : Data_(new T[Size_]) { }
-    DynamicArray(int Size) : Size_(Size), Data_(new T[Size]) { }
+    DynamicArray() : Size_(0), Capacity_(0), Data_(new T[Size_]) { }
+    DynamicArray(int Capacity) : Size_(0), Capacity_(Capacity), Data_(new T[Capacity]) { }
 
     size_t Size() const;
     void PushBack(T Value);
@@ -30,46 +26,26 @@ size_t DynamicArray<T>::Size() const
 }
 
 template <typename T>
-void DynamicArray<T>::DoubleCapacity()
-{
-    size_t NewCapacity = Capacity > 0 ? Capacity * 2 : 1;
-    T* NewData = new T[NewCapacity];
-    for (size_t i = 0; i < Size_; i++)
-    {
-        NewData[i] = Data_[i];
-    }
-    DeallocateData();
-    Data_ = NewData;
-    Capacity = NewCapacity;
-}
-
-template <typename T>
 void DynamicArray<T>::PushBack(T Value)
 {
-    if (Size_ >= Capacity)
+    if (Size_ >= Capacity_)
     {
-            DoubleCapacity();
+        Capacity_ = Capacity_ == 0 ? 1 : Capacity_ * 2;
+        T* NewData = new T[Capacity_];
+        for (int i = 0; i < Size_; ++i)
+        {
+            NewData[i] = Data_[i];
+        }
+        delete[] Data_;
+        Data_ = NewData;
     }
-    
     Data_[Size_++] = Value;
-}
-
-template <typename T>
-void DynamicArray<T>::DeallocateData() const
-{
-    delete[] Data_;
-}
-
-template <typename T>
-void DynamicArray<T>::AllocateData(int NewSize)
-{
-    Data_ = new T[NewSize];
-    Size_ = NewSize;
 }
 
 template <typename T>
 void DynamicArray<T>::Clear()
 {
-    DeallocateData();
-    AllocateData(0);
+    delete[] Data_;
+    Data_ = new T[0];
+    Size_ = 0;
 }
