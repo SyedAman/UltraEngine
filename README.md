@@ -27,3 +27,11 @@ $ cd build
 $ cmake ..
 $ cmake --build .
 ```
+
+## Best Practices, Patterns, Designs
+
+I want to keep the code base consisted
+
+* Gang of Four OOP designs
+* Clean Code (uncle bob)
+* Test Driven Development
