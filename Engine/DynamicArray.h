@@ -23,7 +23,8 @@ public:
     T& operator[](int i);
     const T& operator[](int i) const;
     T& Front();
-    bool Empty();
+    bool Empty() const;
+    T* Begin();
 };
 
 template <typename T>
@@ -83,7 +84,13 @@ T& DynamicArray<T>::Front()
 }
 
 template <typename T>
-bool DynamicArray<T>::Empty()
+bool DynamicArray<T>::Empty() const
 {
     return Size_ == 0;
+}
+
+template <typename T>
+T* DynamicArray<T>::Begin()
+{
+    return Data_;
 }

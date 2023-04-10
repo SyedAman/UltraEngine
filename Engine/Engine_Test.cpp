@@ -10,7 +10,7 @@ TEST(WindowCreationTest, ShouldCreateWindowWithValidHandle)
     DestroyWindow(WindowHandle);
 }
 
-TEST(DisplayWindowTest, ShouldMakeWindowVisibleAfterDisplayWindowCalled)
+TEST(DisplayWindow, ShouldMakeWindowVisibleAfterDisplayWindowCalled)
 {
     HWND WindowHandle = StartWindowProcessAndGetHandle();
 

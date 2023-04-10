@@ -133,3 +133,12 @@ TEST(DynamicArray, ConstBracketOperator)
     EXPECT_EQ(constArr[1], 2);
     EXPECT_EQ(constArr[2], 3);
 }
+
+TEST(DynamicArray, Begin)
+{
+    DynamicArray<int> arr;
+    arr.PushBack(1);
+    arr.PushBack(2);
+    arr.PushBack(3);
+    EXPECT_EQ(*arr.Begin(), 1);
+}

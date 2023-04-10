@@ -23,7 +23,7 @@ TEST(Swap, ShouldSpawnTwoElementsInArray)
     EXPECT_EQ(1, Array[1]);
 }
 
-TEST(LessTest, ShouldReturnTrueWhenLeftIsLessThanRight)
+TEST(Less, ShouldReturnTrueWhenLeftIsLessThanRight)
 {
     EXPECT_TRUE(Less<int>()(1, 2));
     EXPECT_FALSE(Less<int>()(2,1));

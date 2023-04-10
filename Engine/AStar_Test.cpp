@@ -3,7 +3,7 @@
 #include "Pair.h"
 
 
-TEST(TestAStar, InstantiateAStarClassWithA2DMatrix)
+TEST(AStar, InstantiateAStarClassWithA2DMatrix)
 {
     // Given a 2D matrix.
     std::vector<std::vector<int>> matrix = {
@@ -24,7 +24,7 @@ TEST(TestAStar, InstantiateAStarClassWithA2DMatrix)
     EXPECT_EQ(astar.GetMatrix(), matrix);
 }
 
-TEST(TestAStar, ShouldBeAbleToSetStartingPoint)
+TEST(AStar, ShouldBeAbleToSetStartingPoint)
 {
     // Given a 2D matrix.
     std::vector<std::vector<int>> matrix = {
@@ -47,7 +47,7 @@ TEST(TestAStar, ShouldBeAbleToSetStartingPoint)
     EXPECT_EQ(astar.GetStartingPoint(), starting_point);
 }
 
-TEST(TestAStar, ShouldThrowAnErrorIfSettingStartingPointIsOutOfBounds)
+TEST(AStar, ShouldThrowAnErrorIfSettingStartingPointIsOutOfBounds)
 {
     // Given an astar
     std::vector<std::vector<int>> matrix = {
@@ -69,7 +69,7 @@ TEST(TestAStar, ShouldThrowAnErrorIfSettingStartingPointIsOutOfBounds)
     EXPECT_THROW(astar.SetStartingPoint(starting_point), std::invalid_argument);
 }
 
-TEST(TestAStar, ShouldPassStartingPointInConstructorAsCoordinate)
+TEST(AStar, ShouldPassStartingPointInConstructorAsCoordinate)
 {
     // Given a 2D matrix.
     std::vector<std::vector<int>> Matrix = {
@@ -92,7 +92,7 @@ TEST(TestAStar, ShouldPassStartingPointInConstructorAsCoordinate)
     EXPECT_EQ(astar.GetStartingPoint(), StartingPoint);
 }
 
-TEST(TestAStar, ShouldBeAbleToSetDestinationPoint)
+TEST(AStar, ShouldBeAbleToSetDestinationPoint)
 {
     // Given a 2D matrix.
     std::vector<std::vector<int>> matrix = {
@@ -115,7 +115,7 @@ TEST(TestAStar, ShouldBeAbleToSetDestinationPoint)
     EXPECT_EQ(astar.GetDestinationPoint(), destination_point);
 }
 
-TEST(TestAStar, ShouldThrowAnErrorIfSettingDestinationPointIsOutOfBounds)
+TEST(AStar, ShouldThrowAnErrorIfSettingDestinationPointIsOutOfBounds)
 {
     std::vector<std::vector<int>> matrix = {
         {1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
@@ -136,7 +136,7 @@ TEST(TestAStar, ShouldThrowAnErrorIfSettingDestinationPointIsOutOfBounds)
     EXPECT_THROW(astar.SetDestinationPoint(DestinationPoint), std::invalid_argument);
 }
 
-TEST(TestAStar, ShouldPassDestinationPointInConstructorAsCoordinate)
+TEST(AStar, ShouldPassDestinationPointInConstructorAsCoordinate)
 {
     // Given a 2D matrix.
     std::vector<std::vector<int>> Matrix = {
@@ -162,7 +162,7 @@ TEST(TestAStar, ShouldPassDestinationPointInConstructorAsCoordinate)
     EXPECT_EQ(astar.GetDestinationPoint(), DestinationPoint);
 }
 
-TEST(TestAStar, ShouldGetHorizontalAndVerticalNeighborsThatAreNotObstacles)
+TEST(AStar, ShouldGetHorizontalAndVerticalNeighborsThatAreNotObstacles)
 {
     // Given an AStar with a matrix, starting point, and destination
     std::vector<std::vector<int>> Matrix = {
@@ -197,7 +197,7 @@ TEST(TestAStar, ShouldGetHorizontalAndVerticalNeighborsThatAreNotObstacles)
     EXPECT_EQ(NeighborsOf1X7Y, Expected);
 }
 
-TEST(TestAStar, ShouldThrowAnErrorIfStartingPointIsOutOfBounds)
+TEST(AStar, ShouldThrowAnErrorIfStartingPointIsOutOfBounds)
 {
     // Given an AStar with a matrix, starting point, and destination
     std::vector<std::vector<int>> Matrix = {
@@ -219,7 +219,7 @@ TEST(TestAStar, ShouldThrowAnErrorIfStartingPointIsOutOfBounds)
     EXPECT_THROW(AStar astar(Matrix, StartingPoint, DestinationPoint);, std::invalid_argument);
 }
 
-TEST(TestAStar, ShouldThrowAnErrorIfDestinationPointIsOutOfBounds)
+TEST(AStar, ShouldThrowAnErrorIfDestinationPointIsOutOfBounds)
 {
     // Given an AStar with a matrix, starting point, and destination
     std::vector<std::vector<int>> Matrix = {
@@ -240,7 +240,7 @@ TEST(TestAStar, ShouldThrowAnErrorIfDestinationPointIsOutOfBounds)
     EXPECT_THROW(AStar astar(Matrix, StartingPoint, DestinationPoint);, std::invalid_argument);
 }
 
-TEST(TestAStar, ShouldThrowErrorIfStartingPointOrDestinationPointIsAnObstacle)
+TEST(AStar, ShouldThrowErrorIfStartingPointOrDestinationPointIsAnObstacle)
 {
     // Given an AStar with a matrix, starting point, and destination
     std::vector<std::vector<int>> Matrix = {
@@ -259,7 +259,7 @@ TEST(TestAStar, ShouldThrowErrorIfStartingPointOrDestinationPointIsAnObstacle)
     EXPECT_THROW(AStar astar(Matrix, {1,1}, {9,8});, std::invalid_argument);
 }
 
-TEST(TestAStar, ShouldThrowErrorIfPassingAnOutOfBoundsCoordinateWhenCallingIsAnObstacle)
+TEST(AStar, ShouldThrowErrorIfPassingAnOutOfBoundsCoordinateWhenCallingIsAnObstacle)
 {
     // Given an AStar with a matrix, starting point, and destination
     std::vector<std::vector<int>> Matrix = {
@@ -279,7 +279,7 @@ TEST(TestAStar, ShouldThrowErrorIfPassingAnOutOfBoundsCoordinateWhenCallingIsAnO
     EXPECT_THROW(astar.IsAnObstacle({-1, 0});, std::out_of_range);
 }
 
-TEST(TestAStar, CallingGetWhenStartingPointAndDestinationPointIsTheSameShouldReturnAnArrayWithThePoint)
+TEST(AStar, CallingGetWhenStartingPointAndDestinationPointIsTheSameShouldReturnAnArrayWithThePoint)
 {
     // Given an AStar with a matrix with the starting point and destination point being the same
     std::vector<std::vector<int>> Matrix = {
@@ -311,7 +311,7 @@ TEST(TestAStar, CallingGetWhenStartingPointAndDestinationPointIsTheSameShouldRet
     EXPECT_EQ(astar.GetPath()[0], DestinationPoint);
 }
 
-TEST(TestAStar, CallingGetPathWhenStartingPointIsCompletelyBlockedOffReturnsAnEmptyArray)
+TEST(AStar, CallingGetPathWhenStartingPointIsCompletelyBlockedOffReturnsAnEmptyArray)
 {
     // Given an AStar with a matrix with the starting point being completely blocked off
     std::vector<std::vector<int>> Matrix = {
@@ -344,7 +344,7 @@ TEST(TestAStar, CallingGetPathWhenStartingPointIsCompletelyBlockedOffReturnsAnEm
     EXPECT_EQ(path[0], StartingPoint);
 }
 
-TEST(TestAStar, CallingGetPathWhenDestinationIsAdjacentToTheStartingPointShouldReturnThePathWithBothPoints)
+TEST(AStar, CallingGetPathWhenDestinationIsAdjacentToTheStartingPointShouldReturnThePathWithBothPoints)
 {
     // Given an AStar with a matrix with the destination point being adjacent to the starting point
     std::vector<std::vector<int>> Matrix = {
@@ -380,7 +380,7 @@ TEST(TestAStar, CallingGetPathWhenDestinationIsAdjacentToTheStartingPointShouldR
     EXPECT_EQ(path[0], StartingPoint);
 }
 
-TEST(TestAStar, CallingGetPathWhenTheMatrixIsANarrowCorridorShouldGiveMeTheFullPath)
+TEST(AStar, CallingGetPathWhenTheMatrixIsANarrowCorridorShouldGiveMeTheFullPath)
 {
     // Given an AStar with a corridor matrix and points on opposite sides
     std::vector<std::vector<int>> Matrix = {
@@ -434,7 +434,7 @@ TEST(TestAStar, CallingGetPathWhenTheMatrixIsANarrowCorridorShouldGiveMeTheFullP
     EXPECT_EQ(path, expectedPath);
 }
 
-TEST(TestAStar, CallPathShouldGiveMeTheFullPath)
+TEST(AStar, CallPathShouldGiveMeTheFullPath)
 {
     std::vector<std::vector<int>> Matrix = {
         {1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
@@ -466,7 +466,7 @@ TEST(TestAStar, CallPathShouldGiveMeTheFullPath)
     EXPECT_EQ(path, Expected);
 }
 
-TEST(TestAStar, ThisTimeGoingTheOtherDirection)
+TEST(AStar, ThisTimeGoingTheOtherDirection)
 {
     std::vector<std::vector<int>> Matrix = {
         {1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
@@ -495,7 +495,7 @@ TEST(TestAStar, ThisTimeGoingTheOtherDirection)
 }
 
 
-TEST(TestAStar, ThisTimeBigMap)
+TEST(AStar, ThisTimeBigMap)
 {
     std::vector<std::vector<int>> Matrix = {
         {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
