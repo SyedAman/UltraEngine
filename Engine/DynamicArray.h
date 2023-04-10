@@ -11,6 +11,7 @@ class DynamicArray
 public:
     DynamicArray() : Size_(0), Capacity_(0), Data_(new T[Size_]) { }
     DynamicArray(int Capacity) : Size_(0), Capacity_(Capacity), Data_(new T[Capacity]) { }
+    ~DynamicArray() { delete[] Data_; }
 
     size_t Size() const;
     void PushBack(T Value);
@@ -46,6 +47,7 @@ template <typename T>
 void DynamicArray<T>::Clear()
 {
     delete[] Data_;
-    Data_ = new T[0];
     Size_ = 0;
+    Capacity_ = 0;
+    Data_ = new T[Capacity_];
 }
