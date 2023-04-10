@@ -45,6 +45,8 @@
     <ClCompile Include="AStar_Test.cpp" />
     <ClCompile Include="PriorityQueue_Test.cpp" />
     <ClCompile Include="UtilityFunctions_Test.cpp" />
+    <ClCompile Include="WindowingLibrary.cpp" />
+    <ClCompile Include="WindowingLibrary_Test.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -57,6 +59,7 @@
     <ClInclude Include="PriorityQueue.h" />
     <ClInclude Include="RenderHardwareInterface.h" />
     <ClInclude Include="UtilityFunctions.h" />
+    <ClInclude Include="WindowingLibrary.h" />
   </ItemGroup>
   <ItemDefinitionGroup />
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
@@ -89,13 +92,13 @@
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <WarningLevel>Level3</WarningLevel>
       <LanguageStandard>stdcpp20</LanguageStandard>
-      <AdditionalIncludeDirectories>$(MSBuildThisFileDirectory)include;%(AdditionalIncludeDirectories);C:\VulkanSDK\1.3.243.0\Include;</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(MSBuildThisFileDirectory)include;%(AdditionalIncludeDirectories);C:\VulkanSDK\1.3.243.0\Include;C:\Program Files\glfw\glfw-3.3.8.bin.WIN64\include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Console</SubSystem>
-      <AdditionalLibraryDirectories>;C:\VulkanSDK\1.3.243.0\Lib;</AdditionalLibraryDirectories>
-      <AdditionalDependencies>%(AdditionalDependencies);vulkan-1.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>;C:\VulkanSDK\1.3.243.0\Lib;C:\Program Files\glfw\glfw-3.3.8.bin.WIN64\lib-vc2022</AdditionalLibraryDirectories>
+      <AdditionalDependencies>%(AdditionalDependencies);vulkan-1.lib;glfw3.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
