@@ -6,4 +6,3 @@
 TEST(RenderHardwareInterface, CreateVulkanInstanceReturnsNewVulkanInstance) {
     VkInstance instance = CreateVulkanInstance();
 }
-

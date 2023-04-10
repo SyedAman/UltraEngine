@@ -11,7 +11,7 @@ LRESULT CALLBACK OnReceivedMessageToWindow(
 }
     
 
-HWND StartWindowProcessAndGetHandle()
+HWND StartWindowProcessAndGetHandle(const int X, const int Y, const int Width, const int Height)
 {
     const HINSTANCE ExecutableInstanceThatOwnsTheWindow = GetModuleHandle(NULL);
 
@@ -28,7 +28,7 @@ HWND StartWindowProcessAndGetHandle()
         L"DummyWindowClass",
         L"DummyWindow",
         WS_OVERLAPPEDWINDOW,
-        0, 0, 500, 500,
+        X, Y, Width, Height,
         NULL,
         NULL,
         ExecutableInstanceThatOwnsTheWindow,
@@ -37,6 +37,7 @@ HWND StartWindowProcessAndGetHandle()
 
     return WindowHandle;
 }
+
 
 void DisplayWindow(HWND WindowHandle)
 {

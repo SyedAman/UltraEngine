@@ -8,6 +8,6 @@ LRESULT CALLBACK OnReceivedMessageToWindow(
     LPARAM AdditionalMessageInformation2
 );
 
-HWND StartWindowProcessAndGetHandle();
+HWND StartWindowProcessAndGetHandle(int X, int Y, int Width, int Height);
 
 void DisplayWindow(HWND WindowHandle);
