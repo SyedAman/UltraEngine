@@ -141,6 +141,10 @@ TEST(DynamicArray, Begin)
     arr.PushBack(2);
     arr.PushBack(3);
     EXPECT_EQ(*arr.Begin(), 1);
+
+    // const
+    const DynamicArray<int>& constArr = arr;
+    EXPECT_EQ(*constArr.Begin(), 1);
 }
 
 TEST(DynamicArray, End)
@@ -150,6 +154,10 @@ TEST(DynamicArray, End)
     arr.PushBack(2);
     arr.PushBack(3);
     EXPECT_EQ(*(arr.End() - 1), 3);
+
+    // const
+    const DynamicArray<int>& constArr = arr;
+    EXPECT_EQ(*(constArr.End() - 1), 3);
 
     // Works for other types too
     DynamicArray<Pair<int, int>> arr2;
