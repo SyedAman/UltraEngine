@@ -15,9 +15,9 @@ void WindowSystemForWindowsOS::DisplayWindowX(HWND windowHandle)
     DisplayWindow(windowHandle);
 }
 
-void WindowSystemForWindowsOS::RunMessageLoopX()
+void WindowSystemForWindowsOS::RunMessageLoopX(int MaxIterations)
 {
-    RunMessageLoop();
+    RunMessageLoop(MaxIterations);
 }
 
 void WindowLauncher::LaunchWindow()

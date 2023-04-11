@@ -8,7 +8,8 @@
 
 TEST(WindowSystem, StartWindowProcess)
 {
-    HWND WindowHandle = StartWindowProcess(0, 0, 500, 500);
+    WindowSystemForWindowsOS WindowSystem;
+    HWND WindowHandle = WindowSystem.StartWindowProcessX(0, 0, 500, 500);
 
     EXPECT_TRUE(WindowHandle != NULL);
     DestroyWindow(WindowHandle);
@@ -16,7 +17,8 @@ TEST(WindowSystem, StartWindowProcess)
 
 TEST(WindowSystem, DisplayWindow)
 {
-    HWND WindowHandle = StartWindowProcess(0, 0, 500, 500);
+    WindowSystemForWindowsOS WindowSystem;
+    HWND WindowHandle = WindowSystem.StartWindowProcessX(0, 0, 500, 500);
 
     DisplayWindow(WindowHandle);
 
@@ -31,7 +33,8 @@ TEST(WindowSystem, ShouldCreateWindowWithCorrectSizeAndPosition)
     int width = 800;
     int height = 600;
 
-    HWND WindowHandle = StartWindowProcess(x, y, width, height);
+    WindowSystemForWindowsOS WindowSystem;
+    HWND WindowHandle = WindowSystem.StartWindowProcessX(x, y, width, height);
 
     RECT WindowRect;
     GetWindowRect(WindowHandle, &WindowRect);
@@ -48,7 +51,8 @@ TEST(WindowSystem, ShouldCreateWindowWithCorrectSizeAndPosition)
 
 TEST(WindowSystem, MessageLoop)
 {
-    HWND WindowHandle = StartWindowProcess(0, 0, 500, 500);
+    WindowSystemForWindowsOS WindowSystem;
+    HWND WindowHandle = WindowSystem.StartWindowProcessX(0, 0, 500, 500);
     DisplayWindow(WindowHandle);
 
     bool testMessageProcessed = false;
@@ -59,7 +63,7 @@ TEST(WindowSystem, MessageLoop)
 
     PostMessage(WindowHandle, WM_TEST_MESSAGE, 0, 0);
 
-    RunMessageLoop(1);
+    WindowSystem.RunMessageLoopX(1);
 
     EXPECT_TRUE(testMessageProcessed);
 
@@ -71,7 +75,7 @@ class MockWindowSystemForCustomOS : public IPlatformSpecificWindowSystem
 public:
     MOCK_METHOD(HWND, StartWindowProcessX, (int, int, int, int), (override));
     MOCK_METHOD(void, DisplayWindowX, (HWND), (override));
-    MOCK_METHOD(void, RunMessageLoopX, (), (override));
+    MOCK_METHOD(void, RunMessageLoopX, (int), (override));
     MOCK_METHOD(void, CloseWindowX, (), (override));
 };
 
@@ -85,7 +89,8 @@ TEST(WindowSystem, LaunchWindow_CallsStartWindowProcessWithCorrectParameters)
     EXPECT_CALL(mockWindowSystem, DisplayWindowX(testing::_))
         .Times(1);
 
-    EXPECT_CALL(mockWindowSystem, RunMessageLoopX()).Times(1);
+    EXPECT_CALL(mockWindowSystem, RunMessageLoopX(testing::_))
+        .Times(1);
 
     std::thread exitThread([&]()
     {

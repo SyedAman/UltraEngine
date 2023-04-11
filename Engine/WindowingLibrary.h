@@ -9,7 +9,7 @@ public:
     virtual ~IPlatformSpecificWindowSystem() = default;
     virtual HWND StartWindowProcessX(int x, int y, int width, int height) = 0;
     virtual void DisplayWindowX(HWND windowHandle) = 0;
-    virtual void RunMessageLoopX() = 0;
+    virtual void RunMessageLoopX(int MaxIterations = SIZE_MAX) = 0;
     virtual void CloseWindowX() = 0;
 };
 
@@ -20,7 +20,7 @@ class WindowSystemForWindowsOS : public IPlatformSpecificWindowSystem
 public:
     HWND StartWindowProcessX(int x, int y, int width, int height) override;
     void DisplayWindowX(HWND windowHandle) override;
-    void RunMessageLoopX() override;
+    void RunMessageLoopX(int MaxIterations = SIZE_MAX) override;
     void CloseWindowX() override { PostMessage(WindowHandle, WM_CLOSE, 0, 0); }
 };
 
