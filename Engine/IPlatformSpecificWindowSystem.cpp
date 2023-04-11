@@ -1,10 +1,9 @@
-#include "WindowingLibrary.h"
+﻿#include "IPlatformSpecificWindowSystem.h"
 
-#include <functional>
 #include <Windows.h>
 
 
-HWND WindowSystemForWindowsOS::StartWindowProcessX(int X, int Y, int Width, int Height)
+HWND WindowSystemForWindowsOS::StartWindowProcess(int X, int Y, int Width, int Height)
 {
     const HINSTANCE ExecutableInstanceThatOwnsTheWindow = GetModuleHandle(NULL);
 
@@ -30,17 +29,10 @@ HWND WindowSystemForWindowsOS::StartWindowProcessX(int X, int Y, int Width, int 
     return WindowHandle;
 }
 
-void WindowSystemForWindowsOS::DisplayWindowX(HWND windowHandle)
+void WindowSystemForWindowsOS::DisplayWindow(HWND windowHandle)
 {
     ShowWindow(WindowHandle, SW_SHOW);
     UpdateWindow(WindowHandle);
-}
-
-void WindowLauncher::LaunchWindow()
-{
-    HWND WindowHandle = PlatformSpecificWindowSystem.StartWindowProcessX(0, 0, 500, 500);
-    PlatformSpecificWindowSystem.DisplayWindowX(WindowHandle);
-    PlatformSpecificWindowSystem.RunMessageLoopX();
 }
 
 LRESULT CALLBACK OnReceivedMessageToWindow(

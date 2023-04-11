@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include <functional>
 #include <Windows.h>
 
@@ -7,20 +7,21 @@ class IPlatformSpecificWindowSystem
 {
 public:
     virtual ~IPlatformSpecificWindowSystem() = default;
-    virtual HWND StartWindowProcessX(int x, int y, int width, int height) = 0;
-    virtual void DisplayWindowX(HWND windowHandle) = 0;
-    virtual void RunMessageLoopX(size_t MaxIterations = SIZE_MAX) = 0;
-    virtual void CloseWindowX() = 0;
+    virtual HWND StartWindowProcess(int x, int y, int width, int height) = 0;
+    virtual void DisplayWindow(HWND windowHandle) = 0;
+    virtual void RunMessageLoop(size_t MaxIterations = SIZE_MAX) = 0;
+    virtual void CloseWindow() = 0;
 };
+
 
 class WindowSystemForWindowsOS : public IPlatformSpecificWindowSystem
 {
     HWND WindowHandle = NULL;
 
 public:
-    HWND StartWindowProcessX(int x, int y, int width, int height) override;
-    void DisplayWindowX(HWND windowHandle) override;
-    FORCEINLINE void RunMessageLoopX(size_t MaxIterations = SIZE_MAX) override
+    HWND StartWindowProcess(int x, int y, int width, int height) override;
+    void DisplayWindow(HWND windowHandle) override;
+    FORCEINLINE void RunMessageLoop(size_t MaxIterations = SIZE_MAX) override
     {
         MSG Message;
         size_t Iterations = 0;
@@ -31,17 +32,7 @@ public:
             ++Iterations;
         }
     }
-    void CloseWindowX() override { PostMessage(WindowHandle, WM_CLOSE, 0, 0); }
-};
-
-class WindowLauncher
-{
-    IPlatformSpecificWindowSystem& PlatformSpecificWindowSystem;
-    
-public:
-    WindowLauncher(IPlatformSpecificWindowSystem& platformSpecificWindowSystem) : PlatformSpecificWindowSystem(platformSpecificWindowSystem) {}
-
-    void LaunchWindow();
+    void CloseWindow() override { PostMessage(WindowHandle, WM_CLOSE, 0, 0); }
 };
 
 LRESULT CALLBACK OnReceivedMessageToWindow(
