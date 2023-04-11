@@ -20,7 +20,7 @@ TEST(WindowSystem, DisplayWindow)
     WindowSystemForWindowsOS WindowSystem;
     HWND WindowHandle = WindowSystem.StartWindowProcessX(0, 0, 500, 500);
 
-    DisplayWindow(WindowHandle);
+    WindowSystem.DisplayWindowX(WindowHandle);
 
     EXPECT_TRUE(IsWindowVisible(WindowHandle));
     DestroyWindow(WindowHandle);
@@ -53,7 +53,7 @@ TEST(WindowSystem, MessageLoop)
 {
     WindowSystemForWindowsOS WindowSystem;
     HWND WindowHandle = WindowSystem.StartWindowProcessX(0, 0, 500, 500);
-    DisplayWindow(WindowHandle);
+    WindowSystem.DisplayWindowX(WindowHandle);
 
     bool testMessageProcessed = false;
     std::function<void()> customBehavior = [&testMessageProcessed] {
@@ -75,7 +75,7 @@ class MockWindowSystemForCustomOS : public IPlatformSpecificWindowSystem
 public:
     MOCK_METHOD(HWND, StartWindowProcessX, (int, int, int, int), (override));
     MOCK_METHOD(void, DisplayWindowX, (HWND), (override));
-    MOCK_METHOD(void, RunMessageLoopX, (int), (override));
+    MOCK_METHOD(void, RunMessageLoopX, (size_t), (override));
     MOCK_METHOD(void, CloseWindowX, (), (override));
 };
 

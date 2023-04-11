@@ -4,20 +4,36 @@
 #include <Windows.h>
 
 
-HWND WindowSystemForWindowsOS::StartWindowProcessX(int x, int y, int width, int height)
+HWND WindowSystemForWindowsOS::StartWindowProcessX(int X, int Y, int Width, int Height)
 {
-    WindowHandle = StartWindowProcess(x, y, width, height);
+    const HINSTANCE ExecutableInstanceThatOwnsTheWindow = GetModuleHandle(NULL);
+
+    WNDCLASS WindowBehaviorsAndAttributes = { };
+    WindowBehaviorsAndAttributes.lpfnWndProc = OnReceivedMessageToWindow;
+    WindowBehaviorsAndAttributes.hInstance = ExecutableInstanceThatOwnsTheWindow;
+    WindowBehaviorsAndAttributes.lpszClassName = "DummyWindowClass";
+
+    RegisterClass(&WindowBehaviorsAndAttributes);
+    
+    WindowHandle = CreateWindowEx(
+        0,
+        "DummyWindowClass",
+        "DummyWindow",
+        WS_OVERLAPPEDWINDOW,
+        X, Y, Width, Height,
+        NULL,
+        NULL,
+        ExecutableInstanceThatOwnsTheWindow,
+        NULL
+    );
+
     return WindowHandle;
 }
 
 void WindowSystemForWindowsOS::DisplayWindowX(HWND windowHandle)
 {
-    DisplayWindow(windowHandle);
-}
-
-void WindowSystemForWindowsOS::RunMessageLoopX(int MaxIterations)
-{
-    RunMessageLoop(MaxIterations);
+    ShowWindow(WindowHandle, SW_SHOW);
+    UpdateWindow(WindowHandle);
 }
 
 void WindowLauncher::LaunchWindow()
@@ -40,40 +56,6 @@ LRESULT CALLBACK OnReceivedMessageToWindow(
     }
 
     return DefWindowProc(HandleToWindowReceivingTheMessage, TypeOfMessageSentToTheWindowMouseClickKeyPressPaintDestroy, AdditionalMessageInformation, AdditionalMessageInformation2);
-}
-
-HWND StartWindowProcess(const int X, const int Y, const int Width, const int Height)
-{
-    const HINSTANCE ExecutableInstanceThatOwnsTheWindow = GetModuleHandle(NULL);
-
-    WNDCLASS WindowBehaviorsAndAttributes = { };
-    WindowBehaviorsAndAttributes.lpfnWndProc = OnReceivedMessageToWindow;
-    WindowBehaviorsAndAttributes.hInstance = ExecutableInstanceThatOwnsTheWindow;
-    WindowBehaviorsAndAttributes.lpszClassName = "DummyWindowClass";
-
-    RegisterClass(&WindowBehaviorsAndAttributes);
-    
-    HWND WindowHandle = NULL;
-    WindowHandle = CreateWindowEx(
-        0,
-        "DummyWindowClass",
-        "DummyWindow",
-        WS_OVERLAPPEDWINDOW,
-        X, Y, Width, Height,
-        NULL,
-        NULL,
-        ExecutableInstanceThatOwnsTheWindow,
-        NULL
-    );
-
-    return WindowHandle;
-}
-
-
-void DisplayWindow(HWND WindowHandle)
-{
-    ShowWindow(WindowHandle, SW_SHOW);
-    UpdateWindow(WindowHandle);
 }
 
 void SetCustomBehaviorForWindow(HWND windowHandle, std::function<void()>& customBehavior)
