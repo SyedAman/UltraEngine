@@ -3,10 +3,10 @@
 #include <Windows.h>
 
 
-class IPlatformSpecificWindowSystem
+class IPlatformWindowSystem
 {
 public:
-    virtual ~IPlatformSpecificWindowSystem() = default;
+    virtual ~IPlatformWindowSystem() = default;
     virtual HWND StartWindowProcess(int x, int y, int width, int height) = 0;
     virtual void DisplayWindow(HWND windowHandle) = 0;
     virtual void RunMessageLoop(size_t MaxIterations = SIZE_MAX) = 0;
@@ -14,7 +14,7 @@ public:
 };
 
 
-class WindowSystemForWindowsOS : public IPlatformSpecificWindowSystem
+class WindowSystemForWindowsOS : public IPlatformWindowSystem
 {
     HWND WindowHandle = NULL;
 

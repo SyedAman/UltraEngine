@@ -3,12 +3,13 @@
 #include <Windows.h>
 #include <gmock/gmock-function-mocker.h>
 
-#include "IPlatformSpecificWindowSystem.h"
+#include "IPlatformWindowSystem.h"
 
 
-TEST(WindowSystem, LaunchWindow_CallsStartWindowProcessWithCorrectParameters)
+// TODO: This is an integration test. Figure out what to do with tests like these.
+TEST(WindowSystem, StartsWindowDisplaysThenRunsMessageLoopAndCanBeClosed)
 {
-    class MockWindowSystemForCustomOS : public IPlatformSpecificWindowSystem
+    class MockWindowSystemForCustomOS : public IPlatformWindowSystem
     {
     public:
         MOCK_METHOD(HWND, StartWindowProcess, (int, int, int, int), (override));
@@ -38,4 +39,6 @@ TEST(WindowSystem, LaunchWindow_CallsStartWindowProcessWithCorrectParameters)
     MyWindowLauncher.LaunchWindow();
 
     exitThread.join();
+
+    EXPECT_FALSE(IsWindow(reinterpret_cast<HWND>(1)));
 }

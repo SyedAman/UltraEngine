@@ -1,4 +1,4 @@
-﻿#include "IPlatformSpecificWindowSystem.h"
+﻿#include "IPlatformWindowSystem.h"
 
 #include <Windows.h>
 

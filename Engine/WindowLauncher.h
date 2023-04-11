@@ -1,14 +1,14 @@
 #pragma once
 
-class IPlatformSpecificWindowSystem;
+class IPlatformWindowSystem;
 
 
 class WindowLauncher
 {
-    IPlatformSpecificWindowSystem& PlatformSpecificWindowSystem;
+    IPlatformWindowSystem& PlatformWindowSystem;
     
 public:
-    WindowLauncher(IPlatformSpecificWindowSystem& platformSpecificWindowSystem) : PlatformSpecificWindowSystem(platformSpecificWindowSystem) {}
+    WindowLauncher(IPlatformWindowSystem& InPlatformWindowSystem) : PlatformWindowSystem(InPlatformWindowSystem) {}
 
     void LaunchWindow();
 };

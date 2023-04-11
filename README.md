@@ -28,6 +28,13 @@ $ cmake ..
 $ cmake --build .
 ```
 
+### Known Problems
+
+If you delete a file, it will not trigger a build reconfiguration and it will complain that it can't find
+the specific file. This is a limitation due to recursively adding source files via CMake. The alternative
+is to manually add the file name for every file in the CMake file, but a project of this size will get
+tedious very fast. So if you run into this issue, you will have delete `build/*` and rebuild with cmake.
+
 ## Best Practices, Patterns, Designs
 
 I want to keep the code base consistant

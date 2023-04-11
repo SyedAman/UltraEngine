@@ -1,7 +1,7 @@
 ﻿#include <functional>
 #include <gmock/gmock-function-mocker.h>
 
-#include "IPlatformSpecificWindowSystem.h"
+#include "IPlatformWindowSystem.h"
 #include "Windows.h"
 #include "gtest/gtest.h"
 
