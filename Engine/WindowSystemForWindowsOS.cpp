@@ -1,9 +1,9 @@
 ﻿#include <Windows.h>
 
-#include "WindowsSystemForWindowOS.h"
+#include "WindowSystemForWindowOS.h"
 
 
-HWND WindowSystemForWindowsOS::StartWindowProcess(int X, int Y, int Width, int Height)
+WindowHandle WindowSystemForWindowsOS::StartWindowProcessNew(int X, int Y, int Width, int Height)
 {
     const HINSTANCE ExecutableInstanceThatOwnsTheWindow = GetModuleHandle(NULL);
 
@@ -26,10 +26,11 @@ HWND WindowSystemForWindowsOS::StartWindowProcess(int X, int Y, int Width, int H
         NULL
     );
 
-    return WindowHandle;
+    return reinterpret_cast<::WindowHandle>(WindowHandle);
 }
 
-void WindowSystemForWindowsOS::DisplayWindow(HWND windowHandle)
+// TODO: Remove the parameter since we don't need it.
+void WindowSystemForWindowsOS::DisplayWindowNew(::WindowHandle windowHandle)
 {
     ShowWindow(WindowHandle, SW_SHOW);
     UpdateWindow(WindowHandle);
