@@ -3,7 +3,7 @@
 #include "WindowSystemForWindowOS.h"
 
 
-WindowHandle WindowSystemForWindowsOS::StartWindowProcessNew(int X, int Y, int Width, int Height)
+WindowHandle WindowSystemForWindowsOS::StartWindowProcess(int X, int Y, int Width, int Height)
 {
     const HINSTANCE ExecutableInstanceThatOwnsTheWindow = GetModuleHandle(NULL);
 
@@ -29,7 +29,7 @@ WindowHandle WindowSystemForWindowsOS::StartWindowProcessNew(int X, int Y, int W
     return reinterpret_cast<::WindowHandle>(WindowHandle);
 }
 
-void WindowSystemForWindowsOS::DisplayWindowNew()
+void WindowSystemForWindowsOS::DisplayWindow()
 {
     ShowWindow(WindowHandle, SW_SHOW);
     UpdateWindow(WindowHandle);

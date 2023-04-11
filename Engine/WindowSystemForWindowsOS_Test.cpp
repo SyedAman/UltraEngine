@@ -9,7 +9,7 @@
 TEST(WindowSystem, StartWindowProcess)
 {
     WindowSystemForWindowsOS WindowSystem;
-    WindowHandle WindowHandle = WindowSystem.StartWindowProcessNew(0, 0, 500, 500);
+    WindowHandle WindowHandle = WindowSystem.StartWindowProcess(0, 0, 500, 500);
 
     EXPECT_TRUE(WindowHandle != nullptr);
     DestroyWindow(reinterpret_cast<HWND>(WindowHandle));
@@ -18,9 +18,9 @@ TEST(WindowSystem, StartWindowProcess)
 TEST(WindowSystem, DisplayWindow)
 {
     WindowSystemForWindowsOS WindowSystem;
-    WindowHandle WindowHandle = WindowSystem.StartWindowProcessNew(0, 0, 500, 500);
+    WindowHandle WindowHandle = WindowSystem.StartWindowProcess(0, 0, 500, 500);
 
-    WindowSystem.DisplayWindowNew();
+    WindowSystem.DisplayWindow();
 
     EXPECT_TRUE(IsWindowVisible(reinterpret_cast<HWND>(WindowHandle)));
     DestroyWindow(reinterpret_cast<HWND>(WindowHandle));
@@ -34,7 +34,7 @@ TEST(WindowSystem, ShouldCreateWindowWithCorrectSizeAndPosition)
     int height = 600;
 
     WindowSystemForWindowsOS WindowSystem;
-    WindowHandle WindowHandle = WindowSystem.StartWindowProcessNew(x, y, width, height);
+    WindowHandle WindowHandle = WindowSystem.StartWindowProcess(x, y, width, height);
 
     RECT WindowRect;
     GetWindowRect(reinterpret_cast<HWND>(WindowHandle), &WindowRect);
@@ -52,8 +52,8 @@ TEST(WindowSystem, ShouldCreateWindowWithCorrectSizeAndPosition)
 TEST(WindowSystem, MessageLoop)
 {
     WindowSystemForWindowsOS WindowSystem;
-    WindowHandle WindowHandle = WindowSystem.StartWindowProcessNew(0, 0, 500, 500);
-    WindowSystem.DisplayWindowNew();
+    WindowHandle WindowHandle = WindowSystem.StartWindowProcess(0, 0, 500, 500);
+    WindowSystem.DisplayWindow();
 
     bool testMessageProcessed = false;
     std::function<void()> customBehavior = [&testMessageProcessed] {

@@ -7,8 +7,8 @@
 
 void WindowLauncher::LaunchWindow()
 {
-    PlatformWindowSystem.StartWindowProcessNew(0, 0, 500, 500);
-    PlatformWindowSystem.DisplayWindowNew();
+    PlatformWindowSystem.StartWindowProcess(0, 0, 500, 500);
+    PlatformWindowSystem.DisplayWindow();
     PlatformWindowSystem.RunMessageLoop();
 }
 
