@@ -20,7 +20,7 @@ TEST(WindowSystem, DisplayWindow)
     WindowSystemForWindowsOS WindowSystem;
     WindowHandle WindowHandle = WindowSystem.StartWindowProcessNew(0, 0, 500, 500);
 
-    WindowSystem.DisplayWindowNew(WindowHandle);
+    WindowSystem.DisplayWindowNew();
 
     EXPECT_TRUE(IsWindowVisible(reinterpret_cast<HWND>(WindowHandle)));
     DestroyWindow(reinterpret_cast<HWND>(WindowHandle));
@@ -53,7 +53,7 @@ TEST(WindowSystem, MessageLoop)
 {
     WindowSystemForWindowsOS WindowSystem;
     WindowHandle WindowHandle = WindowSystem.StartWindowProcessNew(0, 0, 500, 500);
-    WindowSystem.DisplayWindowNew(WindowHandle);
+    WindowSystem.DisplayWindowNew();
 
     bool testMessageProcessed = false;
     std::function<void()> customBehavior = [&testMessageProcessed] {

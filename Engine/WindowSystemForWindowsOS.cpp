@@ -29,8 +29,7 @@ WindowHandle WindowSystemForWindowsOS::StartWindowProcessNew(int X, int Y, int W
     return reinterpret_cast<::WindowHandle>(WindowHandle);
 }
 
-// TODO: Remove the parameter since we don't need it.
-void WindowSystemForWindowsOS::DisplayWindowNew(::WindowHandle windowHandle)
+void WindowSystemForWindowsOS::DisplayWindowNew()
 {
     ShowWindow(WindowHandle, SW_SHOW);
     UpdateWindow(WindowHandle);

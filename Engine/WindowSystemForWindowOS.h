@@ -9,7 +9,7 @@ class WindowSystemForWindowsOS : public IPlatformWindowSystem
 public:
     ::WindowHandle StartWindowProcessNew(int X, int Y, int Width, int Height) override;
     void CloseWindow() override { PostMessage(WindowHandle, WM_CLOSE, 0, 0); }
-    void DisplayWindowNew(::WindowHandle windowHandle) override;
+    void DisplayWindowNew() override;
     FORCEINLINE void RunMessageLoop(size_t MaxIterations = SIZE_MAX) override
     {
         MSG Message;
