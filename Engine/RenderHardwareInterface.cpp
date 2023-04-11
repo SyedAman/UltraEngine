@@ -41,7 +41,7 @@ VkInstance RenderHardwareInterface::CreateVulkanInstance()
     
     VkInstance instance;
 
-    VkResult Result = m_VulkanWrapper->vkCreateInstance_Mockable(&createInfo, nullptr, &instance);
+    VkResult Result = m_VulkanWrapper->CreateInstance(&createInfo, nullptr, &instance);
     if (Result != VK_SUCCESS)
     {
         throw std::runtime_error("Failed to create Vulkan instance!");

@@ -12,13 +12,13 @@ public:
 
 class RenderHardwareInterface : public IRenderHardwareInterface
 {
+    IVulkanWrapper* m_VulkanWrapper;
+
     VkApplicationInfo FillOutApplicationInfo();
     VkInstanceCreateInfo CreateInstanceCreateInfo(VkApplicationInfo appInfo);
 
-    IVulkanWrapper* m_VulkanWrapper;
-
 public:
-    RenderHardwareInterface(IVulkanWrapper* vulkanWrapper) : m_VulkanWrapper(vulkanWrapper) {}
+    RenderHardwareInterface(IVulkanWrapper* VulkanWrapper) : m_VulkanWrapper(VulkanWrapper) {}
 
     VkInstance CreateVulkanInstance() override;
 };

@@ -16,7 +16,7 @@ TEST(RenderHardwareInterface, CreateVulkanInstanceReturnsNewVulkanInstance)
 class MockVulkanWrapper : public IVulkanWrapper
 {
 public:
-    MOCK_METHOD(VkResult, vkCreateInstance_Mockable, (const VkInstanceCreateInfo*, const VkAllocationCallbacks*,
+    MOCK_METHOD(VkResult, CreateInstance, (const VkInstanceCreateInfo*, const VkAllocationCallbacks*,
     VkInstance*), (override));
 };
 
@@ -27,7 +27,7 @@ TEST_P(RenderHardwareInterfaceParameterizedTest, CreateVulkanInstanceThrowsExcep
     MockVulkanWrapper mockVulkanWrapper;
     RenderHardwareInterface rhi(&mockVulkanWrapper);
 
-    ON_CALL(mockVulkanWrapper, vkCreateInstance_Mockable)
+    ON_CALL(mockVulkanWrapper, CreateInstance)
         .WillByDefault(testing::Return(GetParam()));
 
     ASSERT_THROW(rhi.CreateVulkanInstance(), std::runtime_error);

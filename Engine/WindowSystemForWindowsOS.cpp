@@ -1,6 +1,6 @@
-﻿#include "IPlatformWindowSystem.h"
+﻿#include <Windows.h>
 
-#include <Windows.h>
+#include "WindowsSystemForWindowOS.h"
 
 
 HWND WindowSystemForWindowsOS::StartWindowProcess(int X, int Y, int Width, int Height)
