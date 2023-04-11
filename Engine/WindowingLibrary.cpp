@@ -1,6 +1,31 @@
+#include "WindowingLibrary.h"
+
 #include <functional>
 #include <Windows.h>
 
+
+HWND WindowSystemForWindowsOS::StartWindowProcessX(int x, int y, int width, int height)
+{
+    WindowHandle = StartWindowProcess(x, y, width, height);
+    return WindowHandle;
+}
+
+void WindowSystemForWindowsOS::DisplayWindowX(HWND windowHandle)
+{
+    DisplayWindow(windowHandle);
+}
+
+void WindowSystemForWindowsOS::RunMessageLoopX()
+{
+    RunMessageLoop();
+}
+
+void WindowLauncher::LaunchWindow()
+{
+    HWND WindowHandle = PlatformSpecificWindowSystem.StartWindowProcessX(0, 0, 500, 500);
+    PlatformSpecificWindowSystem.DisplayWindowX(WindowHandle);
+    PlatformSpecificWindowSystem.RunMessageLoopX();
+}
 
 LRESULT CALLBACK OnReceivedMessageToWindow(
     HWND HandleToWindowReceivingTheMessage,
@@ -17,7 +42,7 @@ LRESULT CALLBACK OnReceivedMessageToWindow(
     return DefWindowProc(HandleToWindowReceivingTheMessage, TypeOfMessageSentToTheWindowMouseClickKeyPressPaintDestroy, AdditionalMessageInformation, AdditionalMessageInformation2);
 }
 
-HWND StartWindowProcessAndGetHandle(const int X, const int Y, const int Width, const int Height)
+HWND StartWindowProcess(const int X, const int Y, const int Width, const int Height)
 {
     const HINSTANCE ExecutableInstanceThatOwnsTheWindow = GetModuleHandle(NULL);
 

@@ -14,7 +14,7 @@ add_subdirectory(${GOOGLETEST_PATH})
 include_directories(${GOOGLETEST_PATH}/googletest/include)
 include_directories(${GOOGLETEST_PATH}/googlemock/include)
 
-# Add source files
+# Add source files (Note: GLOB_RECURSE not recommended due to removing files not triggering build system reconfiguration, but this project is big)
 file(GLOB_RECURSE SOURCES "${PROJECT_SOURCE_DIR}/Engine/*.cpp" "${PROJECT_SOURCE_DIR}/Engine/*.h")
 
 # Create executable

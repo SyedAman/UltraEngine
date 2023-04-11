@@ -1,4 +1,4 @@
-#include <vulkan/vulkan.h>
+#pragma once
 
 #include "VulkanWrapper.h"
 

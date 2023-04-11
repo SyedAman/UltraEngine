@@ -1,21 +1,22 @@
 #include "WindowingLibrary.h"
 
 #include <functional>
+#include <gmock/gmock-function-mocker.h>
 
 #include "Windows.h"
 #include "gtest/gtest.h"
 
-TEST(WindowCreationTest, ShouldCreateWindowWithValidHandle)
+TEST(WindowSystem, StartWindowProcess)
 {
-    HWND WindowHandle = StartWindowProcessAndGetHandle(0, 0, 500, 500);
+    HWND WindowHandle = StartWindowProcess(0, 0, 500, 500);
 
     EXPECT_TRUE(WindowHandle != NULL);
     DestroyWindow(WindowHandle);
 }
 
-TEST(DisplayWindow, ShouldMakeWindowVisibleAfterDisplayWindowCalled)
+TEST(WindowSystem, DisplayWindow)
 {
-    HWND WindowHandle = StartWindowProcessAndGetHandle(0, 0, 500, 500);
+    HWND WindowHandle = StartWindowProcess(0, 0, 500, 500);
 
     DisplayWindow(WindowHandle);
 
@@ -23,14 +24,14 @@ TEST(DisplayWindow, ShouldMakeWindowVisibleAfterDisplayWindowCalled)
     DestroyWindow(WindowHandle);
 }
 
-TEST(WindowCreationTest, ShouldCreateWindowWithCorrectSizeAndPosition)
+TEST(WindowSystem, ShouldCreateWindowWithCorrectSizeAndPosition)
 {
     int x = 100;
     int y = 100;
     int width = 800;
     int height = 600;
 
-    HWND WindowHandle = StartWindowProcessAndGetHandle(x, y, width, height);
+    HWND WindowHandle = StartWindowProcess(x, y, width, height);
 
     RECT WindowRect;
     GetWindowRect(WindowHandle, &WindowRect);
@@ -45,9 +46,9 @@ TEST(WindowCreationTest, ShouldCreateWindowWithCorrectSizeAndPosition)
 
 #define WM_TEST_MESSAGE (WM_USER + 1)
 
-TEST(MessageLoop, ShouldWorkAndProcessCustomMessages)
+TEST(WindowSystem, MessageLoop)
 {
-    HWND WindowHandle = StartWindowProcessAndGetHandle(0, 0, 500, 500);
+    HWND WindowHandle = StartWindowProcess(0, 0, 500, 500);
     DisplayWindow(WindowHandle);
 
     bool testMessageProcessed = false;
@@ -63,4 +64,37 @@ TEST(MessageLoop, ShouldWorkAndProcessCustomMessages)
     EXPECT_TRUE(testMessageProcessed);
 
     DestroyWindow(WindowHandle);
+}
+
+class MockWindowSystemForCustomOS : public IPlatformSpecificWindowSystem
+{
+public:
+    MOCK_METHOD(HWND, StartWindowProcessX, (int, int, int, int), (override));
+    MOCK_METHOD(void, DisplayWindowX, (HWND), (override));
+    MOCK_METHOD(void, RunMessageLoopX, (), (override));
+    MOCK_METHOD(void, CloseWindowX, (), (override));
+};
+
+TEST(WindowSystem, LaunchWindow_CallsStartWindowProcessWithCorrectParameters)
+{
+    MockWindowSystemForCustomOS mockWindowSystem;
+    EXPECT_CALL(mockWindowSystem, StartWindowProcessX(0, 0, 500, 500))
+        .Times(1)
+        .WillOnce(testing::Return(reinterpret_cast<HWND>(1)));
+
+    EXPECT_CALL(mockWindowSystem, DisplayWindowX(testing::_))
+        .Times(1);
+
+    EXPECT_CALL(mockWindowSystem, RunMessageLoopX()).Times(1);
+
+    std::thread exitThread([&]()
+    {
+        std::this_thread::sleep_for(std::chrono::seconds(1));
+        mockWindowSystem.CloseWindowX();
+    });
+    
+    WindowLauncher MyWindowLauncher(mockWindowSystem);
+    MyWindowLauncher.LaunchWindow();
+
+    exitThread.join();
 }
