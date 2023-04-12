@@ -1,8 +1,7 @@
 ﻿#include <functional>
 #include <gmock/gmock-function-mocker.h>
 
-#include "IWindowsAPI.h"
-#include "Windows.h"
+#include "TestingUtilities.h"
 #include "WindowSystemForWindowOS.h"
 #include "gtest/gtest.h"
 
@@ -74,12 +73,6 @@ TEST(WindowSystem, MessageLoopShouldProcessMessages)
 class WindowSystemParameterizedTest : public testing::TestWithParam<UINT> {};
 TEST_P(WindowSystemParameterizedTest, RunMessageLoopShouldExitOnWM_QUITAndWM_CLOSEAndReturnNumberOfIterations)
 {
-    class MockWindowsAPIWrapper : public IWindowsAPI
-    {
-    public:
-        MOCK_METHOD(BOOL, GetMessage, (LPMSG LoopMessage), (override));
-    };
-    
     MockWindowsAPIWrapper mockWindowsAPI;
     WindowSystemForWindowsOS windowSystem(mockWindowsAPI);
 
