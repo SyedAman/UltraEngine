@@ -1,6 +1,7 @@
 ﻿#include <functional>
 #include <gmock/gmock-function-mocker.h>
 
+#include "IWindowsAPI.h"
 #include "Windows.h"
 #include "WindowSystemForWindowOS.h"
 #include "gtest/gtest.h"
@@ -47,9 +48,10 @@ TEST(WindowSystem, ShouldCreateWindowWithCorrectSizeAndPosition)
     DestroyWindow(reinterpret_cast<HWND>(WindowHandle));
 }
 
+// TODO: See if this can be moved inside the unit test.
 #define WM_TEST_MESSAGE (WM_USER + 1)
 
-TEST(WindowSystem, MessageLoop)
+TEST(WindowSystem, MessageLoopShouldProcessMessages)
 {
     WindowSystemForWindowsOS WindowSystem;
     WindowHandle WindowHandle = WindowSystem.StartWindowProcess(0, 0, 500, 500);
@@ -68,4 +70,29 @@ TEST(WindowSystem, MessageLoop)
     EXPECT_TRUE(testMessageProcessed);
 
     DestroyWindow(reinterpret_cast<HWND>(WindowHandle));
+}
+
+#undef WM_TEST_MESSAGE
+
+TEST(WindowSystem, RunMessageLoopShouldCloseOnWM_QUIT)
+{
+    class MockWindowsAPIWrapper : public IWindowsAPI
+    {
+    public:
+        MOCK_METHOD(BOOL, GetMessage, (LPMSG LoopMessage), (override));
+    };
+    
+    MockWindowsAPIWrapper mockWindowsAPI;
+    WindowSystemForWindowsOS windowSystem(mockWindowsAPI);
+
+    ON_CALL(mockWindowsAPI, GetMessage)
+        .WillByDefault([](LPMSG LoopMessage) {
+            LoopMessage->message = WM_QUIT;
+            return TRUE;
+        });
+
+    size_t maxIterations = 10;
+    size_t actualIterations = windowSystem.RunMessageLoop(maxIterations);
+
+    EXPECT_EQ(actualIterations, 1);
 }

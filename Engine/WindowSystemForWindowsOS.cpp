@@ -35,6 +35,12 @@ void WindowSystemForWindowsOS::DisplayWindow()
     UpdateWindow(WindowHandle);
 }
 
+// TODO: Move this to interface.
+HWND WindowSystemForWindowsOS::GetWindowHandle()
+{
+    return WindowHandle;
+}
+
 LRESULT CALLBACK OnReceivedMessageToWindow(
     HWND HandleToWindowReceivingTheMessage,
     UINT TypeOfMessageSentToTheWindowMouseClickKeyPressPaintDestroy,
