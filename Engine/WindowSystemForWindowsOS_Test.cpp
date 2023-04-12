@@ -74,7 +74,8 @@ TEST(WindowSystem, MessageLoopShouldProcessMessages)
 
 #undef WM_TEST_MESSAGE
 
-TEST(WindowSystem, RunMessageLoopShouldCloseOnWM_QUIT)
+class WindowSystemParameterizedTest : public testing::TestWithParam<UINT> {};
+TEST_P(WindowSystemParameterizedTest, RunMessageLoopShouldExitOnWM_QUITAndWM_CLOSEAndReturnNumberOfIterations)
 {
     class MockWindowsAPIWrapper : public IWindowsAPI
     {
@@ -87,7 +88,7 @@ TEST(WindowSystem, RunMessageLoopShouldCloseOnWM_QUIT)
 
     ON_CALL(mockWindowsAPI, GetMessage)
         .WillByDefault([](LPMSG LoopMessage) {
-            LoopMessage->message = WM_QUIT;
+            LoopMessage->message = GetParam();
             return TRUE;
         });
 
@@ -96,3 +97,8 @@ TEST(WindowSystem, RunMessageLoopShouldCloseOnWM_QUIT)
 
     EXPECT_EQ(actualIterations, 1);
 }
+INSTANTIATE_TEST_SUITE_P(
+    WindowSystem,
+    WindowSystemParameterizedTest,
+    testing::Values(WM_QUIT, WM_CLOSE)
+);

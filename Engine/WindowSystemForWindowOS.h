@@ -25,7 +25,7 @@ public:
         {
             ++Iterations;
             
-            if (Message.message == WM_QUIT)
+            if (Message.message == WM_QUIT || Message.message == WM_CLOSE)
             {
                 return Iterations;
             }
