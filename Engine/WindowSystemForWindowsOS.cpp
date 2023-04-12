@@ -35,10 +35,9 @@ void WindowSystemForWindowsOS::DisplayWindow()
     UpdateWindow(WindowHandle);
 }
 
-// TODO: Move this to interface.
-HWND WindowSystemForWindowsOS::GetWindowHandle()
+WindowHandle WindowSystemForWindowsOS::GetWindowHandle()
 {
-    return WindowHandle;
+    return reinterpret_cast<::WindowHandle>(WindowHandle);
 }
 
 LRESULT CALLBACK OnReceivedMessageToWindow(

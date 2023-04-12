@@ -11,4 +11,5 @@ public:
     virtual void DisplayWindow() = 0;
     virtual size_t RunMessageLoop(size_t MaxIterations = SIZE_MAX) = 0;
     virtual void CloseWindow() = 0;
+    virtual WindowHandle GetWindowHandle() = 0;
 };

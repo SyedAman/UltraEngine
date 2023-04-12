@@ -16,6 +16,7 @@ TEST(WindowLauncher, StartsWindowDisplaysThenRunsMessageLoopAndCanBeClosed)
         MOCK_METHOD(void, DisplayWindow, (), (override));
         MOCK_METHOD(size_t, RunMessageLoop, (size_t), (override));
         MOCK_METHOD(void, CloseWindow, (), (override));
+        MOCK_METHOD(WindowHandle, GetWindowHandle, (), (override));
     };
     
     MockWindowSystemForCustomOS mockWindowSystem;
@@ -34,18 +35,17 @@ TEST(WindowLauncher, StartsWindowDisplaysThenRunsMessageLoopAndCanBeClosed)
     MyWindowLauncher.LaunchWindow();
 }
 
-// Integration test
 TEST(WindowLauncher, IntegrationTest_LaunchWindowWithWindowsOS)
 {
-    WindowSystemForWindowsOS window_system;
-    WindowLauncher windowsOSWindowLauncher(window_system);
+    WindowSystemForWindowsOS windowSystem;
+    WindowLauncher windowsOSWindowLauncher(windowSystem);
 
     std::thread windowThread([&]() { windowsOSWindowLauncher.LaunchWindow(); });
     std::this_thread::sleep_for(std::chrono::milliseconds(1000));
     
-    HWND windowHandle = window_system.GetWindowHandle();
+    HWND windowHandle = reinterpret_cast<HWND>(windowSystem.GetWindowHandle());
     EXPECT_TRUE(IsWindowVisible(windowHandle));
 
-    window_system.CloseWindow();
+    windowSystem.CloseWindow();
     windowThread.join();
 }

@@ -37,7 +37,7 @@ public:
         return Iterations;
     }
 
-    HWND GetWindowHandle();
+    ::WindowHandle GetWindowHandle() override;
 };
 
 LRESULT CALLBACK OnReceivedMessageToWindow(
