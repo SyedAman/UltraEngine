@@ -48,11 +48,9 @@ TEST(WindowSystem, ShouldCreateWindowWithCorrectSizeAndPosition)
     DestroyWindow(reinterpret_cast<HWND>(WindowHandle));
 }
 
-// TODO: See if this can be moved inside the unit test.
-#define WM_TEST_MESSAGE (WM_USER + 1)
-
 TEST(WindowSystem, MessageLoopShouldProcessMessages)
 {
+    #define WM_TEST_MESSAGE (WM_USER + 1)
     WindowSystemForWindowsOS WindowSystem;
     WindowHandle WindowHandle = WindowSystem.StartWindowProcess(0, 0, 500, 500);
     WindowSystem.DisplayWindow();
@@ -70,9 +68,8 @@ TEST(WindowSystem, MessageLoopShouldProcessMessages)
     EXPECT_TRUE(testMessageProcessed);
 
     DestroyWindow(reinterpret_cast<HWND>(WindowHandle));
+    #undef WM_TEST_MESSAGE
 }
-
-#undef WM_TEST_MESSAGE
 
 class WindowSystemParameterizedTest : public testing::TestWithParam<UINT> {};
 TEST_P(WindowSystemParameterizedTest, RunMessageLoopShouldExitOnWM_QUITAndWM_CLOSEAndReturnNumberOfIterations)
