@@ -2,14 +2,14 @@
 #include <vulkan/vulkan_core.h>
 
 
-class IVulkanWrapper;
+class IVulkanAPI;
 
 class VulkanManager
 {
-    IVulkanWrapper* VulkanWrapper;
+    IVulkanAPI* VulkanWrapper;
 
 public:
-    VulkanManager(IVulkanWrapper* VulkanWrapper) : VulkanWrapper(VulkanWrapper) {}
+    VulkanManager(IVulkanAPI* VulkanWrapper) : VulkanWrapper(VulkanWrapper) {}
     
     VkPhysicalDevice SelectPhysicalDevice()
     {

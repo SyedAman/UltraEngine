@@ -6,7 +6,7 @@ WindowsAPIWrapper& WindowsAPIWrapper::Instance()
     return Instance;
 }
 
-BOOL WindowsAPIWrapper::GetMessageA(LPMSG LoopMessage)
+bool WindowsAPIWrapper::GetMessage(LPMSG LoopMessage)
 {
     return ::GetMessage(LoopMessage, NULL, 0, 0);
 }

@@ -15,7 +15,7 @@ public:
     WindowSystemForWindowsOS(IWindowsAPI& WindowsAPI) : WindowsAPI(WindowsAPI) {}
     
     ::WindowHandle StartWindowProcess(int X, int Y, int Width, int Height) override;
-    void CloseWindow() override { PostMessage(WindowHandle, WM_CLOSE, 0, 0); }
+    void CloseWindow() override;
     void DisplayWindow() override;
     FORCEINLINE size_t RunMessageLoop(size_t MaxIterations = SIZE_MAX) override
     {

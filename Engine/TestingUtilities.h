@@ -9,9 +9,7 @@
 class MockWindowsAPIWrapper : public IWindowsAPI
 {
 public:
-    MOCK_METHOD(BOOL, GetMessage, (LPMSG LoopMessage), (override));
+    MOCK_METHOD(bool, GetMessage, (LPMSG LoopMessage), (override));
 };
-
-
 
 #endif

@@ -79,11 +79,11 @@ TEST_P(WindowSystemParameterizedTest, RunMessageLoopShouldExitOnWM_QUITAndWM_CLO
     ON_CALL(mockWindowsAPI, GetMessage)
         .WillByDefault([](LPMSG LoopMessage) {
             LoopMessage->message = GetParam();
-            return TRUE;
+            return true;
         });
 
-    size_t maxIterations = 10;
-    size_t actualIterations = windowSystem.RunMessageLoop(maxIterations);
+    const size_t maxIterations = 10;
+    const size_t actualIterations = windowSystem.RunMessageLoop(maxIterations);
 
     EXPECT_EQ(actualIterations, 1);
 }

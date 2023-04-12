@@ -29,6 +29,11 @@ WindowHandle WindowSystemForWindowsOS::StartWindowProcess(int X, int Y, int Widt
     return reinterpret_cast<::WindowHandle>(WindowHandle);
 }
 
+void WindowSystemForWindowsOS::CloseWindow()
+{
+    PostMessage(WindowHandle, WM_CLOSE, 0, 0);
+}
+
 void WindowSystemForWindowsOS::DisplayWindow()
 {
     ShowWindow(WindowHandle, SW_SHOW);

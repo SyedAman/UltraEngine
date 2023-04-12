@@ -1,18 +1,9 @@
 ﻿#pragma once
 
-#include <vulkan/vulkan_core.h>
+#include "IVulkanAPI.h"
 
 
-class IVulkanWrapper
-{
-public:
-    virtual ~IVulkanWrapper() = default;
-
-    virtual VkResult CreateInstance(const VkInstanceCreateInfo* pCreateInfo, const VkAllocationCallbacks* pAllocator, VkInstance* pInstance) = 0;
-};
-
-
-class VulkanWrapper : public IVulkanWrapper
+class VulkanWrapper : public IVulkanAPI
 {
 public:
     VkResult CreateInstance(const VkInstanceCreateInfo* pCreateInfo, const VkAllocationCallbacks* pAllocator, VkInstance* pInstance) override

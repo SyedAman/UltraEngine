@@ -13,7 +13,7 @@ TEST(RenderHardwareInterface, CreateVulkanInstanceReturnsNewVulkanInstance)
     ASSERT_TRUE(instance != VK_NULL_HANDLE);
 }
 
-class MockVulkanWrapper : public IVulkanWrapper
+class MockVulkanWrapper : public IVulkanAPI
 {
 public:
     MOCK_METHOD(VkResult, CreateInstance, (const VkInstanceCreateInfo*, const VkAllocationCallbacks*,
