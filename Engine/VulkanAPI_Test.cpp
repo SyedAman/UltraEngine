@@ -1,6 +1,6 @@
 #include <gmock/gmock-function-mocker.h>
 
-#include "IVulkanAPI.h"
+#include "VulkanAPI.h"
 #include "RenderHardwareInterface.h"
 
 
@@ -13,8 +13,15 @@ public:
     MOCK_METHOD(VkInstanceCreateInfo, CreateInstanceCreateInfo, (VkApplicationInfo), (override));
 };
 
-class RenderHardwareInterfaceParameterizedTest : public testing::TestWithParam<VkResult> {};
-TEST_P(RenderHardwareInterfaceParameterizedTest, CreateInstanceThrowsExceptionOnOutOfHostMemory)
+TEST(VulkanAPI, CreateNewInstanceReturnsNewVulkanInstance)
+{
+    VulkanAPI vulkanAPI;
+    VkInstance instance = reinterpret_cast<VkInstance>(vulkanAPI.CreateInstance());
+    ASSERT_TRUE(instance != VK_NULL_HANDLE);
+}
+
+class VulkanAPIParameterizedTest : public testing::TestWithParam<VkResult> {};
+TEST_P(VulkanAPIParameterizedTest, CreateInstanceThrowsExceptionOnOutOfHostMemory)
 {
     MockVulkanWrapper mockVulkanAPI;
     RenderHardwareInterface rhi(&mockVulkanAPI);
@@ -30,8 +37,8 @@ TEST_P(RenderHardwareInterfaceParameterizedTest, CreateInstanceThrowsExceptionOn
     ASSERT_THROW(rhi.CreateInstance(), std::runtime_error);
 }
 INSTANTIATE_TEST_SUITE_P(
-    RenderHardwareInterfaceErrorCodes,
-    RenderHardwareInterfaceParameterizedTest,
+    VulkanAPIErrorCodes,
+    VulkanAPIParameterizedTest,
     testing::Values(
         VK_ERROR_OUT_OF_HOST_MEMORY,
         VK_ERROR_OUT_OF_DEVICE_MEMORY,

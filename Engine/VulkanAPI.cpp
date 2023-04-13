@@ -7,7 +7,6 @@ VkApplicationInfo VulkanAPI::FillOutApplicationInfo()
 {
     VkApplicationInfo appInfo{};
     appInfo.sType = VK_STRUCTURE_TYPE_APPLICATION_INFO;
-    appInfo.pApplicationName = "Vulkan Test";
     appInfo.pApplicationName = "My Vulkan Engine";
     appInfo.applicationVersion = VK_MAKE_VERSION(1, 0, 0);
     appInfo.pEngineName = "Custom Engine";
@@ -47,5 +46,5 @@ void* VulkanAPI::CreateInstance()
         return nullptr;
     }
 
-    return static_cast<void*>(instance);
+    return reinterpret_cast<void*>(instance);
 }

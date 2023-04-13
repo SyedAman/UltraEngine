@@ -21,7 +21,7 @@ TEST(RenderHardwareInterface, CreateInstanceReturnsNewInstance)
 }
 
 
-TEST(RenderHardwareInterfaceParameterizedTest, CreateInstanceThrowsExceptionWhenInstanceIsntValid)
+TEST(RenderHardwareInterface, CreateInstanceThrowsExceptionWhenInstanceIsntValid)
 {
     MockGraphicsAPI mockGraphicsAPI;
     ON_CALL(mockGraphicsAPI, CreateInstance)
