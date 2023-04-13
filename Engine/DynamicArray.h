@@ -8,6 +8,8 @@ class DynamicArray
     size_t Capacity_;
     T* Data_;
 
+    void Resize();
+
 public:
     DynamicArray() : Size_(0), Capacity_(0), Data_(new T[Size_]) { }
     DynamicArray(int Capacity) : Size_(0), Capacity_(Capacity), Data_(new T[Capacity]) { }
@@ -20,13 +22,17 @@ public:
     
     T& operator[](int i);
     const T& operator[](int i) const;
+
     T& Front();
     bool Empty() const;
+
     T* Begin();
-    const T* Begin() const;
     T* End();
+    
+    const T* Begin() const;
     const T* End() const;
 };
+
 
 template <typename T>
 size_t DynamicArray<T>::Size() const
@@ -35,18 +41,24 @@ size_t DynamicArray<T>::Size() const
 }
 
 template <typename T>
+void DynamicArray<T>::Resize()
+{
+    Capacity_ = Capacity_ == 0 ? 1 : Capacity_ * 2;
+    T* NewData = new T[Capacity_];
+    for (int i = 0; i < Size_; ++i)
+    {
+        NewData[i] = Data_[i];
+    }
+    delete[] Data_;
+    Data_ = NewData;
+}
+
+template <typename T>
 void DynamicArray<T>::PushBack(T Value)
 {
     if (Size_ >= Capacity_)
     {
-        Capacity_ = Capacity_ == 0 ? 1 : Capacity_ * 2;
-        T* NewData = new T[Capacity_];
-        for (int i = 0; i < Size_; ++i)
-        {
-            NewData[i] = Data_[i];
-        }
-        delete[] Data_;
-        Data_ = NewData;
+        Resize();
     }
     Data_[Size_++] = Value;
 }
