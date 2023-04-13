@@ -50,6 +50,7 @@ TEST(WindowSystem, ShouldCreateWindowWithCorrectSizeAndPosition)
 TEST(WindowSystem, MessageLoopShouldProcessMessages)
 {
     #define WM_TEST_MESSAGE (WM_USER + 1)
+    
     WindowSystemForWindowsOS WindowSystem;
     WindowHandle WindowHandle = WindowSystem.StartWindowProcess(0, 0, 500, 500);
     WindowSystem.DisplayWindow();
@@ -67,6 +68,7 @@ TEST(WindowSystem, MessageLoopShouldProcessMessages)
     EXPECT_TRUE(testMessageProcessed);
 
     DestroyWindow(reinterpret_cast<HWND>(WindowHandle));
+
     #undef WM_TEST_MESSAGE
 }
 
@@ -76,8 +78,8 @@ TEST_P(WindowSystemParameterizedTest, RunMessageLoopShouldExitOnWM_QUITAndWM_CLO
     MockWindowsAPIWrapper mockWindowsAPI;
     WindowSystemForWindowsOS windowSystem(mockWindowsAPI);
 
-    ON_CALL(mockWindowsAPI, GetMessage)
-        .WillByDefault([](LPMSG LoopMessage) {
+    ON_CALL(mockWindowsAPI, GetMessageWrapper)
+        .WillByDefault([](EventMessage* LoopMessage) {
             LoopMessage->message = GetParam();
             return true;
         });

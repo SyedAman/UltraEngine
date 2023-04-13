@@ -1,14 +1,8 @@
 #pragma once
 
+#include "IRenderHardwareInterface.h"
 #include "VulkanWrapper.h"
 
-
-class IRenderHardwareInterface
-{
-public:
-    virtual ~IRenderHardwareInterface() = default;
-    virtual VkInstance CreateVulkanInstance() = 0;
-};
 
 class RenderHardwareInterface : public IRenderHardwareInterface
 {
