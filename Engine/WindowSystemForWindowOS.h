@@ -1,6 +1,8 @@
 ﻿#pragma once
 #include "IPlatformWindowSystem.h"
+// TODO: Fix direct dependency on concrete Windows API Wrapper.
 #include "WindowsAPIWrapper.h"
+#include <functional>
 
 
 class IWindowsAPI;

@@ -1,9 +1,10 @@
 #include <gmock/gmock-function-mocker.h>
 
 #include "RenderHardwareInterface.h"
+#include "IVulkanAPI.h"
 
 
-class MockGraphicsAPI : public IGraphicsAPI
+class MockGraphicsAPI : public IVulkanAPI
 {
 public:
     MOCK_METHOD(void*, CreateInstance, (), (override));

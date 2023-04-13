@@ -11,4 +11,3 @@ void WindowLauncher::LaunchWindow()
     PlatformWindowSystem.DisplayWindow();
     PlatformWindowSystem.RunMessageLoop();
 }
-

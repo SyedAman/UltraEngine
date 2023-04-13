@@ -1,14 +1,13 @@
 ﻿#pragma once
-
 #include "IVulkanAPI.h"
-
 
 class VulkanAPI : public IVulkanAPI
 {
+    VkApplicationInfo FillOutApplicationInfo();
+    VkInstanceCreateInfo CreateInstanceCreateInfo(VkApplicationInfo appInfo);
+
 public:
     void* CreateInstance() override;
-    
-    VkApplicationInfo FillOutApplicationInfo() override;
-    VkInstanceCreateInfo CreateInstanceCreateInfo(VkApplicationInfo appInfo) override;
-};
 
+    VkPhysicalDevice SelectPhysicalDevice();
+};

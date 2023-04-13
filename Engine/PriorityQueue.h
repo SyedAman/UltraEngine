@@ -2,6 +2,7 @@
 #include <stdexcept>
 #include <vector>
 
+// TODO: Fix direct dependency on concrete DynamicArray.
 #include "DynamicArray.h"
 #include "UtilityFunctions.h"
 

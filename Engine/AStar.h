@@ -1,6 +1,7 @@
 ﻿#pragma once
 #include <vector>
 
+// TODO: Fix direct dependency on concrete Pair
 #include "Pair.h"
 
 using Coordinate = Pair<int, int>;

@@ -4,7 +4,7 @@
 
 void* RenderHardwareInterface::CreateInstance()
 {
-    void* instance = m_GraphicsAPI->CreateInstance();
+    void* instance = GraphicsAPI->CreateInstance();
     if (instance == nullptr)
     {
         throw std::runtime_error("Failed to create graphics api instance!");
@@ -12,6 +12,4 @@ void* RenderHardwareInterface::CreateInstance()
     
     return instance;
 }
-
-
 

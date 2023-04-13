@@ -14,10 +14,10 @@
 
 class RenderHardwareInterface : public IRenderHardwareInterface
 {
-    IGraphicsAPI* m_GraphicsAPI;
+    IGraphicsAPI* GraphicsAPI;
 
 public:
-    RenderHardwareInterface(IGraphicsAPI* GraphicsAPI) : m_GraphicsAPI(GraphicsAPI) {}
+    RenderHardwareInterface(IGraphicsAPI* GraphicsAPI) : GraphicsAPI(GraphicsAPI) {}
 
     void* CreateInstance() override;
 };

@@ -48,3 +48,8 @@ void* VulkanAPI::CreateInstance()
 
     return reinterpret_cast<void*>(instance);
 }
+
+VkPhysicalDevice VulkanAPI::SelectPhysicalDevice()
+{
+    return VkPhysicalDevice();
+}

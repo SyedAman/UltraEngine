@@ -4,13 +4,10 @@
 #include "RenderHardwareInterface.h"
 
 
-class MockVulkanWrapper : public IVulkanAPI
+class MockVulkanWrapper : public IGraphicsAPI
 {
 public:
     MOCK_METHOD(void*, CreateInstance, (), (override));
-
-    MOCK_METHOD(VkApplicationInfo, FillOutApplicationInfo, (), (override));
-    MOCK_METHOD(VkInstanceCreateInfo, CreateInstanceCreateInfo, (VkApplicationInfo), (override));
 };
 
 TEST(VulkanAPI, CreateNewInstanceReturnsNewVulkanInstance)
@@ -45,3 +42,21 @@ INSTANTIATE_TEST_SUITE_P(
         VK_ERROR_INITIALIZATION_FAILED
     )
 );
+
+TEST(VulkanAPI, ShouldReturnAValidPhysicalDevice)
+{
+    VulkanAPI vulkanAPI;
+
+    VkPhysicalDevice PhysicalDevice = vulkanAPI.SelectPhysicalDevice();
+    EXPECT_NE(PhysicalDevice, VK_NULL_HANDLE);
+}
+
+TEST(VulkanAPI, ShouldThrowAnErrorIfThereAreNoDevices)
+{
+    // Mock the get physical devices to return 0
+}
+
+TEST(VulkanAPI, ShouldFindDiscreteGPU)
+{
+
+}
