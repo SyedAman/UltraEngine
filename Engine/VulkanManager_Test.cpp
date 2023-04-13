@@ -3,11 +3,11 @@
 #include <gtest/gtest.h>
 #include <vulkan/vulkan_core.h>
 
-#include "VulkanWrapper.h"
+#include "VulkanAPI.h"
 
 TEST(VulkanManager, ShouldReturnAValidPhysicalDevice)
 {
-    VulkanWrapper VulkanWrapper;
+    VulkanAPI VulkanWrapper;
     VulkanManager MyVulkanManager(&VulkanWrapper);
 
     VkPhysicalDevice PhysicalDevice = MyVulkanManager.SelectPhysicalDevice();

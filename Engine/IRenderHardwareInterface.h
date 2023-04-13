@@ -1,8 +1,9 @@
-#include <vulkan/vulkan_core.h>
+#pragma once
+
 
 class IRenderHardwareInterface
 {
 public:
     virtual ~IRenderHardwareInterface() = default;
-    virtual VkInstance CreateVulkanInstance() = 0;
+    virtual void* CreateInstance() = 0;
 };
