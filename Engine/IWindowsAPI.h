@@ -1,10 +1,14 @@
 ﻿#pragma once
-// TODO: Get rid of direct dependency on Windows.h (Dependency inversion principle).
-#include <Windows.h>
+
+
+struct EventMessage
+{
+    unsigned int message;
+};
 
 class IWindowsAPI
 {
 public:
     // TODO: Add a destructor with unit tests.
-    virtual bool GetMessage(LPMSG LoopMessage) = 0;
+    virtual bool GetMessageWrapper(EventMessage* MessageQueueMessage) = 0;
 };

@@ -20,10 +20,14 @@ public:
     FORCEINLINE size_t RunMessageLoop(size_t MaxIterations = SIZE_MAX) override
     {
         MSG Message;
+        EventMessage eventMessage;
+
         size_t Iterations = 0;
-        while (Iterations < MaxIterations && WindowsAPI.GetMessage(&Message))
+        while (Iterations < MaxIterations && WindowsAPI.GetMessageWrapper(&eventMessage))
         {
             ++Iterations;
+
+            Message.message = eventMessage.message;
             
             if (Message.message == WM_QUIT || Message.message == WM_CLOSE)
             {
