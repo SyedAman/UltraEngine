@@ -11,8 +11,5 @@ class VulkanManager
 public:
     VulkanManager(IVulkanAPI* VulkanWrapper) : VulkanWrapper(VulkanWrapper) {}
     
-    VkPhysicalDevice SelectPhysicalDevice()
-    {
-        return VkPhysicalDevice();
-    }
+    VkPhysicalDevice SelectPhysicalDevice();
 };

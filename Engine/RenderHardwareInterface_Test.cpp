@@ -1,43 +1,32 @@
+#include <gmock/gmock-function-mocker.h>
+
 #include "RenderHardwareInterface.h"
 
-#include <gtest/gtest.h>
-#include <gmock/gmock.h>
 
-#include "VulkanWrapper.h"
-
-
-TEST(RenderHardwareInterface, CreateVulkanInstanceReturnsNewVulkanInstance)
-{
-    RenderHardwareInterface rhi(new VulkanWrapper());
-    VkInstance instance = rhi.CreateVulkanInstance();
-    ASSERT_TRUE(instance != VK_NULL_HANDLE);
-}
-
-class MockVulkanWrapper : public IVulkanAPI
+class MockGraphicsAPI : public IGraphicsAPI
 {
 public:
-    MOCK_METHOD(VkResult, CreateInstance, (const VkInstanceCreateInfo*, const VkAllocationCallbacks*,
-    VkInstance*), (override));
+    MOCK_METHOD(void*, CreateInstance, (), (override));
 };
 
-class RenderHardwareInterfaceParameterizedTest : public testing::TestWithParam<VkResult> {};
-TEST_P(RenderHardwareInterfaceParameterizedTest, CreateVulkanInstanceThrowsExceptionOnOutOfHostMemory)
+TEST(RenderHardwareInterface, CreateInstanceReturnsNewInstance)
 {
+    MockGraphicsAPI mockGraphicsAPI;
+    ON_CALL(mockGraphicsAPI, CreateInstance)
+        .WillByDefault(testing::Return(reinterpret_cast<void*>(1)));
     
-    MockVulkanWrapper mockVulkanWrapper;
-    RenderHardwareInterface rhi(&mockVulkanWrapper);
-
-    ON_CALL(mockVulkanWrapper, CreateInstance)
-        .WillByDefault(testing::Return(GetParam()));
-
-    ASSERT_THROW(rhi.CreateVulkanInstance(), std::runtime_error);
+    RenderHardwareInterface rhi(&mockGraphicsAPI);
+    void* instance = rhi.CreateInstance();
+    ASSERT_TRUE(instance != nullptr);
 }
-INSTANTIATE_TEST_SUITE_P(
-    RenderHardwareInterfaceErrorCodes,
-    RenderHardwareInterfaceParameterizedTest,
-    testing::Values(
-        VK_ERROR_OUT_OF_HOST_MEMORY,
-        VK_ERROR_OUT_OF_DEVICE_MEMORY,
-        VK_ERROR_INITIALIZATION_FAILED
-    )
-);
+
+
+TEST(RenderHardwareInterface, CreateInstanceThrowsExceptionWhenInstanceIsntValid)
+{
+    MockGraphicsAPI mockGraphicsAPI;
+    ON_CALL(mockGraphicsAPI, CreateInstance)
+        .WillByDefault(testing::Return(nullptr));
+    
+    RenderHardwareInterface rhi(&mockGraphicsAPI);
+    ASSERT_THROW(rhi.CreateInstance(), std::runtime_error);
+}

@@ -1,11 +1,14 @@
 ﻿#pragma once
 #include <vulkan/vulkan_core.h>
 
-class IVulkanAPI
+#include "IGraphicsAPI.h"
+
+class IVulkanAPI : public IGraphicsAPI
 {
 public:
     // TODO: Add unit tests for this destructor.
     virtual ~IVulkanAPI() = default;
 
-    virtual VkResult CreateInstance(const VkInstanceCreateInfo* pCreateInfo, const VkAllocationCallbacks* pAllocator, VkInstance* pInstance) = 0;
+    virtual VkApplicationInfo FillOutApplicationInfo() = 0;
+    virtual VkInstanceCreateInfo CreateInstanceCreateInfo(VkApplicationInfo appInfo) = 0;
 };

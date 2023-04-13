@@ -1,18 +1,23 @@
+/**
+ * The Render Hardware Interface is the abstraction layer that sits between the game engine and the underlying graphics
+ * API. Its responsibility is to provide a unified, __platform-agnostic__ interface for rendering operations, allowing
+ * the game engine to work seamlessly across multiple platforms and graphics APIs.
+ *
+ * This helps us avoid writing rendering code more than once.
+ */
+
 #pragma once
 
 #include "IRenderHardwareInterface.h"
-#include "VulkanWrapper.h"
+#include "IGraphicsAPI.h"
 
 
 class RenderHardwareInterface : public IRenderHardwareInterface
 {
-    IVulkanAPI* m_VulkanWrapper;
-
-    VkApplicationInfo FillOutApplicationInfo();
-    VkInstanceCreateInfo CreateInstanceCreateInfo(VkApplicationInfo appInfo);
+    IGraphicsAPI* m_GraphicsAPI;
 
 public:
-    RenderHardwareInterface(IVulkanAPI* VulkanWrapper) : m_VulkanWrapper(VulkanWrapper) {}
+    RenderHardwareInterface(IGraphicsAPI* GraphicsAPI) : m_GraphicsAPI(GraphicsAPI) {}
 
-    VkInstance CreateVulkanInstance() override;
+    void* CreateInstance() override;
 };
