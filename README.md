@@ -1,6 +1,6 @@
 # UltraEngine
 
-Game engine made using Vulkan, specifically made for creating a RTS game. But (hopefully) made modular enough to create other games.
+Work in progress game engine made using Vulkan, specifically made for creating a RTS game. But (hopefully) made modular enough to create other games.
 
 ## Stack
 
