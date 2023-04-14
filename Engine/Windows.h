@@ -1,12 +1,12 @@
 ﻿#pragma once
-#include "IWindowsAPI.h"
+#include "IOperatingSystem.h"
 #include <Windows.h>
 
-class WindowsAPIWrapper : public IWindowsAPI
+class Windows : public IOperatingSystem
 {
 public:
     // TODO: Unit test if it is an actual singleton?
-    static WindowsAPIWrapper& Instance();
+    static Windows& Instance();
 
     bool GetMessageWrapper(EventMessage* LoopMessage) override;
 

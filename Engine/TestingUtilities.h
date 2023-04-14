@@ -3,10 +3,10 @@
 
 #include <gmock/gmock-function-mocker.h>
 
-#include "IWindowsAPI.h"
+#include "IOperatingSystem.h"
 
 
-class MockWindowsAPIWrapper : public IWindowsAPI
+class MockWindowsAPIWrapper : public IOperatingSystem
 {
 public:
     MOCK_METHOD(bool, GetMessageWrapper, (EventMessage* MessageQueueMessage), (override));
