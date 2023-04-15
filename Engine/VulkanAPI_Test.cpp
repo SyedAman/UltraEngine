@@ -51,12 +51,5 @@ TEST(VulkanAPI, ShouldReturnAValidPhysicalDevice)
     EXPECT_NE(PhysicalDevice, VK_NULL_HANDLE);
 }
 
-TEST(VulkanAPI, ShouldThrowAnErrorIfThereAreNoDevices)
-{
-    // Mock the get physical devices to return 0
-}
-
-TEST(VulkanAPI, ShouldFindDiscreteGPU)
-{
-
-}
+// TODO: ShouldThrowAnErrorIfThereAreNoDevices
+// TODO: ShouldFindDiscreteGPU
