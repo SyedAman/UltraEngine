@@ -58,9 +58,3 @@ TEST(Entity, ShouldCompareEqualityForConstAndNonConstEntities) {
     ASSERT_TRUE(entity1 != entity3);
     ASSERT_FALSE(entity1 != entity2);
 }
-
-// TODO: These probably belong to a ComponentManager test suite. Move?
-TEST(Entity, ShouldAddComponentToEntity) {}
-TEST(Entity, ShouldRemoveComponentFromEntity) {}
-TEST(Entity, ShouldQueryEntityForComponent) {}
-TEST(Entity, ShouldGetComponentFromEntity) {}
