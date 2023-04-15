@@ -7,4 +7,5 @@ public:
     static const int INVALID_SOCKET_DESCRIPTOR = -1;
     
     int GetSocketDescriptor();
+    bool Create() override;
 };
