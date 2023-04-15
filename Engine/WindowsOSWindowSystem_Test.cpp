@@ -1,14 +1,15 @@
-﻿#include <functional>
+﻿#include "WindowsOSWindowSystem.h"
+
+#include <functional>
 #include <gmock/gmock-function-mocker.h>
 
 #include "TestingUtilities.h"
-#include "WindowSystemForWindowOS.h"
 #include "gtest/gtest.h"
 
 
 TEST(WindowSystem, StartWindowProcess)
 {
-    WindowSystemForWindowsOS WindowSystem;
+    WindowsOSWindowSystem WindowSystem;
     WindowHandle WindowHandle = WindowSystem.StartWindowProcess(0, 0, 500, 500);
 
     EXPECT_TRUE(WindowHandle != nullptr);
@@ -17,7 +18,7 @@ TEST(WindowSystem, StartWindowProcess)
 
 TEST(WindowSystem, DisplayWindow)
 {
-    WindowSystemForWindowsOS WindowSystem;
+    WindowsOSWindowSystem WindowSystem;
     WindowHandle WindowHandle = WindowSystem.StartWindowProcess(0, 0, 500, 500);
 
     WindowSystem.DisplayWindow();
@@ -33,7 +34,7 @@ TEST(WindowSystem, ShouldCreateWindowWithCorrectSizeAndPosition)
     int width = 800;
     int height = 600;
 
-    WindowSystemForWindowsOS WindowSystem;
+    WindowsOSWindowSystem WindowSystem;
     WindowHandle WindowHandle = WindowSystem.StartWindowProcess(x, y, width, height);
 
     RECT WindowRect;
@@ -51,7 +52,7 @@ TEST(WindowSystem, MessageLoopShouldProcessMessages)
 {
     #define WM_TEST_MESSAGE (WM_USER + 1)
     
-    WindowSystemForWindowsOS WindowSystem;
+    WindowsOSWindowSystem WindowSystem;
     WindowHandle WindowHandle = WindowSystem.StartWindowProcess(0, 0, 500, 500);
     WindowSystem.DisplayWindow();
 
@@ -76,9 +77,9 @@ class WindowSystemParameterizedTest : public testing::TestWithParam<UINT> {};
 TEST_P(WindowSystemParameterizedTest, RunMessageLoopShouldExitOnWM_QUITAndWM_CLOSEAndReturnNumberOfIterations)
 {
     MockWindowsAPIWrapper mockWindowsAPI;
-    WindowSystemForWindowsOS windowSystem(mockWindowsAPI);
+    WindowsOSWindowSystem windowSystem(mockWindowsAPI);
 
-    ON_CALL(mockWindowsAPI, GetMessageWrapper)
+    ON_CALL(mockWindowsAPI, GetEventMessage)
         .WillByDefault([](EventMessage* LoopMessage) {
             LoopMessage->message = GetParam();
             return true;

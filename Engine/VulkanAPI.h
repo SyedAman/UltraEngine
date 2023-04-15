@@ -1,4 +1,8 @@
-﻿#pragma once
+﻿/**
+ * A wrapper for the Vulkan SDK.
+ */
+
+#pragma once
 #include "IVulkanAPI.h"
 
 class VulkanAPI : public IVulkanAPI

@@ -1,9 +1,9 @@
-﻿#include <Windows.h>
+﻿#include "WindowsOSWindowSystem.h"
 
-#include "WindowSystemForWindowOS.h"
+#include "IPlatformWindowSystem.h"
 
 
-WindowHandle WindowSystemForWindowsOS::StartWindowProcess(int X, int Y, int Width, int Height)
+WindowHandle WindowsOSWindowSystem::StartWindowProcess(int X, int Y, int Width, int Height)
 {
     const HINSTANCE ExecutableInstanceThatOwnsTheWindow = GetModuleHandle(NULL);
 
@@ -29,18 +29,18 @@ WindowHandle WindowSystemForWindowsOS::StartWindowProcess(int X, int Y, int Widt
     return reinterpret_cast<::WindowHandle>(WindowHandle);
 }
 
-void WindowSystemForWindowsOS::CloseWindow()
+void WindowsOSWindowSystem::CloseWindow()
 {
     PostMessage(WindowHandle, WM_CLOSE, 0, 0);
 }
 
-void WindowSystemForWindowsOS::DisplayWindow()
+void WindowsOSWindowSystem::DisplayWindow()
 {
     ShowWindow(WindowHandle, SW_SHOW);
     UpdateWindow(WindowHandle);
 }
 
-WindowHandle WindowSystemForWindowsOS::GetWindowHandle()
+WindowHandle WindowsOSWindowSystem::GetWindowHandle()
 {
     return reinterpret_cast<::WindowHandle>(WindowHandle);
 }

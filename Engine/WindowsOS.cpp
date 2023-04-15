@@ -1,12 +1,12 @@
-﻿#include "Windows.h"
+﻿#include "WindowsOS.h"
 
-Windows& Windows::Instance()
+WindowsOS& WindowsOS::Instance()
 {
-    static Windows Instance;
+    static WindowsOS Instance;
     return Instance;
 }
 
-bool Windows::GetMessageWrapper(EventMessage* LoopMessage)
+bool WindowsOS::GetEventMessage(EventMessage* LoopMessage)
 {
     MSG msg;
     const bool result = GetMessagePtr(&msg, NULL, 0, 0);

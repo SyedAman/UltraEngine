@@ -10,5 +10,5 @@ class IOperatingSystem
 {
 public:
     // TODO: Add a destructor with unit tests.
-    virtual bool GetMessageWrapper(EventMessage* MessageQueueMessage) = 0;
+    virtual bool GetEventMessage(EventMessage* MessageQueueMessage) = 0;
 };

@@ -1,20 +1,20 @@
 ﻿#pragma once
 #include "IPlatformWindowSystem.h"
 // TODO: Fix direct dependency on concrete Windows API Wrapper.
-#include "Windows.h"
+#include "WindowsOS.h"
 #include <functional>
 
 
 class IOperatingSystem;
 
-class WindowSystemForWindowsOS : public IPlatformWindowSystem
+class WindowsOSWindowSystem : public IPlatformWindowSystem
 {
     HWND WindowHandle = NULL;
     IOperatingSystem& WindowsAPI;
 
 public:
-    WindowSystemForWindowsOS() : WindowsAPI(Windows::Instance()) {}
-    WindowSystemForWindowsOS(IOperatingSystem& WindowsAPI) : WindowsAPI(WindowsAPI) {}
+    WindowsOSWindowSystem() : WindowsAPI(WindowsOS::Instance()) {}
+    WindowsOSWindowSystem(IOperatingSystem& OperatingSystem) : WindowsAPI(OperatingSystem) {}
     
     ::WindowHandle StartWindowProcess(int X, int Y, int Width, int Height) override;
     void CloseWindow() override;
@@ -25,7 +25,7 @@ public:
         EventMessage eventMessage;
 
         size_t Iterations = 0;
-        while (Iterations < MaxIterations && WindowsAPI.GetMessageWrapper(&eventMessage))
+        while (Iterations < MaxIterations && WindowsAPI.GetEventMessage(&eventMessage))
         {
             ++Iterations;
 

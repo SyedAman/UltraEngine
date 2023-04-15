@@ -4,7 +4,7 @@
 #include <gmock/gmock-function-mocker.h>
 
 #include "IPlatformWindowSystem.h"
-#include "WindowSystemForWindowOS.h"
+#include "WindowsOSWindowSystem.h"
 
 
 TEST(WindowLauncher, StartsWindowDisplaysThenRunsMessageLoopAndCanBeClosed)
@@ -37,7 +37,7 @@ TEST(WindowLauncher, StartsWindowDisplaysThenRunsMessageLoopAndCanBeClosed)
 
 TEST(WindowLauncher, IntegrationTest_LaunchWindowWithWindowsOS)
 {
-    WindowSystemForWindowsOS windowSystem;
+    WindowsOSWindowSystem windowSystem;
     WindowLauncher windowsOSWindowLauncher(windowSystem);
 
     std::thread windowThread([&]() { windowsOSWindowLauncher.LaunchWindow(); });
