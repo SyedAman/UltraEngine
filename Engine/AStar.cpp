@@ -65,27 +65,14 @@ std::vector<Coordinate> AStar::GetViableNeighbors(const Coordinate& Node)
     Coordinate LeftNeighbor(Node.First - 1, Node.Second);
     Coordinate UpNeighbor(Node.First, Node.Second - 1);
     
-    // Get rid of all neighbors that are out of bounds
-    if (IsInBounds(RightNeighbor) && !IsAnObstacle(RightNeighbor))
+    for (const auto& Neighbor : {RightNeighbor, DownNeighbor, LeftNeighbor, UpNeighbor})
     {
-        AvailableNeighbors.push_back(RightNeighbor);
+        if (IsInBounds(Neighbor) && !IsAnObstacle(Neighbor))
+        {
+            AvailableNeighbors.push_back(Neighbor);
+        }
     }
-
-    if (IsInBounds(DownNeighbor) && !IsAnObstacle(DownNeighbor))
-    {
-        AvailableNeighbors.push_back(DownNeighbor);
-    }
-
-    if (IsInBounds(LeftNeighbor) && !IsAnObstacle(LeftNeighbor))
-    {
-        AvailableNeighbors.push_back(LeftNeighbor);
-    }
-
-    if (IsInBounds(UpNeighbor) && !IsAnObstacle(UpNeighbor))
-    {
-        AvailableNeighbors.push_back(UpNeighbor);
-    }
-        
+    
     return AvailableNeighbors;
 }
 
