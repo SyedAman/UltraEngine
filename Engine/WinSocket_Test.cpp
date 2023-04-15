@@ -2,13 +2,13 @@
 
 #include <gtest/gtest.h>
 
-#include "DedicatedServer.h"
+#include "Server.h"
 
 
 TEST(WinSocket, ShouldCreateValidSocket)
 {
     WinSocket winSocket;
-    DedicatedServer server(&winSocket);
+    Server server(&winSocket);
     ASSERT_TRUE(server.CreateSocket());
 
     const int socketDescriptor = winSocket.GetSocketDescriptor();

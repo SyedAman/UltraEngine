@@ -1,4 +1,4 @@
-#include "DedicatedServer.h"
+#include "Server.h"
 
 #include <gmock/gmock-function-mocker.h>
 #include <gmock/gmock-spec-builders.h>
@@ -17,14 +17,14 @@ public:
 TEST(DedicatedServer, ShouldInstantiateDedicatedServer)
 {
     MockSocket mockSocket;
-    DedicatedServer server(&mockSocket);
+    Server server(&mockSocket);
     EXPECT_NE(nullptr, &server);
 }
 
 TEST(DedicatedServer, ShouldCreateValidSocket)
 {
     MockSocket mockSocket;
-    DedicatedServer server(&mockSocket);
+    Server server(&mockSocket);
     
     ON_CALL(mockSocket, Create())
         .WillByDefault(testing::Return(true));

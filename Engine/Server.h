@@ -2,9 +2,9 @@
 
 class ISocket;
 
-class DedicatedServer
+class Server
 {
 public:
-    DedicatedServer(ISocket* socket) {}
+    Server(ISocket* socket) {}
     bool CreateSocket();
 };
