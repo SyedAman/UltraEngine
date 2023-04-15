@@ -431,7 +431,7 @@ collision engine.
 
 ### Abilities
 
-# Editor Architecture - Unreal Editor
+# Editor Architecture
 
 ### Skeletons and Animation
 
