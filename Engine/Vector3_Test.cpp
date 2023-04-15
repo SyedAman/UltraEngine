@@ -26,7 +26,6 @@ TEST(Vector3, ShouldTestEqualityAndInequality)
 
 // ShouldDoDivision
 
-
 // ShouldAccessComponents
 
 // ShouldDoDotProduct
