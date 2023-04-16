@@ -183,3 +183,12 @@ TEST(DynamicArray, SupportsInitializerList)
     
     DynamicArray<Pair<int, int>> arr3 = {};
 }
+
+TEST(DynamicArray, GetData)
+{
+    DynamicArray<int> arr = { 1, 2, 3 };
+    int* data = arr.Data();
+    EXPECT_EQ(data[0], 1);
+    EXPECT_EQ(data[1], 2);
+    EXPECT_EQ(data[2], 3);
+}

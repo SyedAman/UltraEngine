@@ -35,6 +35,8 @@ public:
     
     const T* Begin() const;
     const T* End() const;
+
+    constexpr T* Data() const;
 };
 
 
@@ -142,4 +144,10 @@ template <typename T>
 const T* DynamicArray<T>::End() const
 {
     return Data_ + Size_;
+}
+
+template <typename T>
+constexpr T* DynamicArray<T>::Data() const
+{
+    return Data_;
 }
