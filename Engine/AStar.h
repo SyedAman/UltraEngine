@@ -21,11 +21,11 @@ public:
     std::vector<Coordinate> GetPath();
 
     std::vector<std::vector<int>> GetMatrix();
-    Coordinate GetStartingPoint();
-    Coordinate GetDestinationPoint();
-    bool IsInBounds(Coordinate Coordinate);
-    bool IsAnObstacle(Coordinate RightNeighbor);
-    std::vector<Coordinate> GetViableNeighbors(const Coordinate& Node);
+    Coordinate GetStartingPoint() const;
+    Coordinate GetDestinationPoint() const;
+    bool IsInBounds(Coordinate Coordinate) const;
+    bool IsAnObstacle(Coordinate RightNeighbor) const;
+    std::vector<Coordinate> GetViableNeighbors(const Coordinate& Node) const;
     void SetStartingPoint(const Coordinate& Coordinate);
     void SetDestinationPoint(const Coordinate& Coordinate);
 };

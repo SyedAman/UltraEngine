@@ -33,23 +33,23 @@ std::vector<std::vector<int>> AStar::GetMatrix()
     return FlippedMatrix;
 }
 
-Coordinate AStar::GetStartingPoint()
+Coordinate AStar::GetStartingPoint() const
 {
     return StartingPoint;
 }
 
-Coordinate AStar::GetDestinationPoint()
+Coordinate AStar::GetDestinationPoint() const
 {
     return DestinationPoint;
 }
 
-bool AStar::IsInBounds(Coordinate Coordinate)
+bool AStar::IsInBounds(Coordinate Coordinate) const
 {
     return Coordinate.Second < FlippedMatrix.size() && Coordinate.Second >= 0 && Coordinate.First < FlippedMatrix[0].size() &&
         Coordinate.First >= 0;
 }
 
-bool AStar::IsAnObstacle(Coordinate RightNeighbor)
+bool AStar::IsAnObstacle(const Coordinate RightNeighbor) const
 {
     if (!IsInBounds(RightNeighbor))
     {
@@ -58,7 +58,7 @@ bool AStar::IsAnObstacle(Coordinate RightNeighbor)
     return FlippedMatrix[RightNeighbor.Second][RightNeighbor.First] == 1;
 }
 
-std::vector<Coordinate> AStar::GetViableNeighbors(const Coordinate& Node)
+std::vector<Coordinate> AStar::GetViableNeighbors(const Coordinate& Node) const
 {
     std::vector<Coordinate> AvailableNeighbors;
 
@@ -106,8 +106,9 @@ void AStar::SetDestinationPoint(const Coordinate& Coordinate)
 
 struct Node
 {
-    Node(const Coordinate& coordinate, int distanceFromStart, int distanceToDestination, int totalDistance, std::shared_ptr<Node> parent)
-        : Coordinate(coordinate), DistanceFromStart(distanceFromStart), DistanceToDestination(distanceToDestination), TotalDistance(totalDistance), Parent(parent) {}
+    Node(const Coordinate& InCoordinate, const int InDistanceFromStart, const int InDistanceToDestination, const int InTotalDistance, std::shared_ptr<Node> parent)
+        : Coordinate(InCoordinate), DistanceFromStart(InDistanceFromStart), DistanceToDestination(InDistanceToDestination), TotalDistance(InTotalDistance), Parent(
+              std::move(parent)) {}
     
     Coordinate Coordinate;
     int DistanceFromStart;
@@ -116,27 +117,27 @@ struct Node
     std::shared_ptr<Node> Parent;
 };
 
-std::vector<Coordinate> ConstructPath(const std::shared_ptr<Node>& node)
+std::vector<Coordinate> ConstructPath(const std::shared_ptr<Node>& InNode)
 {
-    std::vector<Coordinate> path;
-    std::shared_ptr<Node> current = node;
-    while (current)
+    std::vector<Coordinate> Path;
+    std::shared_ptr<Node> Current = InNode;
+    while (Current)
     {
-        path.push_back(current->Coordinate);
-        current = current->Parent;
+        Path.push_back(Current->Coordinate);
+        Current = Current->Parent;
     }
     
-    std::reverse(path.begin(), path.end());
-    return path;
+    std::reverse(Path.begin(), Path.end());
+    return Path;
 }
 
 using NodePtr = std::shared_ptr<Node>;
 
 struct NodeComparator
 {
-    bool operator()(const NodePtr& left, const NodePtr& right) const
+    bool operator()(const NodePtr& Left, const NodePtr& Right) const
     {
-        return left->TotalDistance < right->TotalDistance;
+        return Left->TotalDistance < Right->TotalDistance;
     }
 };
 
@@ -174,8 +175,8 @@ std::vector<Coordinate> AStar::GetPath()
                     const int distanceToDestination = std::abs(neighbor.First - DestinationPoint.First) + std::abs(neighbor.Second - DestinationPoint.Second);
                     const int totalDistance = distanceFromStart + distanceToDestination;
 
-                    NodePtr newNode = std::make_shared<Node>(Node{neighbor, distanceFromStart, distanceToDestination, totalDistance, currentNode});
-                    PotentialCandidates.Push(newNode);
+                    const NodePtr NewNode = std::make_shared<Node>(Node{neighbor, distanceFromStart, distanceToDestination, totalDistance, currentNode});
+                    PotentialCandidates.Push(NewNode);
                 }
             }
         }
