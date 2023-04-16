@@ -1,3 +1,5 @@
+// Copyright Syed Aman. All Rights Reserved.
+
 #include "Entity.h"
 
 #include <gtest/gtest.h>

@@ -1,4 +1,6 @@
-﻿#include "AStar.h"
+﻿// Copyright Syed Aman. All Rights Reserved.
+
+#include "AStar.h"
 
 #include <memory>
 #include <set>

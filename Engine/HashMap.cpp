@@ -1,1 +1,3 @@
-﻿#include "HashMap.h"
+﻿// Copyright Syed Aman. All Rights Reserved.
+
+#include "HashMap.h"
