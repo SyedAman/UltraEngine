@@ -4,8 +4,8 @@
 
 struct Entity
 {
-    int Id;
+    int EntityID;
     
-    Entity(int Id);
+    Entity(int EntityID);
     auto operator<=>(const Entity& entity) const = default;
 };

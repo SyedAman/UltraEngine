@@ -5,10 +5,10 @@
 TEST(Entity, ShouldCreateCreateWithPublicallyAccessibleID)
 {
     const Entity entity1(0);
-    ASSERT_EQ(entity1.Id, 0);
+    ASSERT_EQ(entity1.EntityID, 0);
 
     const Entity entity2(1);
-    ASSERT_EQ(entity2.Id, 1);
+    ASSERT_EQ(entity2.EntityID, 1);
 }
 
 TEST(Entity, ShouldCompareEqualityByID)
@@ -37,14 +37,14 @@ TEST(Entity, ShouldCompareUsingCustomOperators) {
 TEST(Entity, ShouldCopyConstructWithSameID) {
     Entity entity1(1);
     Entity entity2(entity1);
-    ASSERT_EQ(entity1.Id, entity2.Id);
+    ASSERT_EQ(entity1.EntityID, entity2.EntityID);
 }
 
 TEST(Entity, ShouldAssignWithSameID) {
     Entity entity1(1);
     Entity entity2(3);
     entity2 = entity1;
-    ASSERT_EQ(entity1.Id, entity2.Id);
+    ASSERT_EQ(entity1.EntityID, entity2.EntityID);
 }
 
 TEST(Entity, ShouldCompareEqualityForConstAndNonConstEntities) {
