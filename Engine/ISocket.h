@@ -3,6 +3,7 @@
 class ISocket
 {
 public:
+    virtual ~ISocket() = default;
     static const int INVALID_SOCKET_DESCRIPTOR = -1;
 
     virtual bool Create() = 0;

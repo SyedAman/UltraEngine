@@ -9,6 +9,6 @@ struct EventMessage
 class IOperatingSystem
 {
 public:
-    // TODO: Add a destructor with unit tests.
+    virtual ~IOperatingSystem() = default;
     virtual bool GetEventMessage(EventMessage* MessageQueueMessage) = 0;
 };
