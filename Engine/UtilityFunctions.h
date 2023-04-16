@@ -25,7 +25,7 @@ struct Less<Pair<T1, T2>> {
     }
 };
 
-struct GenericFunctor
+struct IdentityFunctor
 {
     template <typename T>
     T&& operator()(T&& Val) const

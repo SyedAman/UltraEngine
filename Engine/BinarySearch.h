@@ -7,7 +7,7 @@
 namespace Algo
 {
     template <typename RangeValueType, typename SizeType, typename PredicateValueType, typename ProjectionType, typename SortPredicateType>
-    size_t BinarySearch(RangeValueType* PointerToArray, const SizeType ArrCount, const PredicateValueType& Target, ProjectionType Projection = GenericFunctor(), SortPredicateType SortPredicate = Less<PredicateValueType>())
+    size_t BinarySearch(RangeValueType* PointerToArray, const SizeType ArrCount, const PredicateValueType& Target, ProjectionType Projection = IdentityFunctor(), SortPredicateType SortPredicate = Less<PredicateValueType>())
     {
         SizeType LowerBound = 0;
         SizeType UpperBound = ArrCount;
@@ -30,6 +30,6 @@ namespace Algo
     template <typename RangeValueType, typename SizeType, typename PredicateValueType>
     size_t BinarySearch(RangeValueType* PointerToArray, const SizeType ArrCount, const PredicateValueType& Target)
     {
-        return BinarySearch(PointerToArray, ArrCount, Target, GenericFunctor(), Less<PredicateValueType>());
+        return BinarySearch(PointerToArray, ArrCount, Target, IdentityFunctor(), Less<PredicateValueType>());
     }
 }
