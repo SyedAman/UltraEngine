@@ -24,3 +24,12 @@ struct Less<Pair<T1, T2>> {
         return lhs < rhs;
     }
 };
+
+struct GenericFunctor
+{
+    template <typename T>
+    T&& operator()(T&& Val) const
+    {
+        return (T&&)Val;
+    }
+};
