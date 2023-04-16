@@ -1,5 +1,6 @@
 ﻿#pragma once
 
+#include <initializer_list>
 
 template <typename T>
 class DynamicArray
@@ -11,8 +12,9 @@ class DynamicArray
     void Resize();
 
 public:
-    DynamicArray() : Size_(0), Capacity_(0), Data_(new T[Size_]) { }
+    DynamicArray() : Size_(0), Capacity_(0), Data_(new T[Capacity_]) { }
     DynamicArray(int Capacity) : Size_(0), Capacity_(Capacity), Data_(new T[Capacity]) { }
+    DynamicArray(std::initializer_list<T> InitializerList);
     ~DynamicArray() { delete[] Data_; }
 
     size_t Size() const;
@@ -33,6 +35,20 @@ public:
     const T* End() const;
 };
 
+
+template <typename T>
+DynamicArray<T>::DynamicArray(std::initializer_list<T> InitializerList)
+{
+    Size_ = 0;
+    Capacity_ = 0;
+    Data_ = new T[Capacity_];
+
+    // TODO: This is terrible, create and use a Copy function with malloc.
+    for (T Element : InitializerList)
+    {
+        PushBack(Element);
+    }
+}
 
 template <typename T>
 size_t DynamicArray<T>::Size() const

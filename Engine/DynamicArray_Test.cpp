@@ -166,3 +166,18 @@ TEST(DynamicArray, End)
     arr2.PushBack({ 5, 6 });
     EXPECT_EQ((arr2.End() - 1)->First, 5);
 }
+
+TEST(DynamicArray, SupportsInitializerList)
+{
+    DynamicArray<int> arr = { 1, 2, 3 };
+    EXPECT_EQ(arr.Size(), 3);
+    EXPECT_EQ(arr[0], 1);
+    EXPECT_EQ(arr[1], 2);
+    EXPECT_EQ(arr[2], 3);
+
+    DynamicArray<Pair<int, int>> arr2 = { {1, 2}, {3, 4}, {5, 6} };
+    EXPECT_EQ(arr2.Size(), 3);
+    EXPECT_EQ(arr2[0].First, 1);
+    
+    DynamicArray<Pair<int, int>> arr3 = {};
+}
