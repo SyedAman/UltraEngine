@@ -5,6 +5,7 @@
 struct Entity
 {
     int Id;
-    Entity(int Id) : Id(Id) {}
+    
+    Entity(int Id);
     auto operator<=>(const Entity& entity) const = default;
 };
