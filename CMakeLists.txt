@@ -16,11 +16,13 @@ include_directories(${GOOGLETEST_PATH}/googlemock/include)
 
 # Add source files (Note: GLOB_RECURSE not recommended due to removing files not triggering build system reconfiguration, but this project is big)
 file(GLOB_RECURSE SOURCES "${PROJECT_SOURCE_DIR}/Engine/*.cpp" "${PROJECT_SOURCE_DIR}/Engine/*.h")
+file(GLOB_RECURSE TEST_SOURCES "${PROJECT_SOURCE_DIR}/Engine/*_Test.cpp" "${PROJECT_SOURCE_DIR}/Engine/*_Test.h")
+list(REMOVE_ITEM SOURCES ${TEST_SOURCES})
 
-# Create executable
-add_executable(CustomEngine ${SOURCES})
-
-# Link libraries
+# Create executable and link libraries
+add_executable(CustomEngine ${SOURCES} ${TEST_SOURCES})
 target_link_libraries(CustomEngine gtest gmock gtest_main ${VULKAN_LIB_LIST})
 
-
+# Create the engine library (for our games to depend on) and link libraries
+add_library(EngineLib STATIC ${SOURCES})
+target_link_libraries(EngineLib ${VULKAN_LIB_LIST})
