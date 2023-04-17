@@ -136,37 +136,49 @@ TEST(DynamicArray, ConstBracketOperator)
     EXPECT_EQ(constArr[2], 3);
 }
 
-TEST(DynamicArray, Begin)
+TEST(DynamicArray, BeginAndBeginConst)
 {
     DynamicArray<int> arr;
     arr.PushBack(1);
     arr.PushBack(2);
     arr.PushBack(3);
-    EXPECT_EQ(*arr.Begin(), 1);
+    EXPECT_EQ(*arr.begin(), 1);
 
-    // const
     const DynamicArray<int>& constArr = arr;
-    EXPECT_EQ(*constArr.Begin(), 1);
+    EXPECT_EQ(*constArr.begin(), 1);
 }
 
-TEST(DynamicArray, End)
+TEST(DynamicArray, EndAndEndConst)
 {
     DynamicArray<int> arr;
     arr.PushBack(1);
     arr.PushBack(2);
     arr.PushBack(3);
-    EXPECT_EQ(*(arr.End() - 1), 3);
+    EXPECT_EQ(*(arr.end() - 1), 3);
 
-    // const
     const DynamicArray<int>& constArr = arr;
-    EXPECT_EQ(*(constArr.End() - 1), 3);
+    EXPECT_EQ(*(constArr.end() - 1), 3);
 
     // Works for other types too
     DynamicArray<Pair<int, int>> arr2;
     arr2.PushBack({ 1, 2 });
     arr2.PushBack({ 3, 4 });
     arr2.PushBack({ 5, 6 });
-    EXPECT_EQ((arr2.End() - 1)->First, 5);
+    EXPECT_EQ((arr2.end() - 1)->First, 5);
+}
+
+TEST(DynamicArray, RangedFor)
+{
+    DynamicArray<int> arr;
+    arr.PushBack(1);
+    arr.PushBack(2);
+    arr.PushBack(3);
+
+    int sum = 0;
+    for (int i : arr) {
+        sum += i;
+    }
+    EXPECT_EQ(sum, 6);
 }
 
 TEST(DynamicArray, SupportsInitializerList)

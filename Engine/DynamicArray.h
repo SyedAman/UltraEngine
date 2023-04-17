@@ -30,11 +30,11 @@ public:
     T& Front();
     bool Empty() const;
 
-    T* Begin();
-    T* End();
+    T* begin();
+    T* end();
     
-    const T* Begin() const;
-    const T* End() const;
+    const T* begin() const;
+    const T* end() const;
 
     constexpr T* Data() const;
 };
@@ -123,25 +123,25 @@ bool DynamicArray<T>::Empty() const
 }
 
 template <typename T>
-T* DynamicArray<T>::Begin()
+T* DynamicArray<T>::begin()
 {
     return Data_;
 }
 
 template <typename T>
-const T* DynamicArray<T>::Begin() const
+const T* DynamicArray<T>::begin() const
 {
     return Data_;
 }
 
 template <typename T>
-T* DynamicArray<T>::End()
+T* DynamicArray<T>::end()
 {
     return Data_ + Size_;
 }
 
 template <typename T>
-const T* DynamicArray<T>::End() const
+const T* DynamicArray<T>::end() const
 {
     return Data_ + Size_;
 }
