@@ -14,16 +14,7 @@ TEST(String, ShouldCreateFromStringLiteral)
     const String str("hello");
     ASSERT_EQ(str, "hello");
 }
-TEST(String, ShouldHaveStringComparisons)
-{
-    const String str("hello");
-    // ASSERT_TRUE(str == "hello");
-    // ASSERT_TRUE(str != "world");
-//     ASSERT_TRUE(str < "world");
-//     ASSERT_TRUE(str <= "world");
-//     ASSERT_TRUE(str > "a");
-//     ASSERT_TRUE(str >= "a");
-}
+TEST(String, ShouldHaveStringComparisons) {}
 TEST(String, ShouldCreateFromStdString) {}
 TEST(String, ShouldCreateFromStringObject) {}
 
