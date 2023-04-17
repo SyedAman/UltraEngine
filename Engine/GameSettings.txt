@@ -1,0 +1,2 @@
+StartingResources 15
+TeamSize 10
