@@ -1,4 +1,7 @@
-﻿#pragma once
+﻿// Copyright Syed Aman. All rights reserved.
+
+#pragma once
+
 #include "DynamicArray.h"
 #include "Pair.h"
 

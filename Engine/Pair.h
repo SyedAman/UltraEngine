@@ -1,4 +1,6 @@
-﻿#pragma once
+﻿// Copyright Syed Aman. All rights reserved.
+
+#pragma once
 
 template <typename T1, typename T2>
 class Pair

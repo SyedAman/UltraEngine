@@ -1,5 +1,6 @@
-﻿#pragma once
+﻿// Copyright Syed Aman. All rights reserved.
 
+#pragma once
 
 class String
 {
