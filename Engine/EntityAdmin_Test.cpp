@@ -1,9 +1,6 @@
 // Copyright Syed Aman. All Rights Reserved.
-
 #include "EntityAdmin.h"
-
 #include <gtest/gtest.h>
-
 
 TEST(EntityAdmin, ShouldCreate)
 {

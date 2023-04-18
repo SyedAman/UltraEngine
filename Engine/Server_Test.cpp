@@ -1,3 +1,4 @@
+// Copyright Syed Aman. All rights reserved.
 #include "Server.h"
 
 #include <gmock/gmock-function-mocker.h>

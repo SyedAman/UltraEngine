@@ -1,13 +1,10 @@
 ﻿// Copyright Syed Aman. All Rights Reserved.
-
-#include "AStar.h"
-
 #include <memory>
 #include <set>
 #include <stdexcept>
 
+#include "AStar.h"
 #include "PriorityQueue.h"
-
 
 AStar::AStar(const std::vector<std::vector<int>>& FlippedMatrix)
 {
