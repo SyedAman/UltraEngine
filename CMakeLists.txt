@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.15)
-project(CustomEngine)
+project(UltraEngine)
 
 set(CMAKE_CXX_STANDARD 20)
 
@@ -20,8 +20,8 @@ file(GLOB_RECURSE TEST_SOURCES "${PROJECT_SOURCE_DIR}/Engine/*_Test.cpp" "${PROJ
 list(REMOVE_ITEM SOURCES ${TEST_SOURCES})
 
 # Create executable and link libraries
-add_executable(CustomEngine ${SOURCES} ${TEST_SOURCES})
-target_link_libraries(CustomEngine gtest gmock gtest_main ${VULKAN_LIB_LIST})
+add_executable(UltraEngine ${SOURCES} ${TEST_SOURCES})
+target_link_libraries(UltraEngine gtest gmock gtest_main ${VULKAN_LIB_LIST})
 
 # Create the engine library (for our games to depend on) and link libraries
 add_library(EngineLib STATIC ${SOURCES})
