@@ -4,13 +4,14 @@
 #include "UtilityFunctions.h"
 
 
-namespace Algo
+namespace Algorithms
 {
     template <typename RangeValueType, typename SizeType, typename PredicateValueType, typename ProjectionType, typename SortPredicateType>
-    size_t BinarySearch(RangeValueType* PointerToArray, const SizeType ArrCount, const PredicateValueType& Target, ProjectionType Projection = IdentityFunctor(), SortPredicateType SortPredicate = Less<PredicateValueType>())
+    size_t BinarySearch(RangeValueType* pointerToArray, const SizeType arrCount, const PredicateValueType& target,
+        ProjectionType projection = IdentityFunctor(), SortPredicateType sortPredicate = Less<PredicateValueType>())
     {
         SizeType LowerBound = 0;
-        SizeType UpperBound = ArrCount;
+        SizeType UpperBound = arrCount;
         
         while (UpperBound > 0)
         {
@@ -20,16 +21,16 @@ namespace Algo
             const SizeType Mid = LowerBound + UpperBound;
             const SizeType LowerBoundIfLess = Mid + LeftoverSize;
 
-            SizeType&& CheckValue = Projection(PointerToArray[Mid]);
-            LowerBound = SortPredicate(CheckValue, Target) ? LowerBoundIfLess : LowerBound;
+            SizeType&& CheckValue = projection(pointerToArray[Mid]);
+            LowerBound = sortPredicate(CheckValue, target) ? LowerBoundIfLess : LowerBound;
         }
 
         return LowerBound;
     }
 
     template <typename RangeValueType, typename SizeType, typename PredicateValueType>
-    size_t BinarySearch(RangeValueType* PointerToArray, const SizeType ArrCount, const PredicateValueType& Target)
+    size_t BinarySearch(RangeValueType* pointerToArray, const SizeType arrCount, const PredicateValueType& target)
     {
-        return BinarySearch(PointerToArray, ArrCount, Target, IdentityFunctor(), Less<PredicateValueType>());
+        return BinarySearch(pointerToArray, arrCount, target, IdentityFunctor(), Less<PredicateValueType>());
     }
 }

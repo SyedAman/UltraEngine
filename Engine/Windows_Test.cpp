@@ -1,4 +1,5 @@
-﻿// I know it's ridiculous that I am testing the Windows API wrapper, but there is some custom behavior that I added
+﻿// Copyright Syed Aman. All Rights Reserved.
+// I know it's ridiculous that I am testing the Windows API wrapper, but there is some custom behavior that I added
 // to the wrapper that I want to test, so technically I am not testing the Windows API.
 
 #include "WindowsOS.h"

@@ -3,8 +3,6 @@
 
 #include <gtest/gtest.h>
 
-#include "String.h"
-
 TEST(StreamBuffer, ShouldCreateEmptyStreamBuffer)
 {
     const StreamBuffer streamBuffer;

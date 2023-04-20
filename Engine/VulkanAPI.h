@@ -1,4 +1,5 @@
-﻿/**
+﻿// Copyright Syed Aman. All Rights Reserved.
+/**
  * A wrapper for the Vulkan SDK.
  */
 

@@ -1,4 +1,5 @@
-﻿#pragma once
+﻿// Copyright Syed Aman. All Rights Reserved.
+#pragma once
 #ifdef _DEBUG
 
 #include <gmock/gmock-function-mocker.h>

@@ -1,3 +1,4 @@
+// Copyright Syed Aman. All Rights Reserved.
 #include "HashMap.h"
 #include "String.h"
 #include "Pair.h"

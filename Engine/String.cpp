@@ -1,4 +1,5 @@
-﻿#include "String.h"
+﻿// Copyright Syed Aman. All Rights Reserved.
+#include "String.h"
 
 #include <cstring>
 

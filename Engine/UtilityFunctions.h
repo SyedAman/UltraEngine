@@ -1,3 +1,4 @@
+// Copyright Syed Aman. All Rights Reserved.
 #include "Pair.h"
 
 template <typename T>

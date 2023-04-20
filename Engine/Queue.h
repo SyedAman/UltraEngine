@@ -1,11 +1,12 @@
-﻿#pragma once
+﻿// Copyright Syed Aman. All Rights Reserved.
+#pragma once
 
 
 template <typename T>
 class Queue
 {
     size_t Size_ = 0;
-    // TODO: Implement queue as a linked list because it offers constant enqueue and dequeue with the expense of memory
+    // TODO: Implement queue as a linked list because it offers constant enqueue and dequeue with the expense of memory.
     // TODO: Create the linked list class first before implementing this.
 
 public:

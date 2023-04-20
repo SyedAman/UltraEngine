@@ -1,4 +1,5 @@
-﻿/**
+﻿// Copyright Syed Aman. All Rights Reserved.
+/**
  * Wrapper for Windows API. This is to prevent tight coupling with Windows API that breaks code after new updates.
  */
 

@@ -1,4 +1,5 @@
-﻿#include "WindowsOS.h"
+﻿// Copyright Syed Aman. All Rights Reserved.
+#include "WindowsOS.h"
 
 WindowsOS& WindowsOS::Instance()
 {

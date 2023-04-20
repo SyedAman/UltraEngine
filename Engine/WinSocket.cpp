@@ -1,4 +1,5 @@
-﻿#include "WinSocket.h"
+﻿// Copyright Syed Aman. All Rights Reserved.
+#include "WinSocket.h"
 
 int WinSocket::GetSocketDescriptor()
 {

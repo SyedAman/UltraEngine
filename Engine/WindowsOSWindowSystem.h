@@ -1,4 +1,5 @@
-﻿#pragma once
+﻿// Copyright Syed Aman. All Rights Reserved.
+#pragma once
 #include "IPlatformWindowSystem.h"
 // TODO: Fix direct dependency on concrete Windows API Wrapper.
 #include "WindowsOS.h"

@@ -1,7 +1,7 @@
-#include "Queue.h"
+// Copyright Syed Aman. All Rights Reserved.
 
 #include <gtest/gtest.h>
-
+#include "Queue.h"
 #include "String.h"
 
 TEST(Queue, CreatesEmptyQueue)
@@ -39,30 +39,10 @@ TEST(Queue, Dequeue) {}
 TEST(Queue, Size) {}
 TEST(Queue, IsEmpty) {}
 TEST(Queue, Peek) {}
-TEST(Queue, EnqueueMultipleItems) {
-    // Test that enqueueing multiple items adds them to the queue in the correct order
-}
-
-TEST(Queue, DequeueMultipleItems) {
-    // Test that dequeueing multiple items removes them from the queue in the correct order
-}
-
-TEST(Queue, Clear) {
-    // Test that the Clear method correctly empties the queue and updates its size
-}
-
-TEST(Queue, CopyConstructor) {
-    // Test that the copy constructor creates a new queue with the same elements and order as the original
-}
-
-TEST(Queue, AssignmentOperator) {
-    // Test that the assignment operator correctly copies the elements and order of one queue to another
-}
-
-TEST(Queue, MoveConstructor) {
-    // Test that the move constructor transfers ownership of the elements from one queue to another
-}
-
-TEST(Queue, MoveAssignmentOperator) {
-    // Test that the move assignment operator transfers ownership of the elements from one queue to another
-}
+TEST(Queue, EnqueueMultipleItemsAddsThemToTheQueueInCorrectOrder) {}
+TEST(Queue, DequeueMultipleItemsRemovesThemFromTheQueueInCorrectOrder) {}
+TEST(Queue, ClearCorrectlyEmptiesTheQueue) {}
+TEST(Queue, CopyConstructorCreatesNewQueueWithSameElementsAndOrder) {}
+TEST(Queue, AssignmentOperatorCorrectlyCopiesTheElementsAndOrderOfOneQueueToAnother) {}
+TEST(Queue, MoveConstructorTransfersOwnershipOfTheElementsFromOneQueueToAnother) {}
+TEST(Queue, MoveAssignmentOperatorTransfersOwnershipOfTheElementsFromOneQueueToAnother) {}

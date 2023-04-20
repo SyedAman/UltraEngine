@@ -1,4 +1,5 @@
-﻿#include "WindowsOSWindowSystem.h"
+﻿// Copyright Syed Aman. All Rights Reserved.
+#include "WindowsOSWindowSystem.h"
 
 #include "IPlatformWindowSystem.h"
 

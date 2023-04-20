@@ -1,3 +1,4 @@
+// Copyright Syed Aman. All Rights Reserved.
 #include <gtest/gtest.h>
 
 #include "UtilityFunctions.h"

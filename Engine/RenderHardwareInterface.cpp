@@ -1,3 +1,4 @@
+// Copyright Syed Aman. All Rights Reserved.
 #include "RenderHardwareInterface.h"
 
 #include <stdexcept>

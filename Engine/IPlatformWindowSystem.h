@@ -1,4 +1,5 @@
-﻿#pragma once
+﻿// Copyright Syed Aman. All Rights Reserved.
+#pragma once
 #include <limits.h>
 
 using WindowHandle = void*;

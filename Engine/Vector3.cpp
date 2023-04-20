@@ -1,4 +1,5 @@
-﻿#include "Vector3.h"
+﻿// Copyright Syed Aman. All Rights Reserved.
+#include "Vector3.h"
 
 bool Vector3::operator==(const Vector3& other) const
 {

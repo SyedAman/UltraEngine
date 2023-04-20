@@ -1,3 +1,4 @@
+// Copyright Syed Aman. All Rights Reserved.
 #include "WindowLauncher.h"
 
 #include <Windows.h>
