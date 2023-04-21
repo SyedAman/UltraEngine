@@ -1,4 +1,2 @@
-﻿
-// Copyright Syed Aman. All Rights Reserved.
-
+﻿// Copyright Syed Aman. All Rights Reserved.
 #include "HashMap.h"

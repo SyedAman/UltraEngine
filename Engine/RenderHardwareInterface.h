@@ -1,5 +1,4 @@
 // Copyright Syed Aman. All Rights Reserved.
-
 /**
  * The Render Hardware Interface is the abstraction layer that sits between the game engine and the underlying graphics
  * API. Its responsibility is to provide a unified, platform-agnostic interface for rendering operations, allowing

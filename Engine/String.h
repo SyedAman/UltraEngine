@@ -1,5 +1,4 @@
-﻿// Copyright Syed Aman. All rights reserved.
-
+﻿// Copyright Syed Aman. All Rights Reserved.
 #pragma once
 
 class String

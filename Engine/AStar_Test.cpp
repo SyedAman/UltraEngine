@@ -1,5 +1,4 @@
 ﻿// Copyright Syed Aman. All Rights Reserved.
-
 #include "gtest/gtest.h"
 #include "AStar.h"
 #include "Pair.h"

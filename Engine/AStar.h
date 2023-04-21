@@ -1,6 +1,4 @@
-﻿// Copyright Syed Aman. All Rights Reserved.
-
-#pragma once
+﻿// Copyright Syed Aman. All Rights Reserved.#pragma once
 #include <vector>
 
 #include "Pair.h"
