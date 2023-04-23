@@ -1,4 +1,5 @@
 // Copyright Syed Aman. All Rights Reserved.
+#pragma once
 #include "Pair.h"
 
 template <typename T>
