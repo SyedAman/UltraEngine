@@ -60,7 +60,8 @@ public:
         return true;
     }
 
-    bool ExpectNotEqual(const int expected, const int actual, const std::string& expression, const char* file, int line) const
+    template <typename T>
+    bool ExpectNotEqual(const T expected, const T actual, const std::string& expression, const char* file, int line) const
     {
         if (expected == actual)
         {
