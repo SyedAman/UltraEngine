@@ -3,90 +3,103 @@
 #include <functional>
 #include <iostream>
 
-#define TEST(test_case_name, test_name) \
-    class test_case_name##_##test_name : public TestBase { \
+#define TEST(TestCaseName, TestName) \
+    class TestCaseName##_##TestName : public TestBase { \
     public: \
-        test_case_name##_##test_name() { \
-            TestRegistry::instance().AddTest(#test_case_name "." #test_name, std::bind(&test_case_name##_##test_name::Run, this)); \
+        TestCaseName##_##TestName() { \
+            TestRegistry::Instance().AddTest(#TestCaseName "." #TestName, [this]() -> bool { return Run(); }); \
         } \
-        void Run() override; \
-    } test_case_name##_##test_name##_instance; \
-    void test_case_name##_##test_name::Run()
+        bool Run() override; \
+    } TestCaseName##_##TestName##_instance; \
+    bool TestCaseName##_##TestName::Run()
 
 #define EXPECT_TRUE(condition) \
-    ExpectTrue(condition, #condition, __FILE__, __LINE__)
+    return ExpectTrue(condition, #condition, __FILE__, __LINE__)
 
 #define EXPECT_FALSE(condition) \
-    ExpectFalse(condition, #condition, __FILE__, __LINE__)
+    return ExpectFalse(condition, #condition, __FILE__, __LINE__)
 
 #define EXPECT_EQ(expected, actual) \
-    ExpectEqual(expected, actual, #expected " == " #actual, __FILE__, __LINE__)
+    return ExpectEqual(expected, actual, #expected " == " #actual, __FILE__, __LINE__)
 
 #define EXPECT_NE(expected, actual) \
-    ExpectNotEqual(expected, actual, #expected " != " #actual, __FILE__, __LINE__)
+    return ExpectNotEqual(expected, actual, #expected " != " #actual, __FILE__, __LINE__)
 
 class TestBase
 {
 public:
-    virtual void Run() = 0;
+    virtual bool Run() = 0;
 
-    void ExpectTrue(bool condition, const std::string& expression, const char* file, int line)
+    bool ExpectTrue(const bool condition, const std::string& expression, const char* file, int line) const
     {
         if (!condition)
         {
-            std::cerr << file << ":" << line << ": Failure: " << expression << " is false" << std::endl;
+            std::cerr << file << ":" << line << ": Failure: expected " << expression << " is false" << std::endl;
+            return false;
         }
+        return true;
     }
-    void ExpectFalse(bool condition, const std::string& expression, const char* file, int line)
+    bool ExpectFalse(const bool condition, const std::string& expression, const char* file, int line) const
     {
         if (condition)
         {
-            std::cerr << file << ":" << line << ": Failure: " << expression << " is true" << std::endl;
+            std::cerr << file << ":" << line << ": Failure: expected " << expression << " is true" << std::endl;
+            return false;
         }
+        return true;
     }
-    void ExpectEqual(int expected, int actual, const std::string& expression, const char* file, int line)
+
+    template <typename T>
+    bool ExpectEqual(T expected, T actual, const std::string& expression, const char* file, int line) const
     {
         if (expected != actual)
         {
-            std::cerr << file << ":" << line << ": Failure: " << expression << " (" << expected << " vs. " << actual << ")" << std::endl;
+            std::cerr << file << ":" << line << ": Failure: expected " << expression << " (" << expected << " vs. " << actual << ")" << std::endl;
+            return false;
         }
+        return true;
     }
-    void ExpectNotEqual(const int expected, const int actual, const std::string& expression, const char* file, int line)
+
+    bool ExpectNotEqual(const int expected, const int actual, const std::string& expression, const char* file, int line) const
     {
         if (expected == actual)
         {
-            std::cerr << file << ":" << line << ": Failure: " << expression << " (" << expected << " vs. " << actual << ")" << std::endl;
+            std::cerr << file << ":" << line << ": Failure: expected " << expression << " (" << expected << " vs. " << actual << ")" << std::endl;
+            return false;
         }
+        return true;
     }
 };
 
 class TestRegistry
 {
     TestRegistry() = default;
-    std::vector<std::pair<std::string, std::function<void()>>> tests_;
+    std::vector<std::pair<std::string, std::function<bool()>>> Tests_;
     
 public:
-    static TestRegistry& instance()
+    static TestRegistry& Instance()
     {
         static TestRegistry registry;
         return registry;
     }
     
-    void AddTest(const std::string& test_name, const std::function<void()>& test_function)
+    void AddTest(const std::string& testName, const std::function<bool()>& testFunction)
     {
-        tests_.emplace_back(test_name, test_function);
+        Tests_.emplace_back(testName, testFunction);
     }
     
-    void RunAllTests()
+    void RunAllTests() const
     {
         int passed = 0;
-        int total = tests_.size();
-        for (const auto& test : tests_)
+        for (const auto& [testName, testFunction] : Tests_)
         {
-            std::cout << "Running test: " << test.first << std::endl;
-            test.second();
-            passed++;
+            std::cout << "Running test: " << testName << std::endl;
+            const bool bPassed = testFunction();
+            passed = bPassed ? passed + 1 : passed;
         }
+
+        int total = Tests_.size();
+
         std::cout << "Passed " << passed << " out of " << total << " tests." << std::endl;
     }
 };
