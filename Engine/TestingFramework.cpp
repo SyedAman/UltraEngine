@@ -69,6 +69,11 @@ string TestBase::GetName()
     return Name;
 }
 
+bool TestBase::Passed()
+{
+    return FailureCount == 0;
+}
+
 void TestBase::ExpectTrue(const bool condition, const string& expression, const char* file, int line)
 {
     if (!condition)

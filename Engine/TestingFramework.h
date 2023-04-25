@@ -60,52 +60,62 @@ class TestBase : public ITest
 public:
     TestBase(const string& name);
     string GetName() override;
-    bool Passed() override
-    {
-        return FailureCount == 0;
-    }
+    bool Passed() override;
 
 protected:
     void ExpectTrue(const bool condition, const string& expression, const char* file, int line);
     void ExpectFalse(const bool condition, const string& expression, const char* file, int line);
 
     template <typename T, typename EqualityComparator = std::equal_to<T>, std::enable_if_t<!std::is_same_v<EqualityComparator, void>, int> = 0>
-    void ExpectEqual(T expected, T actual, const string& expression, const char* file, int line)
-    {
-        EqualityComparator comparator;
-        if (!comparator(expected, actual))
-        {
-            OutputExceptionFailed<T>(expected, actual, expression, file, line);
-            FailureCount++;
-        }
-    }
+    void ExpectEqual(T expected, T actual, const string& expression, const char* file, int line);
 
     template <typename T, typename EqualityComparator = std::equal_to<T>,
               std::enable_if_t<std::is_same_v<EqualityComparator, void>, int> = 0>
-    void ExpectEqual(T expected, T actual, const string& expression, const char* file, int line)
-    {
-        cerr << file << ":" << line << ": Failure: No suitable comparator found for the type '" << typeid(T).name() << "'" << endl;
-        FailureCount++;
-    }
+    void ExpectEqual(T expected, T actual, const string& expression, const char* file, int line);
 
     template <typename T>
     void ExpectNotEqual(const T expected, const T actual, const string& expression, const char* file,
-        int line)
-    {
-        if (expected == actual)
-        {
-            OutputExceptionFailed<T>(expected, actual, expression, file, line);
-            FailureCount++;
-        }
-    }
+        int line);
 
 private:
     string Name;
     int FailureCount = 0;
 
     template <typename T>
-    void OutputExceptionFailed(const T expected, const T actual, const string& expression, const char* file, int line) const
-    {
-        cerr << file << ":" << line << ": Failure: expected " << expression << endl;
-    }
+    void OutputExceptionFailed(const T expected, const T actual, const string& expression, const char* file, int line) const;
 };
+
+template <typename T, typename EqualityComparator, std::enable_if_t<!std::is_same_v<EqualityComparator, void>, int>>
+void TestBase::ExpectEqual(T expected, T actual, const string& expression, const char* file, int line)
+{
+    EqualityComparator comparator;
+    if (!comparator(expected, actual))
+    {
+        OutputExceptionFailed<T>(expected, actual, expression, file, line);
+        FailureCount++;
+    }
+}
+
+template <typename T, typename EqualityComparator, std::enable_if_t<std::is_same_v<EqualityComparator, void>, int>>
+void TestBase::ExpectEqual(T expected, T actual, const string& expression, const char* file, int line)
+{
+    cerr << file << ":" << line << ": Failure: No suitable comparator found for the type '" << typeid(T).name() << "'" << endl;
+    FailureCount++;
+}
+
+template <typename T>
+void TestBase::OutputExceptionFailed(const T expected, const T actual, const string& expression, const char* file,
+    int line) const
+{
+    cerr << file << ":" << line << ": Failure: expected " << expression << endl;
+}
+
+template <typename T>
+void TestBase::ExpectNotEqual(const T expected, const T actual, const string& expression, const char* file, int line)
+{
+    if (expected == actual)
+    {
+        OutputExceptionFailed<T>(expected, actual, expression, file, line);
+        FailureCount++;
+    }
+}
