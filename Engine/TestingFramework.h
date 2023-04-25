@@ -1,6 +1,7 @@
 ﻿// Copyright Syed Aman. All rights reserved.
 #pragma once
 #include <iostream>
+#include <vector>
 
 using namespace std;
 
@@ -38,125 +39,58 @@ public:
 class TestRegistry
 {
 public:
-    static TestRegistry& Instance()
-    {
-        static TestRegistry registry;
-        return registry;
-    }
+    static TestRegistry& Instance();
+    void AddTest(ITest* test);
+    void RunAllTests() const;
 
-    void AddTest(ITest* test)
-    {
-        Tests_.emplace_back(test);
-    }
-
-    void RunAllTests() const
-    {
-        const size_t total = Tests_.size();
-        int passed = 0;
-        for (const auto& test : Tests_)
-        {
-            const string testName = test->GetName();
-            OutputTestPreRun(testName);
-            
-            const bool bPassed = test->Run();
-
-            OutputTestPostRun(bPassed, testName);
-
-            if (bPassed)
-            {
-                passed++;
-            }
-        }
-
-        OutputTestResults(total, passed);
-    }
-    
 private:
-    TestRegistry() = default;
-    
+    TestRegistry();
     vector<ITest*> Tests_;
-
-    const char* PluralEnding(const size_t total) const
-    {
-        return total != 1 ? "s" : "";
-    }
-
-    void OutputTestResults(const size_t total, const int passed) const
-    {
-        const int failed = total - passed;
-
-        cout << endl << "[==========] " << total << " test" << PluralEnding(total) << " ran." << endl;
-        cout << "[  PASSED  ] " << passed << " test" << PluralEnding(passed) << "." << endl;
-        cout << "[  FAILED  ] " << failed << " test" << PluralEnding(failed) << "." << endl;
-    }
-
-    void OutputTestPreRun(const string testName) const
-    {
-        cout << "[  RUN  ] " << testName << endl;
-    }
-
-    void OutputTestPostRun(const bool bPassed, const string testName) const
-    {
-        cout << (bPassed ? "[  PASSED  ] " : "[  FAILED  ] ") << testName << endl;
-    }
+    
+    const char* PluralEnding(const size_t total) const;
+    void OutputTestResults(const size_t total, const int passed) const;
+    void OutputTestPreRun(const string testName) const;
+    void OutputTestPostRun(const bool bPassed, const string testName) const;
 };
-
 
 
 class TestBase : public ITest
 {
 public:
-    TestBase(const string& name) : Name(name)
-    {
-        TestRegistry::Instance().AddTest(this);
-    }
-    
-    string GetName() override
-    {
-        return Name;
-    }
-    
+    TestBase(const string& name);
+    string GetName() override;
+
 protected:
-    bool ExpectTrue(const bool condition, const string& expression, const char* file, int line) const
-    {
-        if (!condition)
-        {
-            cerr << file << ":" << line << ": Failure: expected " << expression << " is false" << endl;
-            return false;
-        }
-        return true;
-    }
-    bool ExpectFalse(const bool condition, const string& expression, const char* file, int line) const
-    {
-        if (condition)
-        {
-            cerr << file << ":" << line << ": Failure: expected " << expression << " is true" << endl;
-            return false;
-        }
-        return true;
-    }
-
+    bool ExpectTrue(const bool condition, const string& expression, const char* file, int line) const;
+    bool ExpectFalse(const bool condition, const string& expression, const char* file, int line) const;
     template <typename T>
-    bool ExpectEqual(T expected, T actual, const string& expression, const char* file, int line) const
-    {
-        if (expected != actual)
-        {
-            cerr << file << ":" << line << ": Failure: expected " << expression << " (" << expected << " vs. " << actual << ")" << endl;
-            return false;
-        }
-        return true;
-    }
-
+    bool ExpectEqual(T expected, T actual, const string& expression, const char* file, int line) const;
     template <typename T>
-    bool ExpectNotEqual(const T expected, const T actual, const string& expression, const char* file, int line) const
-    {
-        if (expected == actual)
-        {
-            cerr << file << ":" << line << ": Failure: expected " << expression << " (" << expected << " vs. " << actual << ")" << endl;
-            return false;
-        }
-        return true;
-    }
+    bool ExpectNotEqual(const T expected, const T actual, const string& expression, const char* file, int line) const;
+
 private:
     string Name;
 };
+
+template <typename T>
+bool TestBase::ExpectEqual(T expected, T actual, const string& expression, const char* file, int line) const
+{
+    if (expected != actual)
+    {
+        cerr << file << ":" << line << ": Failure: expected " << expression << " (" << expected << " vs. " << actual << ")" << endl;
+        return false;
+    }
+    return true;
+}
+
+template <typename T>
+bool TestBase::ExpectNotEqual(const T expected, const T actual, const string& expression, const char* file,
+    int line) const
+{
+    if (expected == actual)
+    {
+        cerr << file << ":" << line << ": Failure: expected " << expression << " (" << expected << " vs. " << actual << ")" << endl;
+        return false;
+    }
+    return true;
+}
