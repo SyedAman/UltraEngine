@@ -15,16 +15,16 @@ using namespace std;
     bool TestCaseName##_##TestName::Run()
 
 #define EXPECT_TRUE(condition) \
-    return ExpectTrue(condition, #condition, __FILE__, __LINE__)
+    ExpectTrue(condition, #condition, __FILE__, __LINE__)
 
 #define EXPECT_FALSE(condition) \
-    return ExpectFalse(condition, #condition, __FILE__, __LINE__)
+    ExpectFalse(condition, #condition, __FILE__, __LINE__)
 
 #define EXPECT_EQ(expected, actual) \
-    return ExpectEqual(expected, actual, #expected " == " #actual, __FILE__, __LINE__)
+    ExpectEqual(expected, actual, #expected " == " #actual, __FILE__, __LINE__)
 
 #define EXPECT_NE(expected, actual) \
-    return ExpectNotEqual(expected, actual, #expected " != " #actual, __FILE__, __LINE__)
+    ExpectNotEqual(expected, actual, #expected " != " #actual, __FILE__, __LINE__)
 
 
 class ITest
@@ -63,34 +63,45 @@ public:
 protected:
     bool ExpectTrue(const bool condition, const string& expression, const char* file, int line) const;
     bool ExpectFalse(const bool condition, const string& expression, const char* file, int line) const;
+
+    template <typename T, typename EqualityComparator = std::equal_to<T>, std::enable_if_t<!std::is_same_v<EqualityComparator, void>, int> = 0>
+    bool ExpectEqual(T expected, T actual, const string& expression, const char* file, int line) const
+    {
+        EqualityComparator comparator;
+        if (!comparator(expected, actual))
+        {
+            OutputExceptionFailed<T>(expected, actual, expression, file, line);
+            return false;
+        }
+        return true;
+    }
+
+    template <typename T, typename EqualityComparator = std::equal_to<T>,
+              std::enable_if_t<std::is_same_v<EqualityComparator, void>, int> = 0>
+    bool ExpectEqual(T expected, T actual, const string& expression, const char* file, int line) const
+    {
+        cerr << file << ":" << line << ": Failure: No suitable comparator found for the type '" << typeid(T).name() << "'" << endl;
+        return false;
+    }
+
     template <typename T>
-    bool ExpectEqual(T expected, T actual, const string& expression, const char* file, int line) const;
-    template <typename T>
-    bool ExpectNotEqual(const T expected, const T actual, const string& expression, const char* file, int line) const;
+    bool ExpectNotEqual(const T expected, const T actual, const string& expression, const char* file,
+        int line) const
+    {
+        if (expected == actual)
+        {
+            OutputExceptionFailed<T>(expected, actual, expression, file, line);
+            return false;
+        }
+        return true;
+    }
 
 private:
     string Name;
+
+    template <typename T>
+    void OutputExceptionFailed(const T expected, const T actual, const string& expression, const char* file, int line) const
+    {
+        cerr << file << ":" << line << ": Failure: expected " << expression << endl;
+    }
 };
-
-template <typename T>
-bool TestBase::ExpectEqual(T expected, T actual, const string& expression, const char* file, int line) const
-{
-    if (expected != actual)
-    {
-        cerr << file << ":" << line << ": Failure: expected " << expression << " (" << expected << " vs. " << actual << ")" << endl;
-        return false;
-    }
-    return true;
-}
-
-template <typename T>
-bool TestBase::ExpectNotEqual(const T expected, const T actual, const string& expression, const char* file,
-    int line) const
-{
-    if (expected == actual)
-    {
-        cerr << file << ":" << line << ": Failure: expected " << expression << " (" << expected << " vs. " << actual << ")" << endl;
-        return false;
-    }
-    return true;
-}
