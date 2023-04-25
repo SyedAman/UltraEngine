@@ -15,16 +15,16 @@ using namespace std;
     bool TestCaseName##_##TestName::Run()
 
 #define EXPECT_TRUE(condition) \
-    ExpectTrue(condition, #condition, __FILE__, __LINE__)
+    return ExpectTrue(condition, #condition, __FILE__, __LINE__)
 
 #define EXPECT_FALSE(condition) \
-    ExpectFalse(condition, #condition, __FILE__, __LINE__)
+    return ExpectFalse(condition, #condition, __FILE__, __LINE__)
 
 #define EXPECT_EQ(expected, actual) \
-    ExpectEqual(expected, actual, #expected " == " #actual, __FILE__, __LINE__)
+    return ExpectEqual(expected, actual, #expected " == " #actual, __FILE__, __LINE__)
 
 #define EXPECT_NE(expected, actual) \
-    ExpectNotEqual(expected, actual, #expected " != " #actual, __FILE__, __LINE__)
+    return ExpectNotEqual(expected, actual, #expected " != " #actual, __FILE__, __LINE__)
 
 
 class ITest
