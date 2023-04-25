@@ -20,11 +20,11 @@ void TestRegistry::RunAllTests() const
         const string testName = test->GetName();
         OutputTestPreRun(testName);
             
-        const bool bPassed = test->Run();
+        test->Run();
 
-        OutputTestPostRun(bPassed, testName);
+        OutputTestPostRun(test->Passed(), testName);
 
-        if (bPassed)
+        if (test->Passed())
         {
             passed++;
         }
@@ -69,23 +69,21 @@ string TestBase::GetName()
     return Name;
 }
 
-bool TestBase::ExpectTrue(const bool condition, const string& expression, const char* file, int line) const
+void TestBase::ExpectTrue(const bool condition, const string& expression, const char* file, int line)
 {
     if (!condition)
     {
         cerr << file << ":" << line << ": Failure: expected " << expression << " is false" << endl;
-        return false;
+        FailureCount++;
     }
-    return true;
 }
 
-bool TestBase::ExpectFalse(const bool condition, const string& expression, const char* file, int line) const
+void TestBase::ExpectFalse(const bool condition, const string& expression, const char* file, int line)
 {
     if (condition)
     {
         cerr << file << ":" << line << ": Failure: expected " << expression << " is true" << endl;
-        return false;
+        FailureCount++;
     }
-    return true;
 }
 
