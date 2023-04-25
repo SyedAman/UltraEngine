@@ -76,31 +76,55 @@ class TestRegistry
 {
     TestRegistry() = default;
     std::vector<std::pair<std::string, std::function<bool()>>> Tests_;
-    
+
+    const char* PluralEnding(const size_t total) const
+    {
+        return total != 1 ? "s" : "";
+    }
+
+    void OutputTestResults(const size_t total, const int passed) const
+    {
+        const int failed = total - passed;
+
+        std::cout << std::endl << "[==========] " << total << " test" << PluralEnding(total) << " ran." << std::endl;
+        std::cout << "[  PASSED  ] " << passed << " test" << PluralEnding(passed) << "." << std::endl;
+        std::cout << "[  FAILED  ] " << failed << " test" << PluralEnding(failed) << "." << std::endl;
+    }
+
+    void OutputTestPreRun(const std::string testName) const
+    {
+        std::cout << "[  RUN  ] " << testName << std::endl;
+    }
+
+    void OutputTestPostRun(const bool bPassed, const std::string testName) const
+    {
+        std::cout << (bPassed ? "[  PASSED  ] " : "[  FAILED  ] ") << testName << std::endl;
+    }
+
 public:
     static TestRegistry& Instance()
     {
         static TestRegistry registry;
         return registry;
     }
-    
+
     void AddTest(const std::string& testName, const std::function<bool()>& testFunction)
     {
         Tests_.emplace_back(testName, testFunction);
     }
-    
+
     void RunAllTests() const
     {
+        const size_t total = Tests_.size();
         int passed = 0;
         for (const auto& [testName, testFunction] : Tests_)
         {
-            std::cout << "Running test: " << testName << std::endl;
+            OutputTestPreRun(testName);
             const bool bPassed = testFunction();
+            OutputTestPostRun(bPassed, testName);
             passed = bPassed ? passed + 1 : passed;
         }
 
-        int total = Tests_.size();
-
-        std::cout << "Passed " << passed << " out of " << total << " tests." << std::endl;
+        OutputTestResults(total, passed);
     }
 };
