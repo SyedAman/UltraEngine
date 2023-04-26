@@ -3,7 +3,7 @@
 #include "String.h"
 #include "Pair.h"
 
-#include <gtest/gtest.h>
+#include "TestingFramework.h"
 
 TEST(HashMap, ShouldCreateWithTemplateForKeyAndValue)
 {

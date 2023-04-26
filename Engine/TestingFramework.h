@@ -69,8 +69,7 @@ protected:
     template <typename T, typename EqualityComparator = std::equal_to<T>, std::enable_if_t<!std::is_same_v<EqualityComparator, void>, int> = 0>
     void ExpectEqual(T expected, T actual, const string& expression, const char* file, int line);
 
-    template <typename T, typename EqualityComparator = std::equal_to<T>,
-              std::enable_if_t<std::is_same_v<EqualityComparator, void>, int> = 0>
+    template <typename T, typename EqualityComparator = std::equal_to<T>, std::enable_if_t<std::is_same_v<EqualityComparator, void>, int> = 0>
     void ExpectEqual(T expected, T actual, const string& expression, const char* file, int line);
 
     template <typename T>

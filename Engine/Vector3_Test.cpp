@@ -1,5 +1,5 @@
 // Copyright Syed Aman. All Rights Reserved.
-#include <gtest/gtest.h>
+#include "TestingFramework.h"
 
 #include "Vector3.h"
 
@@ -15,8 +15,8 @@ TEST(Vector3, ShouldTestEqualityAndInequality)
     Vector3 vector3Copy(1.0f, 2.0f, 3.0f);
     Vector3 vector3Different(1.0f, 2.0f, 4.0f);
 
-    ASSERT_EQ(vector3, vector3Copy);
-    ASSERT_NE(vector3, vector3Different);
+    EXPECT_EQ(vector3, vector3Copy);
+    EXPECT_NE(vector3, vector3Different);
 }
 
 // ShouldDoAddition
