@@ -6,8 +6,8 @@
 TEST(Queue, CreatesEmptyQueue)
 {
     constexpr Queue<int> queue;
-    ASSERT_TRUE(queue.IsEmpty());
-    ASSERT_EQ(0, queue.Size());
+    EXPECT_TRUE(queue.IsEmpty());
+    EXPECT_EQ(0, queue.Size());
 }
 
 TEST(Queue, Template)
@@ -16,22 +16,22 @@ TEST(Queue, Template)
     Queue<String> queue2;
     Queue<Queue<int>> queue3;
 
-    ASSERT_TRUE(queue1.IsEmpty());
-    ASSERT_TRUE(queue2.IsEmpty());
-    ASSERT_TRUE(queue3.IsEmpty());
+    EXPECT_TRUE(queue1.IsEmpty());
+    EXPECT_TRUE(queue2.IsEmpty());
+    EXPECT_TRUE(queue3.IsEmpty());
 }
 
 TEST(Queue, Enqueue)
 {
     Queue<int> queue;
     queue.Enqueue(1);
-    ASSERT_FALSE(queue.IsEmpty());
+    EXPECT_FALSE(queue.IsEmpty());
     const size_t size = queue.Size();
-    ASSERT_EQ(1, size);
+    EXPECT_EQ(1, size);
 
     queue.Enqueue(2);
-    ASSERT_FALSE(queue.IsEmpty());
-    ASSERT_EQ(2, queue.Size());
+    EXPECT_FALSE(queue.IsEmpty());
+    EXPECT_EQ(2, queue.Size());
 }
 
 TEST(Queue, Dequeue) {}
