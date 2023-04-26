@@ -21,3 +21,26 @@ TEST(TestingFramework, ExpectNotEqual) {
     int b = 6;
     EXPECT_NE(a, b);
 }
+
+class ExampleTest_ShouldFail : public TestBase
+{
+public:
+    ExampleTest_ShouldFail() : TestBase("ExampleTest_ShouldFail") {}
+    
+    void Run() override
+    {
+        RunTest();
+    }
+
+    void RunTest()
+    {
+        EXPECT_TRUE(false);
+    }
+};
+
+TEST(TestingFramework, ShouldFailWhenExpectTrueIsFalse)
+{
+    ExampleTest_ShouldFail test;
+    test.Run();
+    EXPECT_EQ(test.Passed(), false);
+}
