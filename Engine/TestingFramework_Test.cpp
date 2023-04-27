@@ -26,3 +26,18 @@ TEST(TestingFramework, ShouldFailWhenExpectTrueIsFalse)
 {
     EXPECT_FAIL(EXPECT_TRUE(false));
 }
+
+TEST(TestingFramework, ShouldFailWhenExpectFalseIsTrue)
+{
+    EXPECT_FAIL(EXPECT_FALSE(true));
+}
+
+TEST(TestingFramework, ShouldFailWhenExpectEqualIsNotEqual)
+{
+    EXPECT_FAIL(EXPECT_EQ(5, 6));
+}
+
+TEST(TestingFramework, ShouldFailWhenExpectNotEqualIsEqual)
+{
+    EXPECT_FAIL(EXPECT_NE(5, 5));
+}
