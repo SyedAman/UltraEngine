@@ -97,6 +97,26 @@ void TestBase::ExpectFalse(const bool condition, const string& expression, const
     }
 }
 
+void TestBase::ExpectStringEquals(const string& expected, const string& actual, const string& expression, const char* file, int line)
+{
+    if (expected != actual)
+    {
+        OutputExceptionFailed(expression, file, line);
+        // TODO: Refactor.
+        if (bShouldLog)
+        {
+            cerr << "Expected: " << expected << " but got " << actual << endl;
+        }
+        FailureCount++;
+    }
+}
+
+void TestBase::Fail(const char* file, int line)
+{
+    OutputExceptionFailed("Fail()", file, line);
+    FailureCount++;
+}
+
 void TestBase::OutputExceptionFailed(const string& expression, const char* file, int line) const
 {
     if (bShouldLog)

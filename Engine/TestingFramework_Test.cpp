@@ -25,3 +25,14 @@ TEST(TestingFramework, ExpectNotEqual) {
     EXPECT_NE(a, b);
     EXPECT_FAIL(EXPECT_NE(5, 5));
 }
+
+TEST(TestingFramework, EXPECT_STREQ)
+{
+    EXPECT_STREQ("Hello", "Hello");
+    EXPECT_FAIL(EXPECT_STREQ("Hello", "World"));
+}
+
+TEST(TestingFramework, FAIL)
+{
+    EXPECT_FAIL(FAIL());
+}

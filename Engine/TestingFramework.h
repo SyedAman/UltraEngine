@@ -29,6 +29,12 @@ using namespace std;
 #define EXPECT_FAIL(expression) \
     ExpectFailure([&]() { expression; })
 
+#define EXPECT_STREQ(expected, actual) \
+    ExpectStringEquals(expected, actual, #expected " == " #actual, __FILE__, __LINE__)
+
+#define FAIL() \
+    Fail(__FILE__, __LINE__)
+
 class ITest
 {
 public:
@@ -81,6 +87,9 @@ protected:
     template <typename T>
     void ExpectNotEqual(const T expected, const T actual, const string& expression, const char* file, int line);
 
+    void ExpectStringEquals(const string& expected, const string& actual, const string& expression, const char* file, int line);
+    void Fail(const char* file, int line);
+    
 private:
     string Name;
     int FailureCount = 0;
