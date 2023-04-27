@@ -19,17 +19,11 @@ TEST(Vector3, ShouldTestEqualityAndInequality)
     EXPECT_NE(vector3, vector3Different);
 }
 
-// ShouldDoAddition
-
-// ShouldDoSubtraction
-
-// ShouldDoMultiplication
-
-// ShouldDoDivision
-
-// ShouldAccessComponents
-
-// ShouldDoDotProduct
-
-// ShouldDoCrossProduct
+TEST(Vector3, ShouldDoAddition) {}
+TEST(Vector3, ShouldDoSubtraction) {}
+TEST(Vector3, ShouldDoMultiplication) {}
+TEST(Vector3, ShouldDoDivision) {}
+TEST(Vector3, ShouldAccessComponents) {}
+TEST(Vector3, ShouldDoDotProduct) {}
+TEST(Vector3, ShouldDoCrossProduct) {}
 

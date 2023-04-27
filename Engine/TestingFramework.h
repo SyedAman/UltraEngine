@@ -72,15 +72,14 @@ protected:
     void ExpectTrue(const bool condition, const string& expression, const char* file, int line);
     void ExpectFalse(const bool condition, const string& expression, const char* file, int line);
 
-    template <typename T, typename EqualityComparator = std::equal_to<T>, std::enable_if_t<!std::is_same_v<EqualityComparator, void>, int> = 0>
-    void ExpectEqual(T expected, T actual, const string& expression, const char* file, int line);
+    template <typename T, typename U, typename EqualityComparator = std::equal_to<T>, std::enable_if_t<!std::is_same_v<EqualityComparator, void>, int> = 0>
+    void ExpectEqual(T expected, U actual, const string& expression, const char* file, int line);
 
-    template <typename T, typename EqualityComparator = std::equal_to<T>, std::enable_if_t<std::is_same_v<EqualityComparator, void>, int> = 0>
-    void ExpectEqual(T expected, T actual, const string& expression, const char* file, int line);
+    template <typename T, typename U, typename EqualityComparator = std::equal_to<T>, std::enable_if_t<std::is_same_v<EqualityComparator, void>, int> = 0>
+    void ExpectEqual(T expected, U actual, const string& expression, const char* file, int line);
 
     template <typename T>
-    void ExpectNotEqual(const T expected, const T actual, const string& expression, const char* file,
-        int line);
+    void ExpectNotEqual(const T expected, const T actual, const string& expression, const char* file, int line);
 
 private:
     string Name;
@@ -110,8 +109,8 @@ void TestBase::ExpectFailure(Expression expression)
     SetShouldLog(true);
 }
 
-template <typename T, typename EqualityComparator, std::enable_if_t<!std::is_same_v<EqualityComparator, void>, int>>
-void TestBase::ExpectEqual(T expected, T actual, const string& expression, const char* file, int line)
+template <typename T, typename U, typename EqualityComparator, std::enable_if_t<!std::is_same_v<EqualityComparator, void>, int>>
+void TestBase::ExpectEqual(T expected, U actual, const string& expression, const char* file, int line)
 {
     EqualityComparator comparator;
     if (!comparator(expected, actual))
@@ -121,8 +120,8 @@ void TestBase::ExpectEqual(T expected, T actual, const string& expression, const
     }
 }
 
-template <typename T, typename EqualityComparator, std::enable_if_t<std::is_same_v<EqualityComparator, void>, int>>
-void TestBase::ExpectEqual(T expected, T actual, const string& expression, const char* file, int line)
+template <typename T, typename U, typename EqualityComparator, std::enable_if_t<std::is_same_v<EqualityComparator, void>, int>>
+void TestBase::ExpectEqual(T expected, U actual, const string& expression, const char* file, int line)
 {
     cerr << file << ":" << line << ": Failure: No suitable comparator found for the type '" << typeid(T).name() << "'" << endl;
     FailureCount++;
