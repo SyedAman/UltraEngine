@@ -1,6 +1,6 @@
 // Copyright Syed Aman. All Rights Reserved.
 #include "EntityAdmin.h"
-#include <gtest/gtest.h>
+#include "TestingFramework.h"
 
 TEST(EntityAdmin, ShouldCreate)
 {
@@ -10,7 +10,7 @@ TEST(EntityAdmin, ShouldCreate)
 TEST(EntityAdmin, ShouldCreateWithEmptyComponentsArray)
 {
     EntityAdmin entityAdmin;
-    ASSERT_TRUE(entityAdmin.components.Empty());
+    EXPECT_TRUE(entityAdmin.components.Empty());
 }
 
 TEST(EntityAdmin, ShouldAddComponentToEntity) {}

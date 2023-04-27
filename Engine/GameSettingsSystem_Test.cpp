@@ -1,7 +1,7 @@
 // Copyright Syed Aman. All Rights Reserved.
 #include "GameSettingsSystem.h"
 
-#include <gtest/gtest.h>
+#include "TestingFramework.h"
 
 TEST(GameSettingsSystem, ReadsFromGameSettingsTxt)
 {
