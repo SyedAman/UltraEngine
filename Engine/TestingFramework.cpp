@@ -74,11 +74,16 @@ bool TestBase::Passed()
     return FailureCount == 0;
 }
 
+void TestBase::SetShouldLog(const bool bShouldLog)
+{
+    this->bShouldLog = bShouldLog;
+}
+
 void TestBase::ExpectTrue(const bool condition, const string& expression, const char* file, int line)
 {
     if (!condition)
     {
-        cerr << file << ":" << line << ": Failure: expected " << expression << " is false" << endl;
+        OutputExceptionFailed(expression, file, line);
         FailureCount++;
     }
 }
@@ -87,12 +92,15 @@ void TestBase::ExpectFalse(const bool condition, const string& expression, const
 {
     if (condition)
     {
-        cerr << file << ":" << line << ": Failure: expected " << expression << " is true" << endl;
+        OutputExceptionFailed(expression, file, line);
         FailureCount++;
     }
 }
 
 void TestBase::OutputExceptionFailed(const string& expression, const char* file, int line) const
 {
-    cerr << file << ":" << line << ": Failure: expected " << expression << endl;
+    if (bShouldLog)
+    {
+        cerr << file << ":" << line << ": Failure: expected " << expression << endl;
+    }
 }

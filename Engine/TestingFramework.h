@@ -15,10 +15,10 @@ using namespace std;
     void TestCaseName##_##TestName::Run()
 
 #define EXPECT_TRUE(condition) \
-    ExpectTrue(condition, #condition, __FILE__, __LINE__)
+    ExpectTrue(condition, #condition " == true", __FILE__, __LINE__)
 
 #define EXPECT_FALSE(condition) \
-    ExpectFalse(condition, #condition, __FILE__, __LINE__)
+    ExpectFalse(condition, #condition " == false", __FILE__, __LINE__)
 
 #define EXPECT_EQ(expected, actual) \
     ExpectEqual(expected, actual, #expected " == " #actual, __FILE__, __LINE__)
@@ -26,6 +26,8 @@ using namespace std;
 #define EXPECT_NE(expected, actual) \
     ExpectNotEqual(expected, actual, #expected " != " #actual, __FILE__, __LINE__)
 
+#define EXPECT_FAIL(expression) \
+    ExpectFailure([&]() { expression; })
 
 class ITest
 {
@@ -61,6 +63,10 @@ public:
     TestBase(const string& name);
     string GetName() override;
     bool Passed() override;
+    void SetShouldLog(const bool bShouldLog);
+
+    template <typename Expression>
+    void ExpectFailure(Expression expression);
 
 protected:
     void ExpectTrue(const bool condition, const string& expression, const char* file, int line);
@@ -79,9 +85,30 @@ protected:
 private:
     string Name;
     int FailureCount = 0;
-
+    bool bShouldLog = true;
+    
     void OutputExceptionFailed(const string& expression, const char* file, int line) const;
 };
+
+template <typename Expression>
+void TestBase::ExpectFailure(Expression expression)
+{
+    // Prevent logging of failures within the expression because it is supposed to fail.
+    SetShouldLog(false);
+
+    const unsigned int initialFailureCount = FailureCount;
+    expression();
+    if (FailureCount > initialFailureCount)
+    {
+        FailureCount--;
+    }
+    else
+    {
+        FailureCount = initialFailureCount + 1;
+    }
+
+    SetShouldLog(true);
+}
 
 template <typename T, typename EqualityComparator, std::enable_if_t<!std::is_same_v<EqualityComparator, void>, int>>
 void TestBase::ExpectEqual(T expected, T actual, const string& expression, const char* file, int line)
