@@ -92,3 +92,7 @@ void TestBase::ExpectFalse(const bool condition, const string& expression, const
     }
 }
 
+void TestBase::OutputExceptionFailed(const string& expression, const char* file, int line) const
+{
+    cerr << file << ":" << line << ": Failure: expected " << expression << endl;
+}

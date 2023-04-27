@@ -80,8 +80,7 @@ private:
     string Name;
     int FailureCount = 0;
 
-    template <typename T>
-    void OutputExceptionFailed(const T expected, const T actual, const string& expression, const char* file, int line) const;
+    void OutputExceptionFailed(const string& expression, const char* file, int line) const;
 };
 
 template <typename T, typename EqualityComparator, std::enable_if_t<!std::is_same_v<EqualityComparator, void>, int>>
@@ -90,7 +89,7 @@ void TestBase::ExpectEqual(T expected, T actual, const string& expression, const
     EqualityComparator comparator;
     if (!comparator(expected, actual))
     {
-        OutputExceptionFailed<T>(expected, actual, expression, file, line);
+        OutputExceptionFailed(expression, file, line);
         FailureCount++;
     }
 }
@@ -103,18 +102,11 @@ void TestBase::ExpectEqual(T expected, T actual, const string& expression, const
 }
 
 template <typename T>
-void TestBase::OutputExceptionFailed(const T expected, const T actual, const string& expression, const char* file,
-    int line) const
-{
-    cerr << file << ":" << line << ": Failure: expected " << expression << endl;
-}
-
-template <typename T>
 void TestBase::ExpectNotEqual(const T expected, const T actual, const string& expression, const char* file, int line)
 {
     if (expected == actual)
     {
-        OutputExceptionFailed<T>(expected, actual, expression, file, line);
+        OutputExceptionFailed(expression, file, line);
         FailureCount++;
     }
 }
