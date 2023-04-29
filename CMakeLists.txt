@@ -19,10 +19,17 @@ file(GLOB_RECURSE SOURCES "${PROJECT_SOURCE_DIR}/Engine/*.cpp" "${PROJECT_SOURCE
 file(GLOB_RECURSE TEST_SOURCES "${PROJECT_SOURCE_DIR}/Engine/*_Test.cpp" "${PROJECT_SOURCE_DIR}/Engine/*_Test.h")
 list(REMOVE_ITEM SOURCES ${TEST_SOURCES})
 
+
 # Create executable and link libraries
 add_executable(UltraEngine ${SOURCES} ${TEST_SOURCES})
-target_link_libraries(UltraEngine gtest gmock gtest_main ${VULKAN_LIB_LIST})
+target_link_libraries(UltraEngine TestingFramework gtest gmock gtest_main ${VULKAN_LIB_LIST})
+
+add_subdirectory(libs/TestingFramework)
+target_include_directories(UltraEngine PUBLIC ${CMAKE_SOURCE_DIR}/libs/TestingFramework)
+
 
 # Create the engine library (for our games to depend on) and link libraries
 add_library(EngineLib STATIC ${SOURCES})
 target_link_libraries(EngineLib ${VULKAN_LIB_LIST})
+
+target_include_directories(EngineLib PUBLIC ${CMAKE_SOURCE_DIR}/libs/TestingFramework)

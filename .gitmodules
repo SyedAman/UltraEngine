@@ -1,0 +1,3 @@
+[submodule "libs/TestingFramework"]
+	path = libs/TestingFramework
+	url = https://github.com/SyedAman/TestingFramework.git
