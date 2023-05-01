@@ -3,7 +3,7 @@
 // to the wrapper that I want to test, so technically I am not testing the Windows API.
 
 #include "WindowsOS.h"
-#include <gtest/gtest.h>
+#include "TestingFramework.h"
 
 BOOL WINAPI MockGetMessage(LPMSG Message, HWND WindowHandle, UINT MessageFilterMin, UINT MessageFilterMax)
 {
