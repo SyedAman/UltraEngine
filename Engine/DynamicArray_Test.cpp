@@ -2,7 +2,7 @@
 #include <Windows.h>
 #include <psapi.h>
 #include <iostream>
-#include <gtest/gtest.h>
+#include "TestingFramework.h"
 
 #include "DynamicArray.h"
 #include "Pair.h"
