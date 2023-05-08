@@ -1,5 +1,5 @@
 // Copyright Syed Aman. All Rights Reserved.
-#include <gtest/gtest.h>
+#include "TestingFramework.h"
 
 #include "DynamicArray.h"
 #include "BinarySearch.h"

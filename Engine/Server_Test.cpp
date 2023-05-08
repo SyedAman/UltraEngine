@@ -32,7 +32,7 @@ TEST(DedicatedServer, ShouldCreateValidSocket)
     ON_CALL(mockSocket, GetSocketDescriptor())
         .WillByDefault(testing::Return(100));
     
-    ASSERT_TRUE(server.CreateSocket());
+    EXPECT_TRUE(server.CreateSocket());
     const int socketDescriptor = mockSocket.GetSocketDescriptor();
-    ASSERT_NE(socketDescriptor, mockSocket.INVALID_SOCKET_DESCRIPTOR);
+    EXPECT_NE(socketDescriptor, mockSocket.INVALID_SOCKET_DESCRIPTOR);
 }
